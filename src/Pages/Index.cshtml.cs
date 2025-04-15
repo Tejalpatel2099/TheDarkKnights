@@ -10,6 +10,7 @@ namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary> 
     /// Lucian Petriuc
+    /// Veda Ting
     /// </summary> 
     public class IndexModel : PageModel
     {
