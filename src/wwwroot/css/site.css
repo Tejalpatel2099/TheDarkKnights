@@ -43,6 +43,24 @@ for details on configuring this project to bundle and minify static web assets. 
 .card-footer {
     background: #fbfafd;
 }
+.table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cell {
+    display: table-cell;
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.header {
+    font-weight: bold;
+    background-color: floralwhite;
+}
+
+
 
 
 a.navbar-brand {
@@ -144,3 +162,21 @@ ul {
     background: -moz-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
     background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
 }
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px; 
+    height: 600px;
+    background-image: url('/images/ramenpic.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.2;
+    filter: grayscale(60%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
