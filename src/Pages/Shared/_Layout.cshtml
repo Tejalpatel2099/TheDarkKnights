@@ -8,26 +8,53 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <!-- Inline Ramen Navbar Styling -->
+    <style>
+        /* Navbar Styling */
+        .ramen-navbar {
+            background-color: #fff8f0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Brand Styling */
+        .ramen-brand {
+            font-family: 'Yellowtail', cursive;
+            font-size: 1.8rem;
+            color: #e67e22 !important;
+        }
+
+        /* Nav Links */
+        .ramen-link {
+            font-weight: 600;
+            color: #5a3e1b !important;
+            transition: color 0.3s ease;
+        }
+
+            .ramen-link:hover {
+                color: #d35400 !important;
+                text-decoration: none;
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom shadow-sm ramen-navbar">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Ramen Ratings</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand ramen-brand" asp-area="" asp-page="/Index">🍜 Ramen Ratings</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link ramen-link" asp-area="" asp-page="/ProductsPage">Products Page</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
+                            <a class="nav-link ramen-link" asp-area="" asp-page="/About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ProductsPage">Products Page</a>
+                            <a class="nav-link ramen-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
