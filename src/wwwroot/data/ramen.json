@@ -1,6 +1,6 @@
-{
-    "1": {
-        "Number": 1,
+[
+    {
+        "Number": "1",
         "Brand": "Indomie",
         "Variety": "Chicken Curry",
         "Style": "Pack",
@@ -10,8 +10,8 @@
             4
         ]
     },
-    "2": {
-        "Number": 2,
+    {
+        "Number": "2",
         "Brand": "Indomie",
         "Variety": "Mi Goreng",
         "Style": "Pack",
@@ -21,8 +21,8 @@
             5
         ]
     },
-    "3": {
-        "Number": 3,
+    {
+        "Number": "3",
         "Brand": "Mama",
         "Variety": "Instant Bowl Noodles Artificial Pork",
         "Style": "Bowl",
@@ -32,8 +32,8 @@
             2
         ]
     },
-    "4": {
-        "Number": 4,
+    {
+        "Number": "4",
         "Brand": "Mama",
         "Variety": "Shrimp Creamy Tom Yum",
         "Style": "Pack",
@@ -43,8 +43,8 @@
             5
         ]
     },
-    "5": {
-        "Number": 5,
+    {
+        "Number": "5",
         "Brand": "Mama",
         "Variety": "Artificial Chicken",
         "Style": "Pack",
@@ -54,8 +54,8 @@
             2
         ]
     },
-    "6": {
-        "Number": 6,
+    {
+        "Number": "6",
         "Brand": "Maruchan",
         "Variety": "Gotsumori Sauce Yakisoba",
         "Style": "Tray",
@@ -65,8 +65,8 @@
             5
         ]
     },
-    "7": {
-        "Number": 7,
+    {
+        "Number": "7",
         "Brand": "Maruchan",
         "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
         "Style": "Pack",
@@ -76,8 +76,8 @@
             3
         ]
     },
-    "8": {
-        "Number": 8,
+    {
+        "Number": "8",
         "Brand": "Maruchan",
         "Variety": "Instant Lunch Shrimp",
         "Style": "Cup",
@@ -87,8 +87,8 @@
             3
         ]
     },
-    "9": {
-        "Number": 9,
+    {
+        "Number": "9",
         "Brand": "Maruchan",
         "Variety": "Yakisoba Chicken",
         "Style": "Tray",
@@ -98,8 +98,8 @@
             2
         ]
     },
-    "10": {
-        "Number": 10,
+    {
+        "Number": "10",
         "Brand": "Maruchan",
         "Variety": "Yakisoba Teriyaki Beef",
         "Style": "Tray",
@@ -109,8 +109,8 @@
             2
         ]
     },
-    "11": {
-        "Number": 11,
+    {
+        "Number": "11",
         "Brand": "Maruchan",
         "Variety": "Ramen Noodle Soup Chicken",
         "Style": "Pack",
@@ -120,8 +120,8 @@
             2
         ]
     },
-    "12": {
-        "Number": 12,
+    {
+        "Number": "12",
         "Brand": "Myojo",
         "Variety": "Shin Toyama Black Ramen",
         "Style": "Bowl",
@@ -131,8 +131,8 @@
             4
         ]
     },
-    "13": {
-        "Number": 13,
+    {
+        "Number": "13",
         "Brand": "Myojo",
         "Variety": "Ippeichan Yakisoba",
         "Style": "Tray",
@@ -142,8 +142,8 @@
             4
         ]
     },
-    "14": {
-        "Number": 14,
+    {
+        "Number": "14",
         "Brand": "Nissin",
         "Variety": "Top Ramen Chicken",
         "Style": "Pack",
@@ -153,8 +153,8 @@
             3
         ]
     },
-    "15": {
-        "Number": 15,
+    {
+        "Number": "15",
         "Brand": "Nissin",
         "Variety": "Top Ramen Shrimp",
         "Style": "Pack",
@@ -164,8 +164,8 @@
             3
         ]
     },
-    "16": {
-        "Number": 16,
+    {
+        "Number": "16",
         "Brand": "Nissin",
         "Variety": "Yakisoba Noodles Karashi",
         "Style": "Tray",
@@ -175,8 +175,8 @@
             5
         ]
     },
-    "17": {
-        "Number": 17,
+    {
+        "Number": "17",
         "Brand": "Nongshim",
         "Variety": "Shin Ramyun Black",
         "Style": "Pack",
@@ -186,8 +186,8 @@
             5
         ]
     },
-    "18": {
-        "Number": 18,
+    {
+        "Number": "18",
         "Brand": "Nongshim",
         "Variety": "Kimchi Flavor Noodle Soup",
         "Style": "Cup",
@@ -197,8 +197,8 @@
             5
         ]
     },
-    "19": {
-        "Number": 19,
+    {
+        "Number": "19",
         "Brand": "Nongshim",
         "Variety": "Spicy Tonkotsu Noodle Soup",
         "Style": "Pack",
@@ -208,8 +208,8 @@
             5
         ]
     },
-    "20": {
-        "Number": 20,
+    {
+        "Number": "20",
         "Brand": "Nongshim",
         "Variety": "Shin Ramyun Cup",
         "Style": "Cup",
@@ -219,8 +219,8 @@
             3
         ]
     },
-    "21": {
-        "Number": 21,
+    {
+        "Number": "21",
         "Brand": "Nongshim",
         "Variety": "Bowl Noodle Spicy Seafood",
         "Style": "Bowl",
@@ -230,8 +230,8 @@
             4
         ]
     },
-    "22": {
-        "Number": 22,
+    {
+        "Number": "22",
         "Brand": "Nongshim",
         "Variety": "Shin Ramyun",
         "Style": "Pack",
@@ -241,8 +241,8 @@
             4
         ]
     },
-    "23": {
-        "Number": 23,
+    {
+        "Number": "23",
         "Brand": "Samyang Foods",
         "Variety": "Cheese Buldak Bokkeummyun",
         "Style": "Pack",
@@ -252,8 +252,8 @@
             4
         ]
     },
-    "24": {
-        "Number": 24,
+    {
+        "Number": "24",
         "Brand": "Samyang Foods",
         "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
         "Style": "Pack",
@@ -263,8 +263,8 @@
             4
         ]
     },
-    "25": {
-        "Number": 25,
+    {
+        "Number": "25",
         "Brand": "Sapporo Ichiban",
         "Variety": "Shio",
         "Style": "Pack",
@@ -274,8 +274,8 @@
             5
         ]
     },
-    "26": {
-        "Number": 26,
+    {
+        "Number": "26",
         "Brand": "Sapporo Ichiban",
         "Variety": "Original Flavor",
         "Style": "Pack",
@@ -285,8 +285,8 @@
             3
         ]
     },
-    "27": {
-        "Number": 27,
+    {
+        "Number": "27",
         "Brand": "Sapporo Ichiban",
         "Variety": "Beef Flavor",
         "Style": "Pack",
@@ -296,8 +296,8 @@
             4
         ]
     },
-    "28": {
-        "Number": 28,
+    {
+        "Number": "28",
         "Brand": "Sapporo Ichiban",
         "Variety": "Chicken Flavor",
         "Style": "Pack",
@@ -307,8 +307,8 @@
             3
         ]
     },
-    "29": {
-        "Number": 29,
+    {
+        "Number": "29",
         "Brand": "Sapporo Ichiban",
         "Variety": "Chow Mein",
         "Style": "Pack",
@@ -318,8 +318,8 @@
             5
         ]
     },
-    "30": {
-        "Number": 30,
+    {
+        "Number": "30",
         "Brand": "Sapporo Ichiban",
         "Variety": "Shrimp Flavor",
         "Style": "Pack",
@@ -329,4 +329,4 @@
             2
         ]
     }
-}
+]

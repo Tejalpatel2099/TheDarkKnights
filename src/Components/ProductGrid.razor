@@ -26,7 +26,7 @@
     void SelectProduct(string productId)
     {
         selectedProductId = productId;
-        selectedProduct = ProductService.GetProducts().First(x => x.Id == productId);
+        selectedProduct = ProductService.GetProducts().First(x => x.Number == productId);
         GetCurrentRating();
     }
 
@@ -48,12 +48,12 @@
             currentRating = selectedProduct.Ratings.Sum() / voteCount;
         }
 
-        System.Console.WriteLine($"Current rating for {selectedProduct.Id}: {currentRating}");
+        System.Console.WriteLine($"Current rating for {selectedProduct.Number}: {currentRating}");
     }
 
     void SubmitRating(int rating)
     {
-        System.Console.WriteLine($"Rating received for {selectedProduct.Id}: {rating}");
+        System.Console.WriteLine($"Rating received for {selectedProduct.Number}: {rating}");
         ProductService.AddRating(selectedProductId, rating);
         SelectProduct(selectedProductId);
     }

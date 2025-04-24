@@ -7,13 +7,13 @@
 @foreach (var product in ProductService.GetProducts())
 {
     <div class="card">
-        <div class="card-img" style="background-image: url('@product.Image');">
+        <div class="card-img" style="background-image: url('@product.img');">
         </div>
         <div class="card-body">
-            <h5 class="card-title">@product.Title</h5>
+            <h5 class="card-title">@product.Variety</h5>
         </div>
         <div class="card-footer">
-            <small class="text-muted"><button @onclick="(e => SelectProduct(product.Id))" 
+            <small class="text-muted"><button @onclick="(e => SelectProduct(product.Number))" 
               data-toggle="modal" data-target="#productModal" class="btn btn-primary">More Info</button>
             </small>
         </div>
@@ -27,17 +27,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="productTitle">@selectedProduct.Title</h5>
+          <h5 class="modal-title" id="productTitle">@selectedProduct.Variety</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="card">
-            <div class="card-img" style="background-image: url('@selectedProduct.Image');">
+            <div class="card-img" style="background-image: url('@selectedProduct.img');">
             </div>
             <div class="card-body">
-                <p class="card-text">@selectedProduct.Description</p>
+                <p class="card-text">@selectedProduct.Country</p>
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@
     void SelectProduct(string productId)
     {
       selectedProductId = productId;
-      selectedProduct = ProductService.GetProducts().First(x => x.Id == productId);
+      selectedProduct = ProductService.GetProducts().First(x => x.Number == productId);
       GetCurrentRating();
     }
 
@@ -100,12 +100,12 @@
         currentRating = selectedProduct.Ratings.Sum() / voteCount;
       }
 
-      System.Console.WriteLine($"Current rating for {selectedProduct.Id}: {currentRating}");
+      System.Console.WriteLine($"Current rating for {selectedProduct.Number}: {currentRating}");
     }
 
     void SubmitRating(int rating)
     {
-      System.Console.WriteLine($"Rating received for {selectedProduct.Id}: {rating}");
+      System.Console.WriteLine($"Rating received for {selectedProduct.Number}: {rating}");
       ProductService.AddRating(selectedProductId, rating);
       SelectProduct(selectedProductId);
     }

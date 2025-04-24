@@ -20,7 +20,7 @@ namespace ContosoCrafts.WebSite.Services
 
         private string JsonFileName
         {
-            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "ramen.json"); }
         }
 
         public IEnumerable<ProductModel> GetProducts()
@@ -39,15 +39,15 @@ namespace ContosoCrafts.WebSite.Services
         {
             var products = GetProducts();
 
-            if(products.First(x => x.Id == productId).Ratings == null)
+            if(products.First(x => x.Number == productId).Ratings == null)
             {
-                products.First(x => x.Id == productId).Ratings = new int[] { rating };
+                products.First(x => x.Number == productId).Ratings = new int[] { rating };
             }
             else
             {
-                var ratings = products.First(x => x.Id == productId).Ratings.ToList();
+                var ratings = products.First(x => x.Number == productId).Ratings.ToList();
                 ratings.Add(rating);
-                products.First(x => x.Id == productId).Ratings = ratings.ToArray();
+                products.First(x => x.Number == productId).Ratings = ratings.ToArray();
             }
 
             using(var outputStream = File.OpenWrite(JsonFileName))
