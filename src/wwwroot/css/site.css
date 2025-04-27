@@ -45,19 +45,43 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 .table {
     display: table;
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 }
 
-.cell {
+.variety-cell {
     display: table-cell;
-    border: 1px solid black;
     padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 11px;
+    word-wrap: break-word;
+}
+.brand-cell {
+    display: table-cell;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 11px;
+    word-wrap: break-word;
 }
 
-.header {
+.table-header {
     font-weight: bold;
     background-color: floralwhite;
+}
+.read-button {
+    padding: 10px 20px;
+    border: 1px solid black;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 

@@ -8,10 +8,10 @@
     @foreach (var product in ProductService.GetProducts())
     {
         <div class="table">
-            <div class="row header">
-                <div class="cell">Brand</div>
-                <div class="cell">Type</div>
-                <div class="cell">Delete</div> 
+            <div class="table-header">
+                <div class="variety-cell">@product.Brand</div>
+                <div class="brand-cell">@product.Variety</div>
+                <div class="read-button">Read</div> 
             </div>
         </div>
     }
