@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using RamenRatings.WebSite.Models;
+using RamenRatings.WebSite.Services;
 
-namespace ContosoCrafts.WebSite.Controllers
+namespace RamenRatings.WebSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
