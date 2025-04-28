@@ -3,10 +3,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using RamenRatings.WebSite.Models;
+using RamenRatings.WebSite.Services;
 
-namespace ContosoCrafts.WebSite.Pages
+namespace RamenRatings.WebSite.Pages
 {
     /// <summary> 
     /// Lucian Petriuc
