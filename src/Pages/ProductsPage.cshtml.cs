@@ -1,11 +1,11 @@
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using RamenRatings.WebSite.Models;
+using RamenRatings.WebSite.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace ContosoCrafts.WebSite.Pages
+namespace RamenRatings.WebSite.Pages
 {
     public class ProductsPageModel : PageModel
     {
