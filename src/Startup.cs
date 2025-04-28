@@ -1,11 +1,11 @@
-using ContosoCrafts.WebSite.Services;
+using RamenRatings.WebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ContosoCrafts.WebSite
+namespace RamenRatings.WebSite
 {
     public class Startup
     {

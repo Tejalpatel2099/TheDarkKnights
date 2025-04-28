@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ContosoCrafts.WebSite": {
+    "RamenRatings.WebSite": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ContosoCrafts.WebSite.Pages
+namespace RamenRatings.WebSite.Pages
 {
     public class AboutModel : PageModel
     {
