@@ -3,15 +3,94 @@
 @{
     ViewData["Title"] = "Ramen Ratings - Privacy Page";
 }
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
 
-<div class="card">
-    <div class="card-header">
-        <p>Ramen Ratings Privacy Policy</p>
+    <!-- Google Font for Heading -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f2f6fc;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #C0392B;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+
+        .card-header {
+            background-color: #f8c471;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .card-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .card-body td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .card-body tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="card">
+        <div class="card-header">
+            Ramen Ratings Privacy Policy
+        </div>
+        <div class="card-body">
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>Your reviews and ratings are public to help others find the best ramen experiences.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>When submitting a new rating or review, please ensure all required fields are completed accurately.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>We do not share your personal information (email, username) with third parties without your consent.</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>You are responsible for the content you submit — please respect community guidelines and avoid posting inappropriate material.</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="card-body">
-        <p>1. Your reviews and ratings are public to help others find the best ramen experiences.</p>
-        <p>2. When submitting a new rating or review, please ensure all required fields are completed accurately.</p>
-        <p>3. We do not share your personal information (email, username) with third parties without your consent.</p>
-        <p>4. You are responsible for the content you submit — please respect community guidelines and avoid posting inappropriate material.</p>
-    </div>
+</body>
+</html>

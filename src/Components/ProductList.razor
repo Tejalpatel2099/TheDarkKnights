@@ -13,9 +13,9 @@
             <h5 class="card-title">@product.Variety</h5>
         </div>
         <div class="card-footer">
-            <small class="text-muted"><button @onclick="(e => SelectProduct(product.Number))" 
-              data-toggle="modal" data-target="#productModal" class="btn btn-primary">More Info</button>
-            </small>
+                <small class="text-muted">
+                    <a class="btn btn-primary" href="/ProductDetail/@product.Number">More Info</a>
+                </small>
         </div>
     </div>
 }
