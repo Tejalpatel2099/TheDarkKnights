@@ -3,19 +3,33 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-
-<div class="card-columns">
-    @foreach (var product in ProductService.GetProducts())
-    {
-        <div class="table">
-            <div class="table-header">
-                <div class="variety-cell">@product.Brand</div>
-                <div class="brand-cell">@product.Variety</div>
-                <a class="read-button" href="/Read/@product.Number">Read</a>
-            </div>
-        </div>
-    }
-</div>
+<!-- Create new table style using bootstrap -->
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <!-- Column titles are Brand and Variety -->
+            <th scope="col">Brand</th>
+            <th scope="col">Variety</th>
+            <th scope="col"></th> <!-- Empty header for Read column-->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in ProductService.GetProducts())
+        {
+            <tr>
+                <!-- Show Brand and Variety for each ramen product-->
+                <td>@product.Brand</td>
+                <td>@product.Variety</td>
+                <td>
+                    <!-- replace Read button with a bootstrap style button -->
+                    <button type="button" class="btn btn-primary rounded-pill">
+                        <a class="text-white" href="/Read/@product.Number">📖Read</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 @code
