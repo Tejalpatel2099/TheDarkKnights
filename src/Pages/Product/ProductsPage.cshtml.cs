@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace RamenRatings.WebSite.Pages
+namespace RamenRatings.WebSite.Pages.Product
 {
     public class ProductsPageModel : PageModel
     {
