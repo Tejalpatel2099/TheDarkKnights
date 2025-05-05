@@ -54,11 +54,13 @@ namespace RamenRatings.WebSite.Pages.Product
             // Get all of the products
             var products = ProductService.GetProducts();
 
+            // Create the list of products for the form field drop down
             ExistingBrands = products
             .Select(p => p.Brand)  // Select the brand from each product
             .Distinct()  // Remove duplicates
             .ToList();  // Convert to list 
 
+            // Create the list of styles for the form field drop down
             ExistingStyles = products
                 .Select(p => p.Style)  // Select the style from each product
                 .Distinct()  // Remove duplicates
