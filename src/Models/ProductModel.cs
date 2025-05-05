@@ -5,7 +5,7 @@ namespace RamenRatings.WebSite.Models
 {
     public class ProductModel
     {
-        public string Number { get; set; }
+        public int Number { get; set; }
         public string Brand { get; set; }
         
         [JsonPropertyName("img")]
