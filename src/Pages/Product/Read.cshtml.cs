@@ -18,7 +18,7 @@ namespace RamenRatings.WebSite.Pages
         public JsonFileProductService ProductService { get; }
 
         public ProductModel Product;
-        public IActionResult OnGet(string number)
+        public IActionResult OnGet(int number)
         {
             Product = ProductService.GetProducts().FirstOrDefault(m => m.Number.Equals(number));
             if (Product == null)
