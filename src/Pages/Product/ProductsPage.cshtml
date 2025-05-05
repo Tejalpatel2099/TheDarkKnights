@@ -4,7 +4,16 @@
 @{
     ViewData["Title"] = "Products";
 }
-<h1>@ViewData["Title"]</h1>
-    @(await Html.RenderComponentAsync<ProductGrid>(RenderMode.ServerPrerendered))
+
+<!-- Create button added to other side of Products header -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">@ViewData["Title"]</h1>
+
+    <a href="/Product/Create" class="btn btn-success rounded-pill">
+        ➕ Create
+    </a>
+</div>
+
+@(await Html.RenderComponentAsync<ProductGrid>(RenderMode.ServerPrerendered))
 
 
