@@ -35,7 +35,7 @@ namespace RamenRatings.WebSite.Services
             }
         }
 
-        public void AddRating(string productId, int rating)
+        public void AddRating(int productId, int rating)
         {
             var products = GetProducts();
 
