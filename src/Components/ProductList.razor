@@ -75,9 +75,9 @@
 @code 
 {
     ProductModel selectedProduct;
-    string selectedProductId;
+    int selectedProductId;
 
-    void SelectProduct(string productId)
+    void SelectProduct(int productId)
     {
       selectedProductId = productId;
       selectedProduct = ProductService.GetProducts().First(x => x.Number == productId);
