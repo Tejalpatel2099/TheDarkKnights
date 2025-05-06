@@ -11,6 +11,7 @@ namespace RamenRatings.WebSite.Services
 {
    public class JsonFileProductService
     {
+        //WebHostEnviornment namespace taken in constructor
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
@@ -18,11 +19,12 @@ namespace RamenRatings.WebSite.Services
 
         public IWebHostEnvironment WebHostEnvironment { get; }
 
+        //Gets path of the JSON file ramen.json that will be used for product data
         private string JsonFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "ramen.json"); }
         }
-
+        //Returns all of the products in the JSON file
         public IEnumerable<ProductModel> GetProducts()
         {
             using(var jsonFileReader = File.OpenText(JsonFileName))
@@ -34,22 +36,24 @@ namespace RamenRatings.WebSite.Services
                     });
             }
         }
-
+        //With the given productId adds a rating
         public void AddRating(int productId, int rating)
         {
             var products = GetProducts();
-
+            //Checks if ratings array exists
             if(products.First(x => x.Number == productId).Ratings == null)
             {
+                //Creates a new rating array consisting of the rating
                 products.First(x => x.Number == productId).Ratings = new int[] { rating };
             }
             else
             {
+                //Adds rating to already existing array
                 var ratings = products.First(x => x.Number == productId).Ratings.ToList();
                 ratings.Add(rating);
                 products.First(x => x.Number == productId).Ratings = ratings.ToArray();
             }
-
+            //Saves the new ratings in the JSON file
             using(var outputStream = File.OpenWrite(JsonFileName))
             {
                 JsonSerializer.Serialize<IEnumerable<ProductModel>>(
