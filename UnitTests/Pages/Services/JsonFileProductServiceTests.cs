@@ -36,8 +36,6 @@ namespace UnitTests.Pages.Services
             // Assert
             Assert.AreEqual(true, validAdd);
 
-            // Reset
-            // Delete Dummy Record
         }
 
         /// <summary>
