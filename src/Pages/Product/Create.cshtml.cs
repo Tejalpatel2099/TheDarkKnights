@@ -76,10 +76,7 @@ namespace RamenRatings.WebSite.Pages.Product
             }
 
             // Create a new product 
-            var newProduct = CreateData();
-
-            // Save the updated products list
-            SaveData(newProduct);
+            CreateData();
 
             return RedirectToPage("/Product/ProductsPage");
         }
@@ -91,28 +88,20 @@ namespace RamenRatings.WebSite.Pages.Product
             var products = ProductService.GetProducts();
             int newNumber = products.Max(p => p.Number) + 1;
 
-            // Determine the brand to use, existing or new
-            string brand;
-            if (string.IsNullOrEmpty(NewProduct.Brand))
+            // Determine the brand to use, existing or new. If existing brand is empty, set to new
+            string brand = NewProduct.Brand;
+            if (string.IsNullOrEmpty(brand))
             {
                 brand = NewBrand;  // Use the new brand if the selected brand is empty
             }
-            else
-            {
-                brand = NewProduct.Brand;  // Use the selected brand if available
-            }
 
-            // Determine the style to use, existing or new
-            string style;
-            if (string.IsNullOrEmpty(NewProduct.Style))
+            // Determine the style to use, existing or new. If existing style is empty, set to new
+            string style = NewProduct.Style;
+            if (string.IsNullOrEmpty(style))
             {
                 style = NewStyle;  // Use the new style if the selected style is empty
             }
-            else
-            {
-                style = NewProduct.Style;  // Use the selected style if available
-            }
-
+           
             // Handle the image file upload 
             var fileExtension = Path.GetExtension(Image.FileName); // Get file extension 
             string imageFileName = $"{newNumber}{fileExtension}";  // Create image file name with the new product number
@@ -137,19 +126,17 @@ namespace RamenRatings.WebSite.Pages.Product
                 Ratings = new int[] { Rating }  // Initialize ratings with given rating
             };
 
+            // Append the product and save the set
+            var updatedDataSet = products.Append(newProduct);
+            SaveData(updatedDataSet);
             return newProduct;
         }
 
         // Save the updated dataset back to the JSON file
-        public void SaveData(ProductModel newProduct)
+        public void SaveData(IEnumerable<ProductModel> dataSet)
         {
-            // get the products into a list format
-            var products = ProductService.GetProducts().ToList();
-            //add the new product to the products list
-            products.Add(newProduct);
-
             // create the json in a json string
-            var json = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(dataSet, new JsonSerializerOptions { WriteIndented = true });
 
             // write the json text into the json
             System.IO.File.WriteAllText(JsonFileName, json);
