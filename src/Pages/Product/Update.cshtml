@@ -5,30 +5,24 @@
 
     <form method="post" enctype="multipart/form-data">
         <p> Current Ramen Image </p>
-        <img src="@Model.Product.img" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250"/>
+        <img src="@Model.ExistingProduct.img" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250"/>
 
         <!-- Select from list of existing brands, with option to enter a new Brand -->
         <div class="form-group">
             <label for="Brand">Brand</label>
-           <select class="form-control" id="Brand" name="Brand" required>
+            <select class="form-control" id="Brand" name="Brand" required>
             <option value="">Select an Existing Brand</option>
                 @foreach (var brand in Model.ExistingBrands.Distinct())
                 {
                     <option value="@brand" selected="@(brand == @Model.Product.Brand)")>@brand</option>
                 }
            </select>
-
-        </div>
-        <!-- Text input a new Brand when Other is selected -->
-        <div class="form-group" id="newBrandGroup" style="display:none;">
-            <label for"NewBrand">Other Brand</label>
-            <input type="text" class="form-control" itemid="NewBrand" name="NewBrand" placeholder="Enter new brand" />
         </div>
 
         <!-- Input Variety -->
         <div class="form-group">
             <label for="Variety">Variety</label>
-            <input type="text" class="form-control" id="Variety" name="Variety" placeholder="Enter variety" value="@Model.Product.Variety" required />
+            <input type="text" class="form-control" id="Variety" name="Variety" placeholder="Enter variety" value="@Model.ExistingProduct.Variety" required />
         </div>
 
         <!-- Select from list of existing styles, with option to enter new style -->
@@ -43,28 +37,21 @@
             </select>
         </div>
 
-        <!-- Text input a new Style when Other is selected -->
-        <div class="form-group" id="newStyleGroup" style="display:none;">
-            <label for="NewStyle">New Style</label>
-            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter new style">
-        </div>
-
         <!-- Input Country -->
         <div class="form-group">
             <label for="Country">Country</label>
-            <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter country" value="@Model.Product.Country" required>
+            <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter country" value="@Model.ExistingProduct.Country" required>
         </div>
 
         <!-- Upload an image -->
         <div class="form-group">
-            <label for="Image">Upload Image</label>
-            <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+            <label for="Image">Upload Image </label>
+            <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
         </div>
 
 
         <!-- Save/submit the new product -->
         <button type="submit" class="btn btn-primary">Update Ramen</button>
-
     </form>
 
 
