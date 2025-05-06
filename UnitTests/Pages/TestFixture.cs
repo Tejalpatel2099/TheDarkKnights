@@ -38,7 +38,7 @@ namespace UnitTests.Pages
             // a static representation, so that it should pass. The production database
             // might be dynamic for instance.
 
-            var DataWebPath = "../../../../src/bin/Debug/" + NetVersion + "/wwwroot/data";
+            var DataWebPath = "../../../../src/wwwroot/data";
             var DataUTDirectory = "wwwroot";
             var DataUTPath = DataUTDirectory + "/data";
 
