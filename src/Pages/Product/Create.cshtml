@@ -16,13 +16,14 @@
             {
                 <option value="@brand">@brand</option>
             }
+            <option value="Other">Other</option>
         </select>
         <small class="form-text text-muted">You can select an existing brand or type a new one.</small>
-    </div>
-    <!-- Text input a new Brand when Other is selected -->
-    <div class="form-group" id="newBrandGroup" style="display:none;">
-        <label for"NewBrand">Other Brand</label>
-        <input type="text" class="form-control" itemid="NewBrand" name="NewBrand" placeholder="Enter new brand" />
+        <!-- If Other is selected, enter a new brand -->
+        <div class="form-group" id="newBrandGroup" style="display:none;">
+            <label for="NewBrand">Other Brand</label>
+            <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+        </div>
     </div>
 
     <!-- Input Variety -->
@@ -40,14 +41,14 @@
             {
                 <option value="@style">@style</option>
             }
+            <option value="Other">Other</option>
         </select>
         <small class="form-text text-muted">You can select an existing style or type a new one.</small>
-    </div>
-
-    <!-- Text input a new Style when Other is selected -->
-    <div class="form-group" id="newStyleGroup" style="display:none;">
-        <label for="NewStyle">New Style</label>
-        <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter new style">
+        <!-- If Other is selected, enter a new style -->
+        <div class="form-group" id="newStyleGroup" style="display:none;">
+            <label for="NewStyle">Other Style</label>
+            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
+        </div>
     </div>
 
     <!-- Input Country -->
@@ -77,29 +78,23 @@
 <!-- Script for showing or hiding the input fields for new brand or new style -->
 @section Scripts {
     <script>
-        // If 'Other' is selected in the brand dropdown, show field to enter new brand
         document.getElementById('Brand').addEventListener('change', function () {
-            var brandSelect = document.getElementById('Brand');
             var newBrandGroup = document.getElementById('newBrandGroup');
-
-            // If the user selects an empty option, show the new brand input
-            if (brandSelect.value === "") {
-                newBrandGroup.style.display = "block";  // show new brand input field
-            } else {
-                newBrandGroup.style.display = "none"; // Hide new brand input if nothing is selected
+            if(this.value === "Other"){
+                newBrandGroup.style.display = "block";
+            }
+            if(this.value !== "Other"){
+                newBrandGroup.style.display = "none";
             }
         });
 
-        // If 'Other' is selected in the style dropdown, show field to enter new style
         document.getElementById('Style').addEventListener('change', function () {
-            var styleSelect = document.getElementById('Style');
             var newStyleGroup = document.getElementById('newStyleGroup');
-
-            // If the user selects an empty option, show the new style input
-            if (styleSelect.value === "") {
-                newStyleGroup.style.display = "block";  // show new style input field
-            } else {
-                newStyleGroup.style.display = "none";  // Hide new style input if nothing is selected
+            if(this.value === "Other"){
+                newStyleGroup.style.display = "block";
+            }
+            if(this.value !== "Other"){
+                newStyleGroup.style.display = "none";
             }
         });
     </script>
