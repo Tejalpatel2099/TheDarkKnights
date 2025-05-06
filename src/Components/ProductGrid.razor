@@ -22,8 +22,11 @@
                 <td>@product.Variety</td>
                 <td>
                     <!-- replace Read button with a bootstrap style button -->
-                    <button type="button" class="btn btn-primary rounded-pill">
+                    <button type="button" class="btn btn-primary rounded-pill me-2">
                         <a class="text-white" href="/Product/Read/@product.Number">📖Read</a>
+                    </button>
+                    <button type="button" class="btn btn-secondary rounded-pill">
+                        <a class="text-white " href="/Product/Update/@product.Number">✏️Update</a>
                     </button>
                 </td>
             </tr>
