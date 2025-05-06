@@ -91,16 +91,20 @@ namespace RamenRatings.WebSite.Pages.Product
             var products = ProductService.GetProducts();
             int newNumber = products.Max(p => p.Number) + 1;
 
-            // Determine the brand to use, existing or new. If existing brand is empty, set to new
+            // Set the values
             string brand = NewProduct.Brand;
-            if (string.IsNullOrEmpty(brand))
+            string style = NewProduct.Style;
+            string variety = NewProduct.Variety;
+            string country = NewProduct.Country;
+
+            // Determine the brand to use, existing or new. If existing brand is empty, set to new
+            if (brand == "Other" && !string.IsNullOrEmpty(NewProduct.Brand))
             {
                 brand = NewBrand;  // Use the new brand if the selected brand is empty
             }
 
             // Determine the style to use, existing or new. If existing style is empty, set to new
-            string style = NewProduct.Style;
-            if (string.IsNullOrEmpty(style))
+            if (style == "Other" && !string.IsNullOrEmpty(NewProduct.Style))
             {
                 style = NewStyle;  // Use the new style if the selected style is empty
             }
@@ -123,8 +127,8 @@ namespace RamenRatings.WebSite.Pages.Product
                 Number = newNumber,
                 Brand = brand,
                 Style = style,
-                Variety = NewProduct.Variety,
-                Country = NewProduct.Country,
+                Variety = variety,
+                Country = country,
                 img = jsonImageName,  // Store the image json name 
                 Ratings = new int[] { Rating }  // Initialize ratings with given rating
             };
