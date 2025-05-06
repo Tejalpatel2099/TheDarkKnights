@@ -7,7 +7,7 @@
 @foreach (var product in ProductService.GetProducts())
 {
     <div class="card">
-        <div class="card-img" style="background-image: url('@product.img');">
+            <div class="card-img" style="background-image: url('@product.img?ts=@DateTime.Now.Ticks');">
         </div>
         <div class="card-body">
             <h5 class="card-title">@product.Variety</h5>
