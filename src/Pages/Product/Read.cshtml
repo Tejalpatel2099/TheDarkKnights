@@ -8,7 +8,7 @@
         <div class="row">
             <!-- Image Section -->
             <div class="col-md-5 text-center">
-                <img src="@Model.Product.img" alt="@Model.Product.Variety" class="img-fluid rounded" />
+                <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" />
             </div>
 
             <!-- Detail Section -->
