@@ -15,21 +15,17 @@ namespace RamenRatings.WebSite.Pages.Product
     {
         public const string JsonFileName = "wwwroot/data/ramen.json"; // path to ramen json
 
-        // new product property
-        [BindProperty]
-        public ProductModel ExistingProduct { get; set; }
-
         // image property
         [BindProperty]
         public IFormFile Image { get; set; }
 
         // new brand 
-        //[BindProperty]
-        //public string NewBrand { get; set; }
+        [BindProperty]
+        public string NewBrand { get; set; }
 
-        //// new style
-        //[BindProperty]
-        //public string NewStyle { get; set; }
+        // new style
+        [BindProperty]
+        public string NewStyle { get; set; }
 
         // new rating
         [BindProperty]
@@ -46,7 +42,8 @@ namespace RamenRatings.WebSite.Pages.Product
 
         public JsonFileProductService ProductService { get; }
 
-        public ProductModel Product;
+        [BindProperty]
+        public ProductModel Product { get; set; }
 
         public IActionResult OnGet(int number)
         {
@@ -72,17 +69,6 @@ namespace RamenRatings.WebSite.Pages.Product
                 return RedirectToPage("../Error");
             }
 
-            ExistingProduct = new ProductModel
-            {
-                Number = Product.Number,
-                Brand = Product.Brand,
-                Style = Product.Style,
-                Variety = Product.Variety,
-                Country = Product.Country,
-                img = Product.img,
-                Ratings = Product.Ratings
-            };
-
             return Page();
         }
         public IActionResult OnPost()
@@ -101,16 +87,41 @@ namespace RamenRatings.WebSite.Pages.Product
 
         public ProductModel UpdateData()
         {
-            string brand = ExistingProduct.Brand;
-            string style = ExistingProduct.Style;
+            // get the original values
+            var original = ProductService.GetProducts().FirstOrDefault(p => p.Number == Product.Number);
 
-         
-            string jsonImageName = ExistingProduct.img;
+            // Set the values
+            string brand = Product.Brand;
+            string style = Product.Style;
+            string variety = original.Variety;
+            string country = original.Country;
+            string jsonImageName = original.img;
+
+            // Update if a new value was provided. Ensure null or empty is not entered
+            if (brand == "Other" && !string.IsNullOrEmpty(Product.Brand)) // account for Other field in brand
+            {
+                brand = NewBrand;
+            }
+
+            if (style == "Other" && !string.IsNullOrEmpty(Product.Style)) // account for Other field in style
+            {
+                style = NewStyle;
+            }
+
+            if (!string.IsNullOrEmpty(Product.Variety))
+            {
+                variety = Product.Variety;
+            }
+
+            if (!string.IsNullOrEmpty(Product.Country))
+            {
+                country = Product.Country;
+            }
 
             if (Image != null)
             {
                 var fileExtension = Path.GetExtension(Image.FileName);
-                string imageFileName = $"{ExistingProduct.Number}{fileExtension}";
+                string imageFileName = $"{original.Number}{fileExtension}";
                 jsonImageName = "/images/" + imageFileName;
                 string imagePath = "wwwroot" + jsonImageName;
 
@@ -120,17 +131,15 @@ namespace RamenRatings.WebSite.Pages.Product
                 }
             }
 
-            Console.WriteLine("Image Name"+jsonImageName);
-
             return new ProductModel
             {
-                Number = ExistingProduct.Number,
+                Number = original.Number,
                 Brand = brand,
                 Style = style,
-                Variety = ExistingProduct.Variety,
-                Country = ExistingProduct.Country,
+                Variety = variety,
+                Country = country,
                 img = jsonImageName,
-                Ratings = ExistingProduct.Ratings
+                Ratings = original.Ratings
             };
         }
 
@@ -139,7 +148,7 @@ namespace RamenRatings.WebSite.Pages.Product
             var products = ProductService.GetProducts().ToList();
 
             var index = products.FindIndex(p => p.Number == updateProduct.Number);
-            
+
             if (index != -1)
             {
                 products[index] = updateProduct;
