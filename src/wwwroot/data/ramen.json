@@ -1,332 +1,332 @@
 [
-    {
-        "Number": 1,
-        "Brand": "Indomie",
-        "Variety": "Chicken Curry",
-        "Style": "Pack",
-        "Country": "Indonesia",
-        "img": "/images/1.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 2,
-        "Brand": "Indomie",
-        "Variety": "Mi Goreng",
-        "Style": "Pack",
-        "Country": "Indonesia",
-        "img": "/images/2.jpg",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 3,
-        "Brand": "Mama",
-        "Variety": "Instant Bowl Noodles Artificial Pork",
-        "Style": "Bowl",
-        "Country": "Thailand",
-        "img": "/images/3.jpg",
-        "Ratings": [
-            2
-        ]
-    },
-    {
-        "Number": 4,
-        "Brand": "Mama",
-        "Variety": "Shrimp Creamy Tom Yum",
-        "Style": "Pack",
-        "Country": "Thailand",
-        "img": "/images/4.jpg",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 5,
-        "Brand": "Mama",
-        "Variety": "Artificial Chicken",
-        "Style": "Pack",
-        "Country": "Thailand",
-        "img": "/images/5.jpg",
-        "Ratings": [
-            2
-        ]
-    },
-    {
-        "Number": 6,
-        "Brand": "Maruchan",
-        "Variety": "Gotsumori Sauce Yakisoba",
-        "Style": "Tray",
-        "Country": "Japan",
-        "img": "/images/6.jpg",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 7,
-        "Brand": "Maruchan",
-        "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
-        "Style": "Pack",
-        "Country": "Japan",
-        "img": "/images/7.png",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 8,
-        "Brand": "Maruchan",
-        "Variety": "Instant Lunch Shrimp",
-        "Style": "Cup",
-        "Country": "USA",
-        "img": "/images/8.jpg",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 9,
-        "Brand": "Maruchan",
-        "Variety": "Yakisoba Chicken",
-        "Style": "Tray",
-        "Country": "USA",
-        "img": "/images/9.jpg",
-        "Ratings": [
-            2
-        ]
-    },
-    {
-        "Number": 10,
-        "Brand": "Maruchan",
-        "Variety": "Yakisoba Teriyaki Beef",
-        "Style": "Tray",
-        "Country": "USA",
-        "img": "/images/10.png",
-        "Ratings": [
-            2
-        ]
-    },
-    {
-        "Number": 11,
-        "Brand": "Maruchan",
-        "Variety": "Ramen Noodle Soup Chicken",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/11.jpg",
-        "Ratings": [
-            2
-        ]
-    },
-    {
-        "Number": 12,
-        "Brand": "Myojo",
-        "Variety": "Shin Toyama Black Ramen",
-        "Style": "Bowl",
-        "Country": "Japan",
-        "img": "/images/12.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 13,
-        "Brand": "Myojo",
-        "Variety": "Ippeichan Yakisoba",
-        "Style": "Tray",
-        "Country": "Japan",
-        "img": "/images/13.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 14,
-        "Brand": "Nissin",
-        "Variety": "Top Ramen Chicken",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/14.png",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 15,
-        "Brand": "Nissin",
-        "Variety": "Top Ramen Shrimp",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/15.png",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 16,
-        "Brand": "Nissin",
-        "Variety": "Yakisoba Noodles Karashi",
-        "Style": "Tray",
-        "Country": "Japan",
-        "img": "/images/16.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 17,
-        "Brand": "Nongshim",
-        "Variety": "Shin Ramyun Black",
-        "Style": "Pack",
-        "Country": "South Korea",
-        "img": "/images/17.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 18,
-        "Brand": "Nongshim",
-        "Variety": "Kimchi Flavor Noodle Soup",
-        "Style": "Cup",
-        "Country": "USA",
-        "img": "/images/18.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 19,
-        "Brand": "Nongshim",
-        "Variety": "Spicy Tonkotsu Noodle Soup",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/19.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 20,
-        "Brand": "Nongshim",
-        "Variety": "Shin Ramyun Cup",
-        "Style": "Cup",
-        "Country": "South Korea",
-        "img": "/images/20.jpg",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 21,
-        "Brand": "Nongshim",
-        "Variety": "Bowl Noodle Spicy Seafood",
-        "Style": "Bowl",
-        "Country": "USA",
-        "img": "/images/21.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 22,
-        "Brand": "Nongshim",
-        "Variety": "Shin Ramyun",
-        "Style": "Pack",
-        "Country": "South Korea",
-        "img": "/images/22.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 23,
-        "Brand": "Samyang Foods",
-        "Variety": "Cheese Buldak Bokkeummyun",
-        "Style": "Pack",
-        "Country": "South Korea",
-        "img": "/images/23.jpg",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 24,
-        "Brand": "Samyang Foods",
-        "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
-        "Style": "Pack",
-        "Country": "South Korea",
-        "img": "/images/24.png",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 25,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Shio",
-        "Style": "Pack",
-        "Country": "Japan",
-        "img": "/images/25.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 26,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Original Flavor",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/26.png",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 27,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Beef Flavor",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/27.png",
-        "Ratings": [
-            4
-        ]
-    },
-    {
-        "Number": 28,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Chicken Flavor",
-        "Style": "Pack",
-        "Country": "USA",
-        "img": "/images/28.png",
-        "Ratings": [
-            3
-        ]
-    },
-    {
-        "Number": 29,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Chow Mein",
-        "Style": "Pack",
-        "Country": "Japan",
-        "img": "/images/29.png",
-        "Ratings": [
-            5
-        ]
-    },
-    {
-        "Number": 30,
-        "Brand": "Sapporo Ichiban",
-        "Variety": "Shrimp Flavor",
-        "Style": "Pack",
-        "Country": "Japan",
-        "img": "/images/30.png",
-        "Ratings": [
-            2
-        ]
-    }
+  {
+    "Number": 1,
+    "Brand": "Indomie",
+    "img": "/images/1.jpg",
+    "Style": "Pack",
+    "Country": "Indonesia",
+    "Variety": "Chicken Curry Updated",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 2,
+    "Brand": "Indomie",
+    "img": "/images/2.jpg",
+    "Style": "Pack",
+    "Country": "Indonesia",
+    "Variety": "Mi Goreng",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 3,
+    "Brand": "Mama",
+    "img": "/images/3.jpg",
+    "Style": "Bowl",
+    "Country": "Thailand",
+    "Variety": "Instant Bowl Noodles Artificial Pork",
+    "Ratings": [
+      2
+    ]
+  },
+  {
+    "Number": 4,
+    "Brand": "Mama",
+    "img": "/images/4.jpg",
+    "Style": "Pack",
+    "Country": "Thailand",
+    "Variety": "Shrimp Creamy Tom Yum",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 5,
+    "Brand": "Mama",
+    "img": "/images/5.jpg",
+    "Style": "Pack",
+    "Country": "Thailand",
+    "Variety": "Artificial Chicken",
+    "Ratings": [
+      2
+    ]
+  },
+  {
+    "Number": 6,
+    "Brand": "Maruchan",
+    "img": "/images/6.jpg",
+    "Style": "Tray",
+    "Country": "Japan",
+    "Variety": "Gotsumori Sauce Yakisoba",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 7,
+    "Brand": "Maruchan",
+    "img": "/images/7.png",
+    "Style": "Pack",
+    "Country": "Japan",
+    "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 8,
+    "Brand": "Maruchan",
+    "img": "/images/8.jpg",
+    "Style": "Cup",
+    "Country": "USA",
+    "Variety": "Instant Lunch Shrimp",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 9,
+    "Brand": "Maruchan",
+    "img": "/images/9.jpg",
+    "Style": "Tray",
+    "Country": "USA",
+    "Variety": "Yakisoba Chicken",
+    "Ratings": [
+      2
+    ]
+  },
+  {
+    "Number": 10,
+    "Brand": "Maruchan",
+    "img": "/images/10.png",
+    "Style": "Tray",
+    "Country": "USA",
+    "Variety": "Yakisoba Teriyaki Beef",
+    "Ratings": [
+      2
+    ]
+  },
+  {
+    "Number": 11,
+    "Brand": "Maruchan",
+    "img": "/images/11.jpg",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Ramen Noodle Soup Chicken",
+    "Ratings": [
+      2
+    ]
+  },
+  {
+    "Number": 12,
+    "Brand": "Myojo",
+    "img": "/images/12.jpg",
+    "Style": "Bowl",
+    "Country": "Japan",
+    "Variety": "Shin Toyama Black Ramen",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 13,
+    "Brand": "Myojo",
+    "img": "/images/13.jpg",
+    "Style": "Tray",
+    "Country": "Japan",
+    "Variety": "Ippeichan Yakisoba",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 14,
+    "Brand": "Nissin",
+    "img": "/images/14.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Top Ramen Chicken",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 15,
+    "Brand": "Nissin",
+    "img": "/images/15.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Top Ramen Shrimp",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 16,
+    "Brand": "Nissin",
+    "img": "/images/16.png",
+    "Style": "Tray",
+    "Country": "Japan",
+    "Variety": "Yakisoba Noodles Karashi",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 17,
+    "Brand": "Nongshim",
+    "img": "/images/17.png",
+    "Style": "Pack",
+    "Country": "South Korea",
+    "Variety": "Shin Ramyun Black",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 18,
+    "Brand": "Nongshim",
+    "img": "/images/18.png",
+    "Style": "Cup",
+    "Country": "USA",
+    "Variety": "Kimchi Flavor Noodle Soup",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 19,
+    "Brand": "Nongshim",
+    "img": "/images/19.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Spicy Tonkotsu Noodle Soup",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 20,
+    "Brand": "Nongshim",
+    "img": "/images/20.jpg",
+    "Style": "Cup",
+    "Country": "South Korea",
+    "Variety": "Shin Ramyun Cup",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 21,
+    "Brand": "Nongshim",
+    "img": "/images/21.jpg",
+    "Style": "Bowl",
+    "Country": "USA",
+    "Variety": "Bowl Noodle Spicy Seafood",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 22,
+    "Brand": "Nongshim",
+    "img": "/images/22.jpg",
+    "Style": "Pack",
+    "Country": "South Korea",
+    "Variety": "Shin Ramyun",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 23,
+    "Brand": "Samyang Foods",
+    "img": "/images/23.jpg",
+    "Style": "Pack",
+    "Country": "South Korea",
+    "Variety": "Cheese Buldak Bokkeummyun",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 24,
+    "Brand": "Samyang Foods",
+    "img": "/images/24.png",
+    "Style": "Pack",
+    "Country": "South Korea",
+    "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 25,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/25.png",
+    "Style": "Pack",
+    "Country": "Japan",
+    "Variety": "Shio",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 26,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/26.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Original Flavor",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 27,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/27.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Beef Flavor",
+    "Ratings": [
+      4
+    ]
+  },
+  {
+    "Number": 28,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/28.png",
+    "Style": "Pack",
+    "Country": "USA",
+    "Variety": "Chicken Flavor",
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Number": 29,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/29.png",
+    "Style": "Pack",
+    "Country": "Japan",
+    "Variety": "Chow Mein",
+    "Ratings": [
+      5
+    ]
+  },
+  {
+    "Number": 30,
+    "Brand": "Sapporo Ichiban",
+    "img": "/images/30.png",
+    "Style": "Pack",
+    "Country": "Japan",
+    "Variety": "Shrimp Flavor",
+    "Ratings": [
+      2
+    ]
+  }
 ]
