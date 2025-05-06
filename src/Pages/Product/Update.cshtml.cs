@@ -11,9 +11,13 @@ using RamenRatings.WebSite.Services;
 
 namespace RamenRatings.WebSite.Pages.Product
 {
+    /// <summary>
+    /// Update Model for Updating the Ramen product
+    /// </summary>
     public class UpdateModel : PageModel
     {
-        public const string JsonFileName = "wwwroot/data/ramen.json"; // path to ramen json
+        // path to json file
+        public const string JsonFileName = "wwwroot/data/ramen.json"; 
 
         // image property
         [BindProperty]
@@ -35,16 +39,27 @@ namespace RamenRatings.WebSite.Pages.Product
         public List<string> ExistingBrands { get; set; }
         public List<string> ExistingStyles { get; set; }
 
+        /// <summary>
+        /// Constructor for the UpdateModel
+        /// </summary>
+        /// <param name="productService"></param>
         public UpdateModel(JsonFileProductService productService)
         {
             ProductService = productService;
         }
 
+        // Service to get the product data
         public JsonFileProductService ProductService { get; }
 
+        // / Product model to bind the form data
         [BindProperty]
         public ProductModel Product { get; set; }
 
+        /// <summary>
+        /// OnGet method to get the product data for the given number
+        /// </summary>
+        /// <param name="number"> Unique number of the product </param>
+        /// <returns> return the page or redirect to error if number not found </returns>
         public IActionResult OnGet(int number)
         {
             // Get all of the products
@@ -62,6 +77,7 @@ namespace RamenRatings.WebSite.Pages.Product
                 .Distinct()  // Remove duplicates
                 .ToList();  // Convert to list
 
+            // Get the product for the given number
             Product = ProductService.GetProducts().FirstOrDefault(m => m.Number.Equals(number));
             if (Product == null)
             {
@@ -71,20 +87,29 @@ namespace RamenRatings.WebSite.Pages.Product
 
             return Page();
         }
+        /// <summary>
+        /// Handle the post request to update the product
+        /// also saves the updated product to the json file
+        /// </summary>
         public IActionResult OnPost()
         {
+            // if the model state is not valid, return the page with the error message
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            // updating the product 
             var updatedProduct = UpdateData();
 
+            // save the updated product to the json file
             SaveData(updatedProduct);
 
             return RedirectToPage("/Product/ProductsPage");
         }
 
+        /// <summary>
+        /// Updates the product data 
+        /// </summary>
         public ProductModel UpdateData()
         {
             // get the original values
@@ -102,22 +127,23 @@ namespace RamenRatings.WebSite.Pages.Product
             {
                 brand = NewBrand;
             }
-
+            // Update if a new value was provided. Ensure null or empty is not entered
             if (style == "Other" && !string.IsNullOrEmpty(Product.Style)) // account for Other field in style
             {
                 style = NewStyle;
             }
-
+            // Update Variety if a new value was provided. Ensure null or empty is not entered
             if (!string.IsNullOrEmpty(Product.Variety))
             {
                 variety = Product.Variety;
             }
 
+            // Update Country if a new value was provided. Ensure null or empty is not entered
             if (!string.IsNullOrEmpty(Product.Country))
             {
                 country = Product.Country;
             }
-
+            // If the image is not null, save the image and update the jsonImageName
             if (Image != null)
             {
                 var fileExtension = Path.GetExtension(Image.FileName);
@@ -130,7 +156,7 @@ namespace RamenRatings.WebSite.Pages.Product
                     Image.CopyTo(fileStream);
                 }
             }
-
+            // Return the updated product model
             return new ProductModel
             {
                 Number = original.Number,
@@ -142,18 +168,23 @@ namespace RamenRatings.WebSite.Pages.Product
                 Ratings = original.Ratings
             };
         }
-
+        /// <summary>
+        /// Saves the updated product to the json file
+        /// </summary>
         public void SaveData(ProductModel updateProduct)
         {
+            // Get all of the products
             var products = ProductService.GetProducts().ToList();
 
+            // Find the index of the product to update
             var index = products.FindIndex(p => p.Number == updateProduct.Number);
 
+            // If the product is found, update it
             if (index != -1)
             {
                 products[index] = updateProduct;
             }
-
+            //Serialize the updated product list to JSON
             var json = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(JsonFileName, json);
         }
