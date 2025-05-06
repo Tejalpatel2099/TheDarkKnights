@@ -55,18 +55,20 @@ namespace RamenRatings.WebSite.Pages.Product
             var products = ProductService.GetProducts();
 
             // Create the list of products for the form field drop down
-            ExistingBrands = products
-            .Select(p => p.Brand)  // Select the brand from each product
-            .Distinct()  // Remove duplicates
-            .ToList();  // Convert to list 
+            // Select the brand from each product
+            // Remove duplicates
+            // Convert to list 
+            ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
 
             // Create the list of styles for the form field drop down
-            ExistingStyles = products
-                .Select(p => p.Style)  // Select the style from each product
-                .Distinct()  // Remove duplicates
-                .ToList();  // Convert to list
+            // Select the style from each product
+            // Remove duplicates
+            // Convert to list
+            ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+            
         }
 
+        // runs the page after the create page is submitted
         public IActionResult OnPost()
         {
 
@@ -76,9 +78,10 @@ namespace RamenRatings.WebSite.Pages.Product
             }
 
             // Create a new product 
-            CreateData();
+            var newProduct = CreateData();
 
-            return RedirectToPage("/Product/ProductsPage");
+            // redirect to the new product's page
+            return RedirectToPage("/Product/Read", new { number = newProduct.Number });
         }
 
         // Create new product and add to the dataset
