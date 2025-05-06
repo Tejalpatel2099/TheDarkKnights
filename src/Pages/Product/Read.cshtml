@@ -2,7 +2,7 @@
 @model RamenRatings.WebSite.Pages.ReadModel
 
 <div class="container mt-4">
-    <h2 class="animated-heading text-center mb-4">Ramen Information</h2>
+    <h2 class="animated-heading text-center mb-4">Information about @Model.Product.Variety</h2>
 
     <div class="card p-4 shadow-lg bg-light">
         <div class="row">
@@ -32,6 +32,9 @@
                         }
                     }
                 </p>
+                <button type="button" class="btn btn-primary rounded-pill">
+                    <a class="text-white " href="/Product/Update/@Model.Product.Number">✏️Update Product</a>
+                </button>
             </div>
         </div>
     </div>
