@@ -1,8 +1,10 @@
 ﻿@page "{number}"
 @model RamenRatings.WebSite.Pages.Product.UpdateModel
 @{
+    <!-- Page heading -->
     <h2>Update Existing Ramen Product</h2>
 
+    <!-- Form to handle Update functionality -->
     <form method="post" enctype="multipart/form-data">
         <p> Current Ramen Image </p>
         <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
@@ -71,6 +73,7 @@
     <!-- Script for showing or hiding the input fields for new brand or new style -->
     @section Scripts {
         <script>
+			// Show  the input fields for new brand or new style based on selection
             document.getElementById('Brand').addEventListener('change', function () {
                 var newBrandGroup = document.getElementById('newBrandGroup');
                 if(this.value === "Other"){
@@ -80,7 +83,6 @@
                     newBrandGroup.style.display = "none";
                 }
             });
-
             document.getElementById('Style').addEventListener('change', function () {
                 var newStyleGroup = document.getElementById('newStyleGroup');
                 if(this.value === "Other"){
@@ -92,5 +94,6 @@
             });
         </script>
     }
+	<!-- End of script section -->
 
 }
