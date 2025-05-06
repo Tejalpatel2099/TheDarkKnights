@@ -1,0 +1,102 @@
+﻿@page "{number}"
+@model RamenRatings.WebSite.Pages.Product.UpdateModel
+@{
+    <h2>Update Existing Ramen Product</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <p> Current Ramen Image </p>
+        <img src="@Model.Product.img" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250"/>
+
+        <!-- Select from list of existing brands, with option to enter a new Brand -->
+        <div class="form-group">
+            <label for="Brand">Brand</label>
+           <select class="form-control" id="Brand" name="Brand" required>
+            <option value="">Select an Existing Brand</option>
+                @foreach (var brand in Model.ExistingBrands.Distinct())
+                {
+                    <option value="@brand" selected="@(brand == @Model.Product.Brand)")>@brand</option>
+                }
+           </select>
+
+        </div>
+        <!-- Text input a new Brand when Other is selected -->
+        <div class="form-group" id="newBrandGroup" style="display:none;">
+            <label for"NewBrand">Other Brand</label>
+            <input type="text" class="form-control" itemid="NewBrand" name="NewBrand" placeholder="Enter new brand" />
+        </div>
+
+        <!-- Input Variety -->
+        <div class="form-group">
+            <label for="Variety">Variety</label>
+            <input type="text" class="form-control" id="Variety" name="Variety" placeholder="Enter variety" value="@Model.Product.Variety" required />
+        </div>
+
+        <!-- Select from list of existing styles, with option to enter new style -->
+        <div class="form-group">
+            <label for="Style">Style</label>
+            <select class="form-control" id="Style" name="Style" required>
+                <option value="">Select an Existing Style</option>
+                @foreach (var style in Model.ExistingStyles.Distinct())
+                {
+                    <option value="@style" selected="@(style == @Model.Product.Style)">@style</option>
+                }
+            </select>
+        </div>
+
+        <!-- Text input a new Style when Other is selected -->
+        <div class="form-group" id="newStyleGroup" style="display:none;">
+            <label for="NewStyle">New Style</label>
+            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter new style">
+        </div>
+
+        <!-- Input Country -->
+        <div class="form-group">
+            <label for="Country">Country</label>
+            <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter country" value="@Model.Product.Country" required>
+        </div>
+
+        <!-- Upload an image -->
+        <div class="form-group">
+            <label for="Image">Upload Image</label>
+            <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+        </div>
+
+
+        <!-- Save/submit the new product -->
+        <button type="submit" class="btn btn-primary">Update Ramen</button>
+
+    </form>
+
+
+    <!-- Script for showing or hiding the input fields for new brand or new style -->
+    @section Scripts {
+        <script>
+            // If 'Other' is selected in the brand dropdown, show field to enter new brand
+            document.getElementById('Brand').addEventListener('change', function () {
+                var brandSelect = document.getElementById('Brand');
+                var newBrandGroup = document.getElementById('newBrandGroup');
+
+                // If the user selects an empty option, show the new brand input
+                if (brandSelect.value === "") {
+                    newBrandGroup.style.display = "block";  // show new brand input field
+                } else {
+                    newBrandGroup.style.display = "none"; // Hide new brand input if nothing is selected
+                }
+            });
+
+            // If 'Other' is selected in the style dropdown, show field to enter new style
+            document.getElementById('Style').addEventListener('change', function () {
+                var styleSelect = document.getElementById('Style');
+                var newStyleGroup = document.getElementById('newStyleGroup');
+
+                // If the user selects an empty option, show the new style input
+                if (styleSelect.value === "") {
+                    newStyleGroup.style.display = "block";  // show new style input field
+                } else {
+                    newStyleGroup.style.display = "none";  // Hide new style input if nothing is selected
+                }
+            });
+        </script>
+    }
+
+}
