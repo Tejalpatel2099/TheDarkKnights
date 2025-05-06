@@ -21,13 +21,12 @@ namespace UnitTests.Pages.Services
         /// <summary>
         /// REST Get Products data
         /// POST a valid rating
-        /// Test that the last data that was added was added correctly
+        /// Test that the data that was added was added correctly
         /// </summary>
         [Test]
         public void AddRating_Valid_ProductId_Return_true()
         {
             // Arrange
-
 
 
             // Act
@@ -62,7 +61,7 @@ namespace UnitTests.Pages.Services
         /// <summary>
         /// REST Get Products data
         /// POST a new valid rating on existing rated product
-        /// Test that the last data that was added was added correctly
+        /// Test that the data that was added was added correctly
         /// </summary>
         [Test]
         public void AddRating_Valid_ProductId_Adding_Rating_On_Existing_Product_Rating_Should_Return_true()
