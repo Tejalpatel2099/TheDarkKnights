@@ -37,11 +37,18 @@ namespace RamenRatings.WebSite.Services
             }
         }
         //With the given productId adds a rating
-        public void AddRating(int productId, int rating)
+        public bool AddRating(int productId, int rating)
         {
             var products = GetProducts();
+
+            if(products.Any(product => product.Number == productId) == false)
+            {
+                return false;
+            }
+
+           
             //Checks if ratings array exists
-            if(products.First(x => x.Number == productId).Ratings == null)
+            if (products.First(x => x.Number == productId).Ratings == null)
             {
                 //Creates a new rating array consisting of the rating
                 products.First(x => x.Number == productId).Ratings = new int[] { rating };
@@ -65,6 +72,7 @@ namespace RamenRatings.WebSite.Services
                     products
                 );
             }
+            return true;
         }
     }
 }
