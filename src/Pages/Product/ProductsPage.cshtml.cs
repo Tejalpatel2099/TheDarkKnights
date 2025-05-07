@@ -7,10 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace RamenRatings.WebSite.Pages.Product
 {
+    // handles functions for products page where the user can browse through products
     public class ProductsPageModel : PageModel
     {
         private readonly ILogger<ProductsPageModel> _logger;
 
+        // logger for products page
         public ProductsPageModel(ILogger<ProductsPageModel> logger,
             JsonFileProductService productService)
         {
@@ -20,6 +22,7 @@ namespace RamenRatings.WebSite.Pages.Product
         public JsonFileProductService ProductService { get; }
         public IEnumerable<ProductModel> Products { get; private set; }
 
+        // handles get requests when products page is accessed
         public void OnGet()
         {
             Products = ProductService.GetProducts();
