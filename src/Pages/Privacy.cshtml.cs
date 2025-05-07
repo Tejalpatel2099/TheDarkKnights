@@ -12,6 +12,7 @@ namespace RamenRatings.WebSite.Pages
             _logger = logger;
         }
 
+        // handles get requests when the privacy page is accessed
         public void OnGet()
         {
         }
