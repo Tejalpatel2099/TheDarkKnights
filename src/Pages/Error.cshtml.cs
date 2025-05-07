@@ -15,11 +15,13 @@ namespace RamenRatings.WebSite.Pages
 
         private readonly ILogger<ErrorModel> _logger;
 
+        // a model for potentila error page
         public ErrorModel(ILogger<ErrorModel> logger)
         {
             _logger = logger;
         }
 
+        // Handle get when the page is accessed - gets activity id
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
