@@ -39,6 +39,8 @@ namespace UnitTests.Pages
         public static PageContext PageContext;
         public static JsonFileProductService ProductService;
 
+        public static IUrlHelper UrlHelper { get; set; } 
+
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -74,6 +76,8 @@ namespace UnitTests.Pages
             JsonFileProductService productService;
 
             productService = new JsonFileProductService(MockWebHostEnvironment.Object);
+
+            UrlHelper = new UrlHelper(ActionContext);
         }
     }
 }
