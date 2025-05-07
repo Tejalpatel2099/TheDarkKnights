@@ -25,6 +25,7 @@ namespace RamenRatings.WebSite.Pages.Product
         [BindProperty]
         public ProductModel Product { get; set; }
 
+        //handles the get request when the delete page is being accessed
         public IActionResult OnGet(int number)
         {
             Product = ProductService.GetProducts().FirstOrDefault(m => m.Number.Equals(number));
@@ -37,6 +38,7 @@ namespace RamenRatings.WebSite.Pages.Product
             return Page();
         }
 
+        // handles the post request when the delete page has finished accesssing
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -46,7 +48,7 @@ namespace RamenRatings.WebSite.Pages.Product
             }
             DeleteData(Product.Number);
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Index"); // page will redirect to index after product is deleted
 
         }
 
