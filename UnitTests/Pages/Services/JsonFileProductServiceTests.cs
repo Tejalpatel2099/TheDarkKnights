@@ -69,7 +69,7 @@ namespace UnitTests.Pages.Services
 
             // Act
             // Store the result of the AddRating method (which is being tested)
-            bool validAdd = TestHelper.ProductService.AddRating(1, 3);
+            bool validAdd = TestHelper.ProductService.AddRating(3, 5);
 
             // Assert
             Assert.AreEqual(true, validAdd);
