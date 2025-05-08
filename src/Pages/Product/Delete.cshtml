@@ -6,14 +6,15 @@
 
 <h2>Delete Existing Ramen Product</h2>
 
-<form method="post" enctype="multipart/form-data">
+
+<form method="post" enctype="multipart/form-data" onsubmit="return confirmDelete();">
     <div class="row">
         <!-- Ramen Image -->
         <div class="col-md-4">
             <img src="@Model.Product.img" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
         </div>
 
-        <!-- All ramen form fields diplayed with current ramen and are read only -->
+        <!-- All ramen form fields displayed with current ramen and are read-only -->
         <div class="col-md-8">
             <div class="form-group">
                 <label>Brand</label>
@@ -46,4 +47,9 @@
     </div>
 </form>
 
-
+<!-- Confirmation script -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this ramen product?");
+    }
+</script>
