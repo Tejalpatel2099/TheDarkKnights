@@ -14,7 +14,9 @@ namespace UnitTests.Pages.Product
         public static DeleteModel pageModel;
         public static CreateModel createModel;
 
-        // Set up before each test
+        /// <summary>
+        /// Set up before each test
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -37,7 +39,9 @@ namespace UnitTests.Pages.Product
 
         #region OnGet
 
-        // Test that OnGet returns a PageResult and correctly loads a valid product
+        /// <summary>
+        /// Valid product ID should return the Delete page and load the correct product
+        /// </summary>
         [Test]
         public void OnGet_ValidId_Should_Return_Page()
         {
@@ -50,7 +54,9 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(validProduct.Number, pageModel.Product.Number); // correct product loaded
         }
 
-        // Test that OnGet redirects to error page when given an invalid ID
+        /// <summary>
+        /// Invalid product ID should redirect to the error page
+        /// </summary>
         [Test]
         public void OnGet_InvalidId_Should_RedirectToError()
         {
@@ -65,7 +71,9 @@ namespace UnitTests.Pages.Product
 
         #region OnPost
 
-        // Test that a valid post deletes the product and redirects, then restores the product
+        /// <summary>
+        /// Valid product should be deleted and then restored after test verification
+        /// </summary>
         [Test]
         public void OnPost_Valid_Should_Delete_Then_Restore()
         {
@@ -116,7 +124,9 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(product.Brand, restored.Brand);
         }
 
-        // Test that invalid model state results in returning the same page
+        /// <summary>
+        /// Invalid model state should result in returning the same page
+        /// </summary>
         [Test]
         public void OnPost_InvalidModel_Should_Return_Page()
         {
@@ -132,7 +142,9 @@ namespace UnitTests.Pages.Product
 
         #region DeleteData
 
-        // Test that DeleteData successfully removes and returns a product
+        /// <summary>
+        /// DeleteData should remove and return the deleted product
+        /// </summary>
         [Test]
         public void DeleteData_Should_Remove_And_Return_Product()
         {
@@ -162,7 +174,9 @@ namespace UnitTests.Pages.Product
             Assert.IsNotNull(restored); // ensure it was restored
         }
 
-        // Test that DeleteData returns null when given an invalid ID
+        /// <summary>
+        /// DeleteData should return null for an invalid product ID
+        /// </summary>
         [Test]
         public void DeleteData_InvalidId_Should_Return_Null()
         {
