@@ -8,155 +8,169 @@ using System;
 
 namespace UnitTests.Pages.Product
 {
-	public class DeleteTests
-	{
-		public static DeleteModel pageModel;
-		public static CreateModel createModel;
+    public class DeleteTests
+    {
+        // Shared instances of page models for reuse across test methods
+        public static DeleteModel pageModel;
+        public static CreateModel createModel;
 
-		[SetUp]
-		public void TestInitialize()
-		{
-			pageModel = new DeleteModel(TestHelper.ProductService)
-			{
-				PageContext = TestHelper.PageContext,
-				TempData = TestHelper.TempData,
-				Url = TestHelper.UrlHelper
-			};
+        // Set up before each test
+        [SetUp]
+        public void TestInitialize()
+        {
+            // Initialize the DeleteModel with necessary test helpers and context
+            pageModel = new DeleteModel(TestHelper.ProductService)
+            {
+                PageContext = TestHelper.PageContext,
+                TempData = TestHelper.TempData,
+                Url = TestHelper.UrlHelper
+            };
 
-			createModel = new CreateModel(TestHelper.ProductService)
-			{
-				PageContext = TestHelper.PageContext,
-				TempData = TestHelper.TempData,
-				Url = TestHelper.UrlHelper
-			};
-		}
+            // Initialize the CreateModel for restoring deleted test data
+            createModel = new CreateModel(TestHelper.ProductService)
+            {
+                PageContext = TestHelper.PageContext,
+                TempData = TestHelper.TempData,
+                Url = TestHelper.UrlHelper
+            };
+        }
 
-		#region OnGet
+        #region OnGet
 
-		[Test]
-		public void OnGet_ValidId_Should_Return_Page()
-		{
-			var validProduct = TestHelper.ProductService.GetProducts().First();
+        // Test that OnGet returns a PageResult and correctly loads a valid product
+        [Test]
+        public void OnGet_ValidId_Should_Return_Page()
+        {
+            var validProduct = TestHelper.ProductService.GetProducts().First();
 
-			var result = pageModel.OnGet(validProduct.Number);
+            var result = pageModel.OnGet(validProduct.Number);
 
-			Assert.IsInstanceOf<PageResult>(result);
-			Assert.IsNotNull(pageModel.Product);
-			Assert.AreEqual(validProduct.Number, pageModel.Product.Number);
-		}
+            Assert.IsInstanceOf<PageResult>(result); // should return a page
+            Assert.IsNotNull(pageModel.Product); // product should be found
+            Assert.AreEqual(validProduct.Number, pageModel.Product.Number); // correct product loaded
+        }
 
-		[Test]
-		public void OnGet_InvalidId_Should_RedirectToError()
-		{
-			var result = pageModel.OnGet(-999);
+        // Test that OnGet redirects to error page when given an invalid ID
+        [Test]
+        public void OnGet_InvalidId_Should_RedirectToError()
+        {
+            var result = pageModel.OnGet(-999); // invalid product ID
 
-			Assert.IsInstanceOf<RedirectToPageResult>(result);
-			var redirect = result as RedirectToPageResult;
-			Assert.AreEqual("../Error", redirect.PageName);
-		}
+            Assert.IsInstanceOf<RedirectToPageResult>(result); // should redirect
+            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual("../Error", redirect.PageName); // should redirect to error page
+        }
 
-		#endregion
+        #endregion
 
-		#region OnPost
+        #region OnPost
 
-		[Test]
-		public void OnPost_Valid_Should_Delete_Then_Restore()
-		{
-			// Arrange
-			var product = TestHelper.ProductService.GetProducts().First();
-			pageModel.ModelState.Clear(); // Ensure clean ModelState
-			pageModel.Product = product;
+        // Test that a valid post deletes the product and redirects, then restores the product
+        [Test]
+        public void OnPost_Valid_Should_Delete_Then_Restore()
+        {
+            // Arrange: get a valid product and prepare the page model
+            var product = TestHelper.ProductService.GetProducts().First();
+            pageModel.ModelState.Clear(); // ensure ModelState is valid
+            pageModel.Product = product;
 
-			// Act: Delete
-			var result = pageModel.OnPost();
+            // Act: attempt to delete the product
+            var result = pageModel.OnPost();
 
-			// Debug: Print any model errors (for troubleshooting)
-			if (!pageModel.ModelState.IsValid)
-			{
-				var errors = string.Join("; ", pageModel.ModelState.Values
-					.SelectMany(v => v.Errors)
-					.Select(e => e.ErrorMessage));
-				Console.WriteLine($"ModelState Errors: {errors}");
-			}
+            // Optional debug output for troubleshooting
+            if (!pageModel.ModelState.IsValid)
+            {
+                var errors = string.Join("; ", pageModel.ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                Console.WriteLine($"ModelState Errors: {errors}");
+            }
 
-			// Assert: Ensure ModelState is valid and redirect occurred
-			Assert.IsTrue(pageModel.ModelState.IsValid, "ModelState should be valid.");
-			Assert.IsNotNull(pageModel.Product, "Product should not be null.");
-			Assert.IsInstanceOf<RedirectToPageResult>(result);
-			Assert.AreEqual("/Index", ((RedirectToPageResult)result).PageName);
+            // Assert: verify deletion and redirection
+            Assert.IsTrue(pageModel.ModelState.IsValid, "ModelState should be valid.");
+            Assert.IsNotNull(pageModel.Product, "Product should not be null.");
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual("/Index", ((RedirectToPageResult)result).PageName);
 
-			// Assert: Product was deleted
-			var deleted = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == product.Number);
-			Assert.IsNull(deleted, "Product should have been deleted.");
+            // Assert: verify product is actually deleted
+            var deleted = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == product.Number);
+            Assert.IsNull(deleted, "Product should have been deleted.");
 
-			// Restore: Create new product using CreateModel
-			createModel.NewProduct = new ProductModel
-			{
-				Brand = product.Brand,
-				Style = product.Style,
-				Variety = product.Variety,
-				Country = product.Country
-			};
-			createModel.NewBrand = product.Brand;
-			createModel.NewStyle = product.Style;
-			createModel.Rating = product.Ratings?.FirstOrDefault() ?? 3;
-			createModel.Image = TestHelper.GetMockImageFile(product.Number);
+            // Restore the deleted product using CreateModel
+            createModel.NewProduct = new ProductModel
+            {
+                Brand = product.Brand,
+                Style = product.Style,
+                Variety = product.Variety,
+                Country = product.Country
+            };
+            createModel.NewBrand = product.Brand;
+            createModel.NewStyle = product.Style;
+            createModel.Rating = product.Ratings?.FirstOrDefault() ?? 3;
+            createModel.Image = TestHelper.GetMockImageFile(product.Number);
 
-			var restored = createModel.CreateData();
+            var restored = createModel.CreateData();
 
-			// Assert: New product was added
-			Assert.IsNotNull(restored);
-			Assert.AreEqual(product.Brand, restored.Brand);
-		}
+            // Assert: verify product restoration
+            Assert.IsNotNull(restored);
+            Assert.AreEqual(product.Brand, restored.Brand);
+        }
 
-		[Test]
-		public void OnPost_InvalidModel_Should_Return_Page()
-		{
-			pageModel.ModelState.AddModelError("Product", "Required");
+        // Test that invalid model state results in returning the same page
+        [Test]
+        public void OnPost_InvalidModel_Should_Return_Page()
+        {
+            // Simulate model error
+            pageModel.ModelState.AddModelError("Product", "Required");
 
-			var result = pageModel.OnPost();
+            var result = pageModel.OnPost();
 
-			Assert.IsInstanceOf<PageResult>(result);
-		}
+            Assert.IsInstanceOf<PageResult>(result); // should stay on the same page
+        }
 
-		#endregion
+        #endregion
 
-		#region DeleteData
+        #region DeleteData
 
-		[Test]
-		public void DeleteData_Should_Remove_And_Return_Product()
-		{
-			var product = TestHelper.ProductService.GetProducts().First();
-			var deleted = pageModel.DeleteData(product.Number);
+        // Test that DeleteData successfully removes and returns a product
+        [Test]
+        public void DeleteData_Should_Remove_And_Return_Product()
+        {
+            var product = TestHelper.ProductService.GetProducts().First();
 
-			Assert.IsNotNull(deleted);
-			Assert.AreEqual(product.Number, deleted.Number);
+            // Act: delete the product
+            var deleted = pageModel.DeleteData(product.Number);
 
-			// Restore
-			createModel.NewProduct = new ProductModel
-			{
-				Brand = product.Brand,
-				Style = product.Style,
-				Variety = product.Variety,
-				Country = product.Country
-			};
-			createModel.NewBrand = product.Brand;
-			createModel.NewStyle = product.Style;
-			createModel.Rating = product.Ratings?.FirstOrDefault() ?? 3;
-			createModel.Image = TestHelper.GetMockImageFile(product.Number);
+            // Assert: deleted product matches
+            Assert.IsNotNull(deleted);
+            Assert.AreEqual(product.Number, deleted.Number);
 
-			var restored = createModel.CreateData();
-			Assert.IsNotNull(restored);
-		}
+            // Restore the product
+            createModel.NewProduct = new ProductModel
+            {
+                Brand = product.Brand,
+                Style = product.Style,
+                Variety = product.Variety,
+                Country = product.Country
+            };
+            createModel.NewBrand = product.Brand;
+            createModel.NewStyle = product.Style;
+            createModel.Rating = product.Ratings?.FirstOrDefault() ?? 3;
+            createModel.Image = TestHelper.GetMockImageFile(product.Number);
 
-		[Test]
-		public void DeleteData_InvalidId_Should_Return_Null()
-		{
-			var result = pageModel.DeleteData(-123);
+            var restored = createModel.CreateData();
+            Assert.IsNotNull(restored); // ensure it was restored
+        }
 
-			Assert.IsNull(result);
-		}
+        // Test that DeleteData returns null when given an invalid ID
+        [Test]
+        public void DeleteData_InvalidId_Should_Return_Null()
+        {
+            var result = pageModel.DeleteData(-123); // invalid ID
 
-		#endregion
-	}
+            Assert.IsNull(result); // nothing should be deleted
+        }
+
+        #endregion
+    }
 }
