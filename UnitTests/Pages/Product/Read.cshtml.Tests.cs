@@ -34,11 +34,14 @@ namespace UnitTests.Pages.Product
 
         #region OnGet
 
+        /// <summary>
+        /// Valid product ID should return the product and page result
+        /// </summary>
         [Test]
         public void OnGet_ValidId_Should_Return_Page()
         {
             // Arrange
-            
+
             // Act
             var result = pageModel.OnGet(4);
 
@@ -47,6 +50,9 @@ namespace UnitTests.Pages.Product
             Assert.IsNotNull(pageModel.Product);
         }
 
+        /// <summary>
+        /// Invalid product ID should redirect to the error page
+        /// </summary>
         [Test]
         public void OnGet_InvalidId_Should_RedirectToError()
         {
@@ -63,6 +69,6 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion OnGet
-        
-    }
+
+    }
 }
