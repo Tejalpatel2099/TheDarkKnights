@@ -30,6 +30,9 @@ namespace RamenRatings.WebSite.Pages.Product
         [BindProperty]
         public ProductModel Product { get; set; }
 
+        /// <summary>
+        /// Retrieves the product by ID and displays the delete confirmation page
+        /// </summary>
         // Handles GET request to display the delete confirmation page
         public IActionResult OnGet(int number)
         {
@@ -47,6 +50,9 @@ namespace RamenRatings.WebSite.Pages.Product
             return Page();
         }
 
+        /// <summary>
+        /// Deletes the product and redirects to index if model state is valid
+        /// </summary>
         // Handles POST request to confirm and perform the delete operation
         public IActionResult OnPost()
         {
@@ -63,6 +69,9 @@ namespace RamenRatings.WebSite.Pages.Product
             return RedirectToPage("/Index");
         }
 
+        /// <summary>
+        /// Deletes the product by ID and returns the deleted product object
+        /// </summary>
         // Deletes the product by its ID and returns the deleted product
         public ProductModel DeleteData(int id)
         {
@@ -82,6 +91,9 @@ namespace RamenRatings.WebSite.Pages.Product
             return data;
         }
 
+        /// <summary>
+        /// Saves the updated dataset to the JSON file with proper formatting
+        /// </summary>
         // Serializes the dataset and writes it to the JSON file
         public void SaveData(IEnumerable<ProductModel> dataSet)
         {
