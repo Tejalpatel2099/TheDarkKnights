@@ -33,11 +33,13 @@ namespace UnitTests.Pages.Product
 
         #region OnGet
 
+        /// <summary>
+        /// Valid product ID should return the product and page result
+        /// </summary>
         [Test]
         public void OnGet_ValidId_Should_Return_Page()
         {
             // Arrange
-            
 
             // Act
             var result = pageModel.OnGet(4);
@@ -47,6 +49,9 @@ namespace UnitTests.Pages.Product
             Assert.IsNotNull(pageModel.Product);
         }
 
+        /// <summary>
+        /// Invalid product ID should redirect to the error page
+        /// </summary>
         [Test]
         public void OnGet_InvalidId_Should_RedirectToError()
         {
@@ -63,8 +68,12 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion OnGet
+
         #region OnPost
 
+        /// <summary>
+        /// Valid model should update the product and return PageResult
+        /// </summary>
         [Test]
         public void OnPost_ValidModel_Should_RedirectToProductsPage()
         {
@@ -83,11 +92,12 @@ namespace UnitTests.Pages.Product
             var result = pageModel.OnPost() as PageResult;
 
             //Assert
-            Assert.IsInstanceOf <Microsoft.AspNetCore.Mvc.RazorPages.PageResult> (result);
-            
+            Assert.IsInstanceOf<Microsoft.AspNetCore.Mvc.RazorPages.PageResult>(result);
         }
-       
 
+        /// <summary>
+        /// Invalid model state should return the page without saving
+        /// </summary>
         [Test]
         public void OnPost_InvalidModel_Should_Return_Page()
         {
@@ -105,6 +115,9 @@ namespace UnitTests.Pages.Product
 
         #region UpdateData
 
+        /// <summary>
+        /// UpdateData should apply new style and brand if provided
+        /// </summary>
         [Test]
         public void UpdateData_Should_Update_Fields_Correctly()
         {
@@ -135,6 +148,9 @@ namespace UnitTests.Pages.Product
 
         #region SaveData
 
+        /// <summary>
+        /// SaveData should persist changes to JSON file
+        /// </summary>
         [Test]
         public void SaveData_Should_Update_Json_File()
         {
@@ -151,5 +167,5 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion SaveData
-    }
+    }
 }
