@@ -1,41 +1,75 @@
 using System.Linq;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RamenRatings.WebSite.Services;
 using RamenRatings.WebSite.Models;
-
+using System.Collections.Generic;
 
 namespace RamenRatings.WebSite.Pages
 {
     public class ReadModel : PageModel
     {
-
-        //read model constructor
+        /// <summary>
+        /// Constructor to initialize the product service
+        /// </summary>
         public ReadModel(JsonFileProductService productService)
         {
             ProductService = productService;
         }
 
-        //Product service
+        /// <summary>
+        /// Product service to access data
+        /// </summary>
         public JsonFileProductService ProductService { get; }
 
-        //Product that will be used for page
+        /// <summary>
+        /// Product that will be used for the page
+        /// </summary>
         public ProductModel Product;
 
-        // runs upon the page loading
+        /// <summary>
+        /// Runs when the page loads with GET request
+        /// </summary>
+        /// <param name="number">Product ID</param>
+        /// <returns>Page result or redirect if product not found</returns>
         public IActionResult OnGet(int number)
         {
-            //takes the index from last page and gets product using this
+            // Retrieve product by ID
             Product = ProductService.GetProducts().FirstOrDefault(m => m.Number.Equals(number));
-            //on case product isn't found return error
+
             if (Product == null)
             {
-                TempData["ErrorMessage"] = "Something went wrong while fetching the product please retry";
+                TempData["ErrorMessage"] = "Something went wrong while fetching the product. Please retry.";
                 return RedirectToPage("../Error");
             }
-            // Return to the page if the data is invalid
+
             return Page();
+        }
+
+        /// <summary>
+        /// Handles POST request to add a new rating to the product
+        /// </summary>
+        /// <param name="ProductNumber">Product ID</param>
+        /// <param name="Rating">New rating value</param>
+        /// <returns>Redirects back to the same read page</returns>
+        public IActionResult OnPostAddRatingAsync(int ProductNumber, int Rating)
+        {
+            // Get the product to update
+            var product = ProductService.GetProducts().FirstOrDefault(p => p.Number == ProductNumber);
+
+            if (product != null)
+            {
+                // Append new rating to existing ratings array
+                var ratings = product.Ratings?.ToList() ?? new List<int>();
+                ratings.Add(Rating);
+                product.Ratings = ratings.ToArray();
+
+                // Save updated product
+                ProductService.UpdateProduct(product);
+            }
+
+            // Redirect back to the same product read page
+            return RedirectToPage(new { number = ProductNumber });
         }
     }
 }

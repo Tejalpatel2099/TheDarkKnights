@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text.Json;
 
 using RamenRatings.WebSite.Models;
-
 using Microsoft.AspNetCore.Hosting;
 
 namespace RamenRatings.WebSite.Services
 {
-   public class JsonFileProductService
+    public class JsonFileProductService
     {
-        //WebHostEnviornment namespace taken in constructor
+        // WebHostEnvironment injected via constructor
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
@@ -19,15 +18,18 @@ namespace RamenRatings.WebSite.Services
 
         public IWebHostEnvironment WebHostEnvironment { get; }
 
-        //Gets path of the JSON file ramen.json that will be used for product data
+        // Gets path of the JSON file ramen.json that will be used for product data
         private string JsonFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "ramen.json"); }
         }
-        //Returns all of the products in the JSON file
+
+        /// <summary>
+        /// Returns all of the products in the JSON file.
+        /// </summary>
         public IEnumerable<ProductModel> GetProducts()
         {
-            using(var jsonFileReader = File.OpenText(JsonFileName))
+            using (var jsonFileReader = File.OpenText(JsonFileName))
             {
                 return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
                     new JsonSerializerOptions
@@ -36,43 +38,71 @@ namespace RamenRatings.WebSite.Services
                     });
             }
         }
-        //With the given productId adds a rating
+
+        /// <summary>
+        /// With the given productId adds a rating to that product.
+        /// </summary>
         public bool AddRating(int productId, int rating)
         {
             var products = GetProducts();
 
-            if(products.Any(product => product.Number == productId) == false)
+            if (products.All(product => product.Number != productId))
             {
                 return false;
             }
 
-           
-            //Checks if ratings array exists
-            if (products.First(x => x.Number == productId).Ratings == null)
+            var target = products.First(x => x.Number == productId);
+
+            // Checks if ratings array exists
+            if (target.Ratings == null)
             {
-                //Creates a new rating array consisting of the rating
-                products.First(x => x.Number == productId).Ratings = new int[] { rating };
+                // Creates a new rating array consisting of the rating
+                target.Ratings = new int[] { rating };
             }
             else
             {
-                //Adds rating to already existing array
-                var ratings = products.First(x => x.Number == productId).Ratings.ToList();
+                // Adds rating to already existing array
+                var ratings = target.Ratings.ToList();
                 ratings.Add(rating);
-                products.First(x => x.Number == productId).Ratings = ratings.ToArray();
+                target.Ratings = ratings.ToArray();
             }
-            //Saves the new ratings in the JSON file
-            using(var outputStream = File.OpenWrite(JsonFileName))
+
+            // Save updated list
+            SaveProducts(products);
+            return true;
+        }
+
+        /// <summary>
+        /// Updates the given product in the list and saves it.
+        /// </summary>
+        public void UpdateProduct(ProductModel updatedProduct)
+        {
+            var products = GetProducts().ToList();
+            var index = products.FindIndex(p => p.Number == updatedProduct.Number);
+
+            if (index != -1)
+            {
+                products[index] = updatedProduct;
+
+                SaveProducts(products);
+            }
+        }
+
+        /// <summary>
+        /// Saves the product list to the JSON file.
+        /// </summary>
+        private void SaveProducts(IEnumerable<ProductModel> products)
+        {
+            using (var outputStream = File.Create(JsonFileName))
             {
                 JsonSerializer.Serialize<IEnumerable<ProductModel>>(
                     new Utf8JsonWriter(outputStream, new JsonWriterOptions
                     {
-                        SkipValidation = true,
                         Indented = true
-                    }), 
+                    }),
                     products
                 );
             }
-            return true;
         }
     }
 }
