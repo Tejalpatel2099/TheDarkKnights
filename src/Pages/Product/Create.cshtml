@@ -61,7 +61,10 @@
     <div class="form-group">
         <label for="Image">Upload Image</label>
         <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+        <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
+        <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
     </div>
+    
 
     <!-- Input a rating using image of ramen -->
     <div class="form-group">
@@ -115,6 +118,28 @@
             }
             if(this.value !== "Other"){
                 newStyleGroup.style.display = "none";
+            }
+        });
+
+        // Scipt for file upload to only allow certain file types and sizes
+        document.getElementById('Image').addEventListener('change', function () {
+            const fileInput = this;
+            const errorDiv = document.getElementById('image-error');
+            const file = fileInput.files[0];
+            const maxSize = 3 * 1024 * 1024; // 3 MB max file size
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+
+            // Reset error message
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            fileInput.classList.remove('is-invalid');
+
+            // checks that it is a file and if the file is not supported, then print message
+            if (file && (!allowedTypes.includes(file.type) || file.size > maxSize)) {
+                errorDiv.textContent = 'Sorry, this file is not supported.';
+                errorDiv.style.display = 'block';
+                fileInput.classList.add('is-invalid');
+                fileInput.value = '';
             }
         });
 
