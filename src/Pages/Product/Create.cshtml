@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="Brand">Brand</label>
         <select class="form-control" id="Brand" name="Brand" required>
-            <option value="">Select an Existing Brand</option>
+            <option value="">Select a Brand</option>
             @foreach (var brand in Model.ExistingBrands.Distinct()) 
             {
                 <option value="@brand">@brand</option>
@@ -36,7 +36,7 @@
     <div class="form-group">
         <label for="Style">Style</label>
         <select class="form-control" id="Style" name="Style" required>
-            <option value="">Select an Existing Style</option>
+            <option value="">Select a Style</option>
             @foreach (var style in Model.ExistingStyles.Distinct())  
             {
                 <option value="@style">@style</option>
@@ -63,11 +63,30 @@
         <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
     </div>
 
-    <!-- Input a rating -->
+    <!-- Input a rating using image of ramen -->
     <div class="form-group">
-        <label for="Rating">Rating</label>
-        <input type="number" class="form-control" id="Rating" name="Rating" min="1" max="5" placeholder="Enter rating (1-5)" required>
+        <label for="ramen-rating">How was your ramen experience?</label>
+
+        <div class="ramen-rating-box d-flex align-items-center">
+            <div id="ramen-rating">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <img src="/images/ramenpic.png"
+                         class="ramen-icon"
+                         data-value="@i"
+                         onclick="setRating(@i)"
+                         onmouseover="highlightRamen(@i)"
+                         onmouseout="resetRamen()" />
+                }
+            </div>
+            <div id="reaction-text" class="text-muted rating-reaction ml-3"></div>
+        </div>
+
+        <small class="form-text text-muted mt-2">Rate from 1 to 5 ramens</small>
+
+        <input type="hidden" name="Rating" id="Rating" value="0" required />
     </div>
+    
 
     <!-- Save/submit the new product -->
     <button type="submit" class="btn btn-primary">Create Ramen</button>
@@ -78,6 +97,7 @@
 <!-- Script for showing or hiding the input fields for new brand or new style -->
 @section Scripts {
     <script>
+        // Script for showing a new Brand text field when 'Other' is selected
         document.getElementById('Brand').addEventListener('change', function () {
             var newBrandGroup = document.getElementById('newBrandGroup');
             if(this.value === "Other"){
@@ -87,7 +107,7 @@
                 newBrandGroup.style.display = "none";
             }
         });
-
+        // Script for showing a new Style text field when 'Other' is selected
         document.getElementById('Style').addEventListener('change', function () {
             var newStyleGroup = document.getElementById('newStyleGroup');
             if(this.value === "Other"){
@@ -97,5 +117,35 @@
                 newStyleGroup.style.display = "none";
             }
         });
+
+        // Script for Rating field using ramen image
+        let selectedRating = 0; // start with a 0 rating
+        const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
+
+        // Controls pop ups for highlighting ramen and toggling ramen
+        function highlightRamen(rating) {
+            let icons = document.querySelectorAll('#ramen-rating img');
+            icons.forEach((icon, index) => {
+                icon.classList.toggle('active', index < rating);
+            });
+
+            document.getElementById("reaction-text").innerText = reactions[rating - 1];
+        }
+
+        // Ratings are reset when no longer hovered over
+        function resetRamen() {
+            highlightRamen(selectedRating || 0);
+            if (selectedRating === 0) {
+                document.getElementById("reaction-text").innerText = "";
+            }
+        }
+
+        // Sets the rating when clicked
+        function setRating(rating) {
+            selectedRating = rating;
+            document.getElementById("Rating").value = rating;
+            highlightRamen(rating);
+        }
+
     </script>
 }
