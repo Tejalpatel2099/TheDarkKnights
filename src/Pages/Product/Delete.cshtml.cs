@@ -57,7 +57,7 @@ namespace RamenRatings.WebSite.Pages.Product
         public IActionResult OnPost()
         {
             // Check if the model state is valid before proceeding
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return Page(); // Stay on the page if validation fails
             }

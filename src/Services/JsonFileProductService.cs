@@ -46,7 +46,7 @@ namespace RamenRatings.WebSite.Services
         {
             var products = GetProducts();
 
-            if (products.All(product => product.Number != productId))
+            if (products.All(product => (product.Number == productId) == false))
             {
                 return false;
             }
@@ -80,7 +80,7 @@ namespace RamenRatings.WebSite.Services
             var products = GetProducts().ToList();
             var index = products.FindIndex(p => p.Number == updatedProduct.Number);
 
-            if (index != -1)
+            if ((index == -1) == false)
             {
                 products[index] = updatedProduct;
 

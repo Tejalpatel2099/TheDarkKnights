@@ -11,7 +11,7 @@ namespace RamenRatings.WebSite.Pages
     {
         public string RequestId { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => (string.IsNullOrEmpty(RequestId) == false);
 
         private readonly ILogger<ErrorModel> _logger;
 

@@ -23,7 +23,7 @@
                     <strong>Average Rating:</strong>
                     @{
                         var ratings = Model.Product.Ratings;
-                        if (ratings != null && ratings.Length > 0)
+                        if ((ratings == null) == false && ratings.Length > 0)
                         {
                             double avg = ratings.Average();
                             @($"{avg:F1} / 5")

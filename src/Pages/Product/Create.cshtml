@@ -106,7 +106,7 @@
             if(this.value === "Other"){
                 newBrandGroup.style.display = "block";
             }
-            if(this.value !== "Other"){
+            if((this.value == "Other") == false){
                 newBrandGroup.style.display = "none";
             }
         });
@@ -116,7 +116,7 @@
             if(this.value === "Other"){
                 newStyleGroup.style.display = "block";
             }
-            if(this.value !== "Other"){
+            if((this.value == "Other") == false){
                 newStyleGroup.style.display = "none";
             }
         });
@@ -135,7 +135,7 @@
             fileInput.classList.remove('is-invalid');
 
             // checks that it is a file and if the file is not supported, then print message
-            if (file && (!allowedTypes.includes(file.type) || file.size > maxSize)) {
+            if (file && ((allowedTypes.includes(file.type) == false) || file.size > maxSize)) {
                 errorDiv.textContent = 'Sorry, this file is not supported.';
                 errorDiv.style.display = 'block';
                 fileInput.classList.add('is-invalid');

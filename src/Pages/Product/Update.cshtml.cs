@@ -94,7 +94,7 @@ namespace RamenRatings.WebSite.Pages.Product
         public IActionResult OnPost()
         {
             // if the model state is not valid, return the page with the error message
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return Page();
             }
@@ -123,28 +123,28 @@ namespace RamenRatings.WebSite.Pages.Product
             string jsonImageName = original.img;
 
             // Update if a new value was provided. Ensure null or empty is not entered
-            if (brand == "Other" && !string.IsNullOrEmpty(Product.Brand)) // account for Other field in brand
+            if (brand == "Other" && (string.IsNullOrEmpty(Product.Brand) == false)) // account for Other field in brand
             {
                 brand = NewBrand;
             }
             // Update if a new value was provided. Ensure null or empty is not entered
-            if (style == "Other" && !string.IsNullOrEmpty(Product.Style)) // account for Other field in style
+            if (style == "Other" && (string.IsNullOrEmpty(Product.Style) == false)) // account for Other field in style
             {
                 style = NewStyle;
             }
             // Update Variety if a new value was provided. Ensure null or empty is not entered
-            if (!string.IsNullOrEmpty(Product.Variety))
+            if (string.IsNullOrEmpty(Product.Variety) == false)
             {
                 variety = Product.Variety;
             }
 
             // Update Country if a new value was provided. Ensure null or empty is not entered
-            if (!string.IsNullOrEmpty(Product.Country))
+            if (string.IsNullOrEmpty(Product.Country) == false)
             {
                 country = Product.Country;
             }
             // If the image is not null, save the image and update the jsonImageName
-            if (Image != null)
+            if ((Image == null) == false)
             {
                 var fileExtension = Path.GetExtension(Image.FileName);
                 string imageFileName = $"{original.Number}{fileExtension}";
@@ -180,7 +180,7 @@ namespace RamenRatings.WebSite.Pages.Product
             var index = products.FindIndex(p => p.Number == updateProduct.Number);
 
             // If the product is found, update it
-            if (index != -1)
+            if ((index == -1) == false)
             {
                 products[index] = updateProduct;
             }

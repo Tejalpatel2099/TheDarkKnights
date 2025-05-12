@@ -53,7 +53,7 @@ namespace RamenRatings.WebSite.Pages.Product
         // handles the post request when the page is finished being accessed
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return Page();
             }
@@ -75,12 +75,12 @@ namespace RamenRatings.WebSite.Pages.Product
             string country = NewProduct.Country;
 
             // If "Other" was selected for Brand or Style, ensure the value gets recorded
-            if (brand == "Other" && !string.IsNullOrEmpty(NewProduct.Brand))
+            if (brand == "Other" && (string.IsNullOrEmpty(NewProduct.Brand) == false))
             {
                 brand = NewBrand;
             }
 
-            if (style == "Other" && !string.IsNullOrEmpty(NewProduct.Style))
+            if (style == "Other" && (string.IsNullOrEmpty(NewProduct.Style) == false))
             {
                 style = NewStyle;
             }
@@ -93,7 +93,7 @@ namespace RamenRatings.WebSite.Pages.Product
 
             // Ensure the image directory exists
             var directory = Path.GetDirectoryName(imagePath);
-            if (!Directory.Exists(directory))
+            if (Directory.Exists(directory) == false)
             {
                 Directory.CreateDirectory(directory);
             }
