@@ -45,16 +45,22 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var product in Model.Products)
         {
-            <div class="col">
-                <div class="card h-100">
-                    <img src="@product.img" class="card-img-top" alt="@product.Variety" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Brand</h5>
-                        <p class="card-text"><strong>@product.Variety</strong></p>
-                        <p class="card-text"><small class="text-muted">@product.Style</small></p>
+            <a asp-page="/Details" asp-route-id="@product.Number" class="text-decoration-none text-dark">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@product.img" class="card-img-top" alt="@product.Variety" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Brand</h5>
+                            <p class="card-text"><strong>@product.Variety</strong></p>
+                            <p class="card-text">
+                                <span class="text-muted">@product.Style</span><br />
+                                <span class="text-muted">Country: @product.Country</span><br />
+                                <span class="text-warning">Rating: @(product.Ratings?.FirstOrDefault() ?? 0)/5</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 }
