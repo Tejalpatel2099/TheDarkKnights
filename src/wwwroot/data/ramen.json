@@ -1,16 +1,5 @@
 [
   {
-    "Number": 1,
-    "Brand": "Indomie",
-    "img": "/images/1.jpg",
-    "Style": "Pack",
-    "Country": "Indonesia",
-    "Variety": "Chicken Curry Updated",
-    "Ratings": [
-      4
-    ]
-  },
-  {
     "Number": 2,
     "Brand": "Indomie",
     "img": "/images/2.jpg",
