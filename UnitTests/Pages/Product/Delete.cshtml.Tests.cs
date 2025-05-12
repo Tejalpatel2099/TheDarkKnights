@@ -111,9 +111,6 @@ namespace UnitTests.Pages.Product
             createModel.NewStyle = product.Style;
 
             // Handle rating assignment explicitly for full coverage
-            var rating = product.Ratings?.FirstOrDefault();
-            createModel.Rating = rating.HasValue ? rating.Value : 3;
-
             createModel.Image = TestHelper.GetMockImageFile(product.Number);
 
             var restored = createModel.CreateData();
@@ -177,9 +174,6 @@ namespace UnitTests.Pages.Product
             createModel.NewStyle = deleted.Style;
 
             // Test fallback to default rating
-            var rating = deleted.Ratings?.FirstOrDefault();
-            createModel.Rating = rating.HasValue ? rating.Value : 3;
-
             createModel.Image = TestHelper.GetMockImageFile(deleted.Number);
             var restored = createModel.CreateData();
 
