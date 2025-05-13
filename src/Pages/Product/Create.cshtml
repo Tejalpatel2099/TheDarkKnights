@@ -53,6 +53,7 @@
         </div>
     </div>
 
+    <!-- Select from list of Countries -->
     <div class="form-group">
         <label for="Country">Country</label>
         <select class="form-control" id="Country" name="Country" required>
@@ -61,9 +62,8 @@
 			{
 				<option value="@country">@country</option>
 			}
-       
         </select>
-        
+        <span asp-validation-for="Country" class="text-danger"></span>
     </div>
 
     <!-- Upload an image -->
