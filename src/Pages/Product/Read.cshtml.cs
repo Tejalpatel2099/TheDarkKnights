@@ -57,7 +57,7 @@ namespace RamenRatings.WebSite.Pages
             // Get the product to update
             var product = ProductService.GetProducts().FirstOrDefault(p => p.Number == ProductNumber);
 
-            if (product != null)
+            if ((product == null) == false)
             {
                 // Append new rating to existing ratings array
                 var ratings = product.Ratings?.ToList() ?? new List<int>();
