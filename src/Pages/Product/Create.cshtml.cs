@@ -5,6 +5,7 @@ using RamenRatings.WebSite.Models;
 using RamenRatings.WebSite.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -16,6 +17,10 @@ namespace RamenRatings.WebSite.Pages.Product
         public const string JsonFileName = "wwwroot/data/ramen.json"; // path to ramen json
 
         public JsonFileProductService ProductService { get; }
+
+        [Required(ErrorMessage = "Variety is required.")]
+        [RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Variety must be alphanumeric.")]
+        public string Variety { get; set; }
 
         [BindProperty]
         public ProductModel NewProduct { get; set; }
