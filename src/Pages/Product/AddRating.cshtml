@@ -1,0 +1,144 @@
+﻿@page "{number}"
+@model RamenRatings.WebSite.Pages.Product.AddRatingModel
+<div class="container mt-4">
+    <h2 class="animated-heading text-center mb-4">Rate @Model.Product.Variety</h2>
+
+    <div class="card p-4 shadow-lg bg-light">
+        <div class="row">
+            <div class="col-md-5 text-center">
+                <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" />
+            </div>
+
+            <div class="col-md-7">
+                <h3 class="variety-title">@Model.Product.Variety</h3>
+           
+                <p>
+                    <strong>Average Rating till now:</strong>
+                    @{
+                        var ratings = Model.Product.Ratings;
+                        if (ratings != null && ratings.Length > 0)
+                        {
+                            double avg = ratings.Average();
+                            @($"{avg:F1} / 5")
+                        }
+                        else
+                        {
+                            @("No ratings yet")
+                        }
+                    }
+                </p>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                         <label for="ramen-rating">How was your ramen experience?</label>
+
+                         <div class="ramen-rating-box d-flex align-items-center">
+                            <div id="ramen-rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <img src="/images/ramenpic.png"
+                                     class="ramen-icon"
+                                     data-value="@i"
+                                     onclick="setRating(@i)"
+                                     onmouseover="highlightRamen(@i)"
+                                     onmouseout="resetRamen()" />
+                                }
+                            </div>
+                            <div id="reaction-text" class="text-muted rating-reaction ml-3"></div>
+                         </div>
+
+                         <small class="form-text text-muted mt-2">Rate from 1 to 5 ramens</small>
+
+                         <input type="hidden" name="Rating" id="Rating" value="0" required />
+                    </div>
+					<button type="submit" class="btn btn-primary">Add Rating </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<text>
+    <style>
+        .animated-heading {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(270deg, #ff416c, #ff4b2b);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: waveFlash 4s ease-in-out infinite, glow 2s ease-in-out infinite;
+        }
+
+        @@keyframes waveFlash {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @@keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px 0 0 20px #b0aac0;
+            }
+        }
+
+        .variety-title {
+            color: #e67e22; /* Beautiful orange (matches your navbar theme) */
+            font-weight: bold;
+            font-size: 2rem;
+            font-family: 'Nunito', sans-serif; /* matches your font if you want */
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+            .card img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
+
+            .card p {
+                font-size: 1.2rem;
+            }
+    </style>
+</text>
+
+@section Scripts {
+    <script>
+        let selectedRating = 0; 
+        const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
+
+        function highlightRamen(rating) {
+            let icons = document.querySelectorAll('#ramen-rating img');
+            icons.forEach((icon, index) => {
+                icon.classList.toggle('active', index < rating);
+            });
+
+            document.getElementById("reaction-text").innerText = reactions[rating - 1];
+        }
+
+        function resetRamen() {
+            highlightRamen(selectedRating || 0);
+            if (selectedRating === 0) {
+                document.getElementById("reaction-text").innerText = "";
+            }
+        }
+
+        function setRating(rating) {
+            selectedRating = rating;
+            document.getElementById("Rating").value = rating;
+            highlightRamen(rating);
+        }
+
+    </script>
+}
