@@ -7,29 +7,43 @@
 <h2>Filtered Results</h2>
 
 <form method="get">
-    <div class="form-group">
-        <label for="SelectedStyle">Style</label>
-        <select id="SelectedStyle" name="SelectedStyle" class="form-control">
-            <option value="">-- All Styles --</option>
-            @foreach (var style in Model.AllStyles)
-            {
-                <option value="@style" selected="@(style == Model.SelectedStyle)">
-                    @style
-                </option>
-            }
-        </select>
-    </div>
+    <div class="row">
+        <!--Filter Brands with drop down form field-->
+        <div class="form-group col-md-4">
+            <label for="SelectedBrands">Brands</label>
+            <select id="SelectedBrands" name="SelectedBrands" class="form-control" multiple>
+                @foreach (var brand in Model.AllBrands)
+                {
+                    <option value="@brand" selected="@(Model.SelectedBrands?.Contains(brand) == true)">
+                        @brand
+                    </option>
+                }
+            </select>
+        </div>
 
-    <div class="form-group mt-3">
-        <label for="SelectedBrands">Brands</label>
-        <select id="SelectedBrands" name="SelectedBrands" class="form-control" multiple>
-            @foreach (var brand in Model.AllBrands)
-            {
-                <option value="@brand" selected="@(Model.SelectedBrands?.Contains(brand) == true)">
-                    @brand
-                </option>
-            }
-        </select>
+        <!--Filter styles with a drop down form field-->
+        <div class="form-group col-md-4">
+            <label for="SelectedStyle">Style</label>
+            <select id="SelectedStyle" name="SelectedStyle" class="form-control">
+                <option value="">-- All Styles --</option>
+                @foreach (var style in Model.AllStyles)
+                {
+                    <option value="@style" selected="@(style == Model.SelectedStyle)">
+                        @style
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!--Filter ratings with a double ended slider-->
+        <div class="form-group col-md-4">
+            <label>Rating Range: <span id="ratingRangeText">1 - 5</span></label>
+            <div id="ratingSlider"></div>
+
+            <!-- Hidden fields for slider output -->
+            <input type="hidden" id="MinRating" name="MinRating" />
+            <input type="hidden" id="MaxRating" name="MaxRating" />
+        </div>
     </div>
 
     <div class="mt-3">
@@ -40,6 +54,7 @@
 
 <hr />
 
+<!--Populate filtered cards-->
 @if (Model.Products.Any())
 {
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -70,3 +85,30 @@ else
 }
 
 <a class="btn btn-secondary mt-3" href="/">Back to Index</a>
+
+<!--Script for Rating slider-->
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
+<script>
+    var slider = document.getElementById('ratingSlider');
+    var minInput = document.getElementById('MinRating');
+    var maxInput = document.getElementById('MaxRating');
+    var rangeText = document.getElementById('ratingRangeText');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const min = parseFloat(urlParams.get("MinRating")) || 1;
+    const max = parseFloat(urlParams.get("MaxRating")) || 5;
+
+    noUiSlider.create(slider, {
+        start: [min, max],
+        connect: true,
+        range: {'min': 1, 'max': 5},
+        step: 0.1,
+        format: {to: value => value.toFixed(1), from: value => parseFloat(value)}
+    });
+
+    slider.noUiSlider.on('update', function (values) {
+        minInput.value = values[0];
+        maxInput.value = values[1];
+        rangeText.innerText = `${values[0]} - ${values[1]}`;
+    });
+</script>
