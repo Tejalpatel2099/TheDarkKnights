@@ -22,6 +22,9 @@ namespace RamenRatings.WebSite.Pages.Product
         [RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Variety must be alphanumeric.")]
         public string Variety { get; set; }
 
+        [Required(ErrorMessage = "Country is required.")]
+        public string Country { get; set; }
+
         [BindProperty]
         public ProductModel NewProduct { get; set; }
 
