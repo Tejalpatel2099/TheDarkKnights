@@ -53,10 +53,17 @@
         </div>
     </div>
 
-    <!-- Input Country -->
     <div class="form-group">
         <label for="Country">Country</label>
-        <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter country" required>
+        <select class="form-control" id="Country" name="Country" required>
+            <option value="">Select a Country </option>
+			@foreach (var country in Model.Countries.Distinct())
+			{
+				<option value="@country">@country</option>
+			}
+       
+        </select>
+        
     </div>
 
     <!-- Upload an image -->
