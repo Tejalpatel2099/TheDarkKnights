@@ -33,6 +33,7 @@
         <div class="form-group">
             <label for="Variety">Variety</label>
             <input type="text" class="form-control" id="Variety" name="Variety" placeholder="Enter variety" value="@Model.Product.Variety" required />
+            <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
         </div>
 
         <!-- Select from list of existing styles, with option to enter new style -->
@@ -89,6 +90,12 @@
                 if (errorMessageStyle) {
                     var errorDiv = document.getElementById("style-error");
                     errorDiv.innerText = errorMessageStyle;
+                    errorDiv.style.display = "block";
+                }
+                var errorMessageVariety = '@Model.VarietyError';
+                if (errorMessageVariety) {
+                    var errorDiv = document.getElementById("variety-error");
+                    errorDiv.innerText = errorMessageVariety;
                     errorDiv.style.display = "block";
             }
             }

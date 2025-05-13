@@ -35,11 +35,14 @@ namespace RamenRatings.WebSite.Pages.Product
         [BindProperty]
         public int Rating { get; set; }
 
-        //Brand is not validated will send an erro
+        //Brand is not validated will send an error
         public string BrandError { get; set; }
 
-        //Style is not validated will send an erro
+        //Style is not validated will send an error
         public string StyleError { get; set; }
+        
+        //Variety is not validated will send an error
+        public string VarietyError { get; set; }
 
         //If brand selected in other is already used
         public bool isOtherBrand { get; set; }
@@ -222,6 +225,11 @@ namespace RamenRatings.WebSite.Pages.Product
             if (product.Style.Length > 20)
             {
                 StyleError = "Character Limit is 20";
+                return false;
+            }
+            if(product.Variety.Length > 20)
+            {
+                VarietyError = "Character Limit is 20";
                 return false;
             }
             return true;
