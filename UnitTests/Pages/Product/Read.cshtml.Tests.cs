@@ -12,12 +12,20 @@ using RamenRatings.WebSite.Pages;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for the Read page model
+    /// </summary>
     public class ReadTests
     {
         #region TestSetup
 
+        // Page model to be tested
         public static ReadModel pageModel;
 
+
+        /// <summary>
+        /// Test setup method to initialize the page model
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -40,8 +48,6 @@ namespace UnitTests.Pages.Product
         [Test]
         public void OnGet_ValidId_Should_Return_Page()
         {
-            // Arrange
-
             // Act
             var result = pageModel.OnGet(4);
 
@@ -62,7 +68,7 @@ namespace UnitTests.Pages.Product
             // Act
             var result = pageModel.OnGet(invalidId);
 
-            // Assert
+            // Assert 
             Assert.IsInstanceOf<RedirectToPageResult>(result);
             var redirectResult = result as RedirectToPageResult;
             Assert.AreEqual("../Error", redirectResult.PageName);
@@ -70,5 +76,75 @@ namespace UnitTests.Pages.Product
 
         #endregion OnGet
 
+        #region OnPostAddRatingAsync
+
+
+        /// <summary>
+        /// Product with exisiting ratings should add a new rating
+        /// </summary>
+        [Test]
+        public void OnPostAddRatingAsync_ValidProduct_Should_AddRating_And_Redirect()
+        {
+            // Arrange
+            var productNumber = TestHelper.ProductService.GetProducts().First().Number;
+            var ratingToAdd = 5;
+            
+
+            // Act
+            var result = pageModel.OnPostAddRatingAsync(productNumber, ratingToAdd);
+
+            // Re-fetch the product after update
+            var updatedProduct = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == productNumber);
+            
+
+            // Assert
+            Assert.AreEqual(ratingToAdd, updatedProduct.Ratings.Last());
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+        }
+
+        /// <summary>
+        /// Product with null ratings should initialize ratings and add a new rating 
+        /// </summary>
+        [Test]
+        public void OnPostAddRatingAsync_ProductWithNullRatings_ShouldInitializeAndAddRating()
+        {
+            // Arrange
+            var productNumber = 30;
+            var ratingToAdd = 4;
+
+            // Act
+            var result = pageModel.OnPostAddRatingAsync(productNumber, ratingToAdd);
+
+            // Re-fetch the product after update
+            var updatedProduct = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == productNumber);
+
+            // Assert
+            Assert.AreEqual(1, updatedProduct.Ratings.Length);
+            Assert.AreEqual(ratingToAdd, updatedProduct.Ratings[0]);
+        }
+
+
+        /// <summary>
+        /// Invalid product ID should redirect without crashing
+        /// </summary>
+        [Test]
+        public void OnPostAddRatingAsync_InvalidProduct_Should_RedirectWithoutCrash()
+        {
+            // Arrange
+            var invalidProductNumber = 9999;
+            var ratingToAdd = 4;
+
+            // Act
+            var result = pageModel.OnPostAddRatingAsync(invalidProductNumber, ratingToAdd);
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+
+            var redirectResult = result as RedirectToPageResult;
+            Assert.AreEqual(invalidProductNumber, redirectResult.RouteValues["number"]);
+        }
+
+
+        #endregion OnPostAddRatingAsync
     }
 }

@@ -65,10 +65,20 @@
         <!-- Upload an image -->
         <div class="form-group">
             <label for="Image">Upload Image</label>
-            <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+            <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
             <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
             <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
         </div>
+
+        <!-- Display Rating (read-only) -->
+        <div class="form-group">
+            <label for="Rating">Current Rating</label>
+            <input type="text" class="form-control" id="Rating" name="Rating"
+                   value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
+                   readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+            <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
+        </div>
+
 
         <!-- Save/submit the new product -->
         <button type="submit" class="btn btn-primary">Update Ramen</button>
