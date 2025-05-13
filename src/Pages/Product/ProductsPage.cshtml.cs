@@ -10,15 +10,15 @@ namespace RamenRatings.WebSite.Pages.Product
     // handles functions for products page where the user can browse through products
     public class ProductsPageModel : PageModel
     {
-        private readonly ILogger<ProductsPageModel> _logger;
+        private ILogger<ProductsPageModel> logger;
 
         // logger for products page
-        public ProductsPageModel(ILogger<ProductsPageModel> logger,
-            JsonFileProductService productService)
+        public ProductsPageModel(ILogger<IndexModel> logger, JsonFileProductService productService)
         {
-            _logger = logger;
+            this.logger = (ILogger<ProductsPageModel>)logger;
             ProductService = productService;
         }
+
         public JsonFileProductService ProductService { get; }
         public IEnumerable<ProductModel> Products { get; private set; }
 
