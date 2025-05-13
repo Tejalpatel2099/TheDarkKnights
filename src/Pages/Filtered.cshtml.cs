@@ -41,6 +41,22 @@ namespace RamenRatings.WebSite.Pages
                 products = products.Where(p => p.Style == SelectedStyle);
 
             Products = products;
+
+            double min = 1.0;
+            double max = 5.0;
+
+            if (double.TryParse(Request.Query["MinRating"], out var parsedMin))
+            {
+                min = parsedMin;
+            }
+
+            if (double.TryParse(Request.Query["MaxRating"], out var parsedMax))
+            {
+                max = parsedMax;
+            }
+
+            Products = products.Where(p => (p.Ratings?.FirstOrDefault() ?? 0) >= min && (p.Ratings?.FirstOrDefault() ?? 0) <= max).ToList();
+
         }
     }
 }
