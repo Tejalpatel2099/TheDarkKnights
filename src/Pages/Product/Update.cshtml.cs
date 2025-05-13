@@ -35,6 +35,18 @@ namespace RamenRatings.WebSite.Pages.Product
         [BindProperty]
         public int Rating { get; set; }
 
+        //Brand is not validated will send an erro
+        public string BrandError { get; set; }
+
+        //Style is not validated will send an erro
+        public string StyleError { get; set; }
+
+        //If brand selected in other is already used
+        public bool isOtherBrand { get; set; }
+        
+        //If sytle selected in other is already used
+        public bool isOtherStyle { get; set; }
+
         // List of existing brands and styles for the dropdown
         public List<string> ExistingBrands { get; set; }
         public List<string> ExistingStyles { get; set; }
@@ -93,15 +105,34 @@ namespace RamenRatings.WebSite.Pages.Product
         /// </summary>
         public IActionResult OnPost()
         {
+            // Get all of the products
+            var products = ProductService.GetProducts();
+
+            // Create the list of products for the form field drop down
+            ExistingBrands = products
+            .Select(p => p.Brand)  // Select the brand from each product
+            .Distinct()  // Remove duplicates
+            .ToList();  // Convert to list 
+
+            // Create the list of styles for the form field drop down
+            ExistingStyles = products
+                .Select(p => p.Style)  // Select the style from each product
+                .Distinct()  // Remove duplicates
+                .ToList();  // Convert to list
             // if the model state is not valid, return the page with the error message
             if (ModelState.IsValid == false)
             {
                 return Page();
             }
             // updating the product 
+
             var updatedProduct = UpdateData();
 
-            // save the updated product to the json file
+            if (ValidateData(updatedProduct, isOtherBrand, isOtherStyle) == false)
+            {
+                return Page();
+            }
+                // save the updated product to the json file
             SaveData(updatedProduct);
 
             return RedirectToPage("/Product/ProductsPage");
@@ -126,11 +157,13 @@ namespace RamenRatings.WebSite.Pages.Product
             if (brand == "Other" && (string.IsNullOrEmpty(Product.Brand) == false)) // account for Other field in brand
             {
                 brand = NewBrand;
+                isOtherBrand = true;
             }
             // Update if a new value was provided. Ensure null or empty is not entered
             if (style == "Other" && (string.IsNullOrEmpty(Product.Style) == false)) // account for Other field in style
             {
                 style = NewStyle;
+                isOtherStyle = true;
             }
             // Update Variety if a new value was provided. Ensure null or empty is not entered
             if (string.IsNullOrEmpty(Product.Variety) == false)
@@ -167,6 +200,31 @@ namespace RamenRatings.WebSite.Pages.Product
                 img = jsonImageName,
                 Ratings = original.Ratings
             };
+        }
+
+        public bool ValidateData(ProductModel product, bool isOtherBrand, bool isOtherStyle)
+        {
+            if(ExistingBrands.Contains(product.Brand) && isOtherBrand)
+            {
+                BrandError = "Brand already exists";
+                return false;
+            }
+            if(product.Brand.Length > 20)
+            {
+                BrandError = "Character Limit is 20";
+                return false;
+            }
+            if(ExistingStyles.Contains(product.Style) && isOtherStyle)
+            {
+                StyleError = "Style already exists";
+                return false;
+            }
+            if (product.Style.Length > 20)
+            {
+                StyleError = "Character Limit is 20";
+                return false;
+            }
+            return true;
         }
         /// <summary>
         /// Saves the updated product to the json file

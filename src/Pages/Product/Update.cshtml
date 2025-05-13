@@ -19,13 +19,14 @@
                     <option value="@brand" selected="@(brand == @Model.Product.Brand)" )>@brand</option>
                 }
                 <option value="Other">Other</option>
-            </select>
 
+            </select>
             <!-- If Other is selected, enter a new brand -->
             <div class="form-group" id="newBrandGroup" style="display:none;">
                 <label for="NewBrand">Other Brand</label>
                 <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
             </div>
+            <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
         </div>
 
         <!-- Input Variety -->
@@ -51,6 +52,7 @@
                 <label for="NewStyle">Other Style</label>
                 <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
             </div>
+            <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
         </div>
 
         <!-- Input Country -->
@@ -73,22 +75,40 @@
     <!-- Script for showing or hiding the input fields for new brand or new style -->
     @section Scripts {
         <script>
+            window.onload = function () {
+                var errorMessageBrand = '@Model.BrandError';
+                if (errorMessageBrand) {
+                    var errorDiv = document.getElementById("brand-error");
+                    errorDiv.innerText = errorMessageBrand;
+                    errorDiv.style.display = "block";
+                }
+                var errorMessageStyle = '@Model.StyleError';
+                if (errorMessageStyle) {
+                    var errorDiv = document.getElementById("style-error");
+                    errorDiv.innerText = errorMessageStyle;
+                    errorDiv.style.display = "block";
+            }
+            }
 			// Show  the input fields for new brand or new style based on selection
             document.getElementById('Brand').addEventListener('change', function () {
                 var newBrandGroup = document.getElementById('newBrandGroup');
+                var errorDiv = document.getElementById("brand-error");
                 if(this.value === "Other"){
                     newBrandGroup.style.display = "block";
+                    errorDiv.style.display = "none";
                 }
-                if(this.value !== "Other"){
+                if((this.value == "Other")== false){
                     newBrandGroup.style.display = "none";
                 }
-            });
+             });
             document.getElementById('Style').addEventListener('change', function () {
                 var newStyleGroup = document.getElementById('newStyleGroup');
+                var errorDiv = document.getElementById("style-error");
                 if(this.value === "Other"){
                     newStyleGroup.style.display = "block";
+                errorDiv.style.display = "none";
                 }
-                if(this.value !== "Other"){
+                if((this.value == "Other") == false){
                     newStyleGroup.style.display = "none";
                 }
             });
