@@ -40,6 +40,18 @@ namespace RamenRatings.WebSite.Pages.Product
         [BindProperty]
         public int Rating { get; set; }
 
+        //If brand selected in other is already used
+        public bool isOtherBrand { get; set; }
+
+        //If sytle selected in other is already used
+        public bool isOtherStyle { get; set; }
+
+        //Brand is not validated will send an error
+        public string BrandError { get; set; }
+
+        //Style is not validated will send an error
+        public string StyleError { get; set; }
+
         public List<string> ExistingBrands { get; set; }
         public List<string> ExistingStyles { get; set; }
 
@@ -64,12 +76,21 @@ namespace RamenRatings.WebSite.Pages.Product
         // handles the post request when the page is finished being accessed
         public IActionResult OnPost()
         {
+            var products = ProductService.GetProducts();
+            ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
             if (ModelState.IsValid == false)
             {
                 return Page();
             }
 
             var newProduct = CreateData();
+            if (ValidateData(newProduct, isOtherBrand, isOtherStyle) == false)
+            {
+                return Page();
+            }
+            var updatedDataSet = products.Append(newProduct); //add the new product to the end of the dataset
+            SaveData(updatedDataSet);
 
             return RedirectToPage("/Product/Read", new { number = newProduct.Number }); //redirects to the new product's read page
         }
@@ -89,11 +110,13 @@ namespace RamenRatings.WebSite.Pages.Product
             if (brand == "Other" && (string.IsNullOrEmpty(NewProduct.Brand) == false))
             {
                 brand = NewBrand;
+                isOtherBrand = true;
             }
 
             if (style == "Other" && (string.IsNullOrEmpty(NewProduct.Style) == false))
             {
                 style = NewStyle;
+                isOtherStyle = true;
             }
 
             // figures out what to name the new product image and where to put it
@@ -126,9 +149,32 @@ namespace RamenRatings.WebSite.Pages.Product
                 Ratings = new int[] { Rating }
             };
 
-            var updatedDataSet = products.Append(newProduct); //add the new product to the end of the dataset
-            SaveData(updatedDataSet);
             return newProduct;
+        }
+        //Checks for character limit and if "other" brand and style are distinct
+        public bool ValidateData(ProductModel product, bool isOtherBrand, bool isOtherStyle)
+        {
+            if (ExistingBrands.Contains(product.Brand) && isOtherBrand)
+            {
+                BrandError = "Brand already exists";
+                return false;
+            }
+            if (product.Brand.Length > 20)
+            {
+                BrandError = "Character Limit is 20";
+                return false;
+            }
+            if (ExistingStyles.Contains(product.Style) && isOtherStyle)
+            {
+                StyleError = "Style already exists";
+                return false;
+            }
+            if (product.Style.Length > 20)
+            {
+                StyleError = "Character Limit is 20";
+                return false;
+            }
+            return true;
         }
 
         // saves the data into the json
