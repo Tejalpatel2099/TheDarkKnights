@@ -175,7 +175,7 @@
             const styleErrorDiv = document.getElementById("style-error");
             const imageErrorDiv = document.getElementById("image-error");
 
-            const maxLen = 50;
+            const maxLen = 20;
             let isValid = true;
 
             // Reset error messages
@@ -200,7 +200,7 @@
                 const brandVal = newBrandInput.value.trim();
                 if (brandVal.length > maxLen) 
                 {
-                    brandErrorDiv.innerText = "Other Brand must be 50 characters or fewer.";
+                    brandErrorDiv.innerText = "Other Brand must be 20 characters or fewer.";
                     brandErrorDiv.style.display = "block";
                     isValid = false;
                 } else if (existingBrands.includes(brandVal.toLowerCase())) 
@@ -218,7 +218,7 @@
                 const varietyError = document.querySelector("span[data-valmsg-for='Variety']");
                 if (varietyError) 
                 {
-                    varietyError.innerText = "Variety must be 50 characters or fewer.";
+                    varietyError.innerText = "Variety must be 20 characters or fewer.";
                 }
                 isValid = false;
             }
@@ -229,7 +229,7 @@
                 const styleVal = newStyleInput.value.trim();
                 if (styleVal.length > maxLen) 
                 {
-                    styleErrorDiv.innerText = "Other Style must be 50 characters or fewer.";
+                    styleErrorDiv.innerText = "Other Style must be 20 characters or fewer.";
                     styleErrorDiv.style.display = "block";
                     isValid = false;
                 } else if (existingStyles.includes(styleVal.toLowerCase())) {
