@@ -1,5 +1,16 @@
 [
   {
+    "Number": 1,
+    "Brand": "Indomie",
+    "img": "/images/1.jpg",
+    "Style": "Pack",
+    "Country": "Indonesia",
+    "Variety": "Chicken Curry",
+    "Ratings": [
+      4
+    ]
+  },
+  {
     "Number": 2,
     "Brand": "Indomie",
     "img": "/images/2.jpg",
@@ -314,6 +325,8 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Shrimp Flavor",
-    "Ratings": null
+    "Ratings": [
+      5
+    ]
   }
 ]
