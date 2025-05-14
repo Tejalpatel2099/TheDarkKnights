@@ -113,47 +113,143 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         // Show Brand error message and style error message
-        window.onload = function () {
+        window.onload = function () 
+        {
             var errorMessageBrand = '@Model.BrandError';
-            if (errorMessageBrand) {
+            if (errorMessageBrand) 
+            {
                 var errorDiv = document.getElementById("brand-error");
                 errorDiv.innerText = errorMessageBrand;
                 errorDiv.style.display = "block";
             }
             var errorMessageStyle = '@Model.StyleError';
-            if (errorMessageStyle) {
+            if (errorMessageStyle) 
+            {
                 var errorDiv = document.getElementById("style-error");
                 errorDiv.innerText = errorMessageStyle;
                 errorDiv.style.display = "block";
             }
         }
         // Script for showing a new Brand text field when 'Other' is selected
-        document.getElementById('Brand').addEventListener('change', function () {
+        document.getElementById('Brand').addEventListener('change', function () 
+        {
             var newBrandGroup = document.getElementById('newBrandGroup');
             var errorDiv = document.getElementById("brand-error");
-            if(this.value === "Other"){
+            if(this.value === "Other")
+            {
                 newBrandGroup.style.display = "block";
                 errorDiv.style.display = "none";
             }
-            if((this.value == "Other") == false){
+            if((this.value == "Other") == false)
+            {
                 newBrandGroup.style.display = "none";
             }
         });
         // Script for showing a new Style text field when 'Other' is selected
-        document.getElementById('Style').addEventListener('change', function () {
+        document.getElementById('Style').addEventListener('change', function () 
+        {
             var newStyleGroup = document.getElementById('newStyleGroup');
             var errorDiv = document.getElementById("style-error");
-            if(this.value === "Other"){
+            if(this.value === "Other")
+            {
                 newStyleGroup.style.display = "block";
                 errorDiv.style.display = "none";
             }
-            if((this.value == "Other") == false){
+            if((this.value == "Other") == false)
+            {
                 newStyleGroup.style.display = "none";
             }
         });
 
+
+        document.querySelector("form").addEventListener("submit", function (e) 
+        {
+            const brandSelect = document.getElementById("Brand");
+            const styleSelect = document.getElementById("Style");
+            const newBrandInput = document.getElementById("NewBrand");
+            const newStyleInput = document.getElementById("NewStyle");
+            const varietyInput = document.getElementById("Variety");
+            const imageInput = document.getElementById("Image");
+
+            const brandErrorDiv = document.getElementById("brand-error");
+            const styleErrorDiv = document.getElementById("style-error");
+            const imageErrorDiv = document.getElementById("image-error");
+
+            const maxLen = 50;
+            let isValid = true;
+
+            // Reset error messages
+            brandErrorDiv.style.display = "none";
+            styleErrorDiv.style.display = "none";
+            imageErrorDiv.style.display = "none";
+
+            // Lowercase existing entries
+            const existingBrands = [ @foreach (var brand in Model.ExistingBrands.Distinct())
+            {
+                @: "@brand".toLowerCase(),
+            }];
+
+            const existingStyles = [ @foreach (var style in Model.ExistingStyles.Distinct())
+            {
+                @: "@style".toLowerCase(),
+            }];
+
+            // Validate Other Brand
+            if (brandSelect.value === "Other") 
+            {
+                const brandVal = newBrandInput.value.trim();
+                if (brandVal.length > maxLen) 
+                {
+                    brandErrorDiv.innerText = "Other Brand must be 50 characters or fewer.";
+                    brandErrorDiv.style.display = "block";
+                    isValid = false;
+                } else if (existingBrands.includes(brandVal.toLowerCase())) 
+                {
+                    brandErrorDiv.innerText = "This brand already exists. Please select it from the dropdown.";
+                    brandErrorDiv.style.display = "block";
+                    isValid = false;
+                }
+            }
+
+            // Validate Variety
+            const varietyVal = varietyInput.value.trim();
+            if (varietyVal.length > maxLen)
+            {
+                const varietyError = document.querySelector("span[data-valmsg-for='Variety']");
+                if (varietyError) 
+                {
+                    varietyError.innerText = "Variety must be 50 characters or fewer.";
+                }
+                isValid = false;
+            }
+
+            //  Validate Other Style
+            if (styleSelect.value === "Other") 
+            {
+                const styleVal = newStyleInput.value.trim();
+                if (styleVal.length > maxLen) 
+                {
+                    styleErrorDiv.innerText = "Other Style must be 50 characters or fewer.";
+                    styleErrorDiv.style.display = "block";
+                    isValid = false;
+                } else if (existingStyles.includes(styleVal.toLowerCase())) {
+                    styleErrorDiv.innerText = "This style already exists. Please select it from the dropdown.";
+                    styleErrorDiv.style.display = "block";
+                    isValid = false;
+                }
+            }
+
+            // Prevent submission if anything failed
+            if (!isValid) 
+            {
+                e.preventDefault();
+            }
+        });
+
+
         // Scipt for file upload to only allow certain file types and sizes
-        document.getElementById('Image').addEventListener('change', function () {
+        document.getElementById('Image').addEventListener('change', function () 
+        {
             const fileInput = this;
             const errorDiv = document.getElementById('image-error');
             const file = fileInput.files[0];
@@ -166,7 +262,8 @@
             fileInput.classList.remove('is-invalid');
 
             // checks that it is a file and if the file is not supported, then print message
-            if (file && ((allowedTypes.includes(file.type) == false) || file.size > maxSize)) {
+            if (file && ((allowedTypes.includes(file.type) == false) || file.size > maxSize)) 
+            {
                 errorDiv.textContent = 'Sorry, this file is not supported.';
                 errorDiv.style.display = 'block';
                 fileInput.classList.add('is-invalid');
@@ -179,9 +276,11 @@
         const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
 
         // Controls pop ups for highlighting ramen and toggling ramen
-        function highlightRamen(rating) {
+        function highlightRamen(rating) 
+        {
             let icons = document.querySelectorAll('#ramen-rating img');
-            icons.forEach((icon, index) => {
+            icons.forEach((icon, index) => 
+            {
                 icon.classList.toggle('active', index < rating);
             });
 
@@ -189,7 +288,8 @@
         }
 
         // Ratings are reset when no longer hovered over
-        function resetRamen() {
+        function resetRamen() 
+        {
             highlightRamen(selectedRating || 0);
             if (selectedRating === 0) {
                 document.getElementById("reaction-text").innerText = "";
@@ -197,7 +297,8 @@
         }
 
         // Sets the rating when clicked
-        function setRating(rating) {
+        function setRating(rating) 
+        {
             selectedRating = rating;
             document.getElementById("Rating").value = rating;
             highlightRamen(rating);
