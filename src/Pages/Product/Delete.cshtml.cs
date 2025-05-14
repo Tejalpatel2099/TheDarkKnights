@@ -11,7 +11,9 @@ using RamenRatings.WebSite.Services;
 
 namespace RamenRatings.WebSite.Pages.Product
 {
+    /// <summary>
     // Razor Page Model for handling deletion of a product (ramen entry)
+    /// <summary>
     public class DeleteModel : PageModel
     {
         // Path to the JSON file that stores product data
