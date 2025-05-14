@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace RamenRatings.WebSite.Pages
 {
+    /// <summary>
+    /// Page model for reading an existing ramen product based on product information it the JSON file
+    /// </summary>
     public class ReadModel : PageModel
     {
         /// <summary>
