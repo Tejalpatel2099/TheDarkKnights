@@ -1,9 +1,22 @@
 ﻿@page
 @using RamenRatings.WebSite.Components
 @model IndexModel
+
 @{
     ViewData["Title"] = "Home page";
 }
 
-    @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered))
+<form method="get" class="mb-4 d-flex" role="search">
+    <input type="search"
+           name="SearchString"
+           value="@Model.CurrentFilter"
+           class="form-control me-2"
+           placeholder="Search by variety..."
+           aria-label="Search" />
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
 
+
+@(await Html.RenderComponentAsync<ProductList>(
+    RenderMode.ServerPrerendered,
+    new { SearchString = Model.CurrentFilter })) 
