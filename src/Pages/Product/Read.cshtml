@@ -53,44 +53,14 @@
                 <!-- Action Buttons -->
                 <div class="mt-3">
                     <a class="btn btn-primary rounded-pill text-white" href="/Product/Update/@Model.Product.Number">✏️ Update Product</a>
-                    <button class="btn btn-success rounded-pill ml-2" data-toggle="modal" data-target="#ratingModal">⭐ Add Rating</button>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Rating Modal -->
-<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form method="post" asp-page-handler="AddRating">
-            <input type="hidden" name="ProductNumber" value="@Model.Product.Number" />
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ratingModalLabel">Add a Rating</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="Rating">Choose a rating (1-5):</label>
-                    <select class="form-control" name="Rating" id="Rating" required>
-                        <option value="">-- Select --</option>
-                        <option value="1">⭐ 1</option>
-                        <option value="2">⭐⭐ 2</option>
-                        <option value="3">⭐⭐⭐ 3</option>
-                        <option value="4">⭐⭐⭐⭐ 4</option>
-                        <option value="5">⭐⭐⭐⭐⭐ 5</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Submit Rating</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+
 
 <text>
     <style>
