@@ -28,6 +28,17 @@ for details on configuring this project to bundle and minify static web assets. 
   opacity: .8;
 }
 
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px; /* adds gap between rows and columns */
+}
+
+.card-wrapper {
+    width: 300px;
+    flex-shrink: 0;
+}
+
 .modal .card-img {
   height: 500px;
   vertical-align: bottom;
