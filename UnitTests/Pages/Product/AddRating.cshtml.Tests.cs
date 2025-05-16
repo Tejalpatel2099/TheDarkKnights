@@ -144,7 +144,7 @@ namespace UnitTests.Pages.Product
         #region AddRatingToRamen
 
         [Test]
-        public void AddRatingToRamen_ValidProduct_Should_AddRating()
+        public void AddRatingToRamen_ValidProduct_Without_Feedback_Should_AddRating()
         {
             // Arrange
             var sample = TestHelper.ProductService.GetProducts().First();
@@ -156,9 +156,11 @@ namespace UnitTests.Pages.Product
                 Style = sample.Style,
                 Country = sample.Country,
                 Variety = sample.Variety,
-                Ratings = new int[] { 4, 5 }
+                Ratings = new int[] { 4, 5 },
+                Feedback = null
             };
             pageModel.Rating = 3;
+            pageModel.Feedback = null;
 
             // Act
             var updated = pageModel.AddRatingToRamen();
@@ -168,6 +170,67 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(3, updated.Ratings.Last());
             Assert.AreEqual(3, updated.Ratings.Length);
         }
+
+        [Test]
+        public void AddRatingToRamen_With_Feedback_Should_Add_Feedback()
+        {
+            // Arrange
+            var sample = TestHelper.ProductService.GetProducts().First();
+
+            pageModel.Product = new ProductModel
+            {
+                Number = sample.Number,
+                Brand = sample.Brand,
+                img = sample.img,
+                Style = sample.Style,
+                Country = sample.Country,
+                Variety = sample.Variety,
+                Ratings = new int[] { 5 },
+                Feedback = new string[] { "Tasty!" }
+            };
+
+            pageModel.Rating = 4;
+            pageModel.Feedback = "Loved the spice!";
+
+            // Act
+            var updated = pageModel.AddRatingToRamen();
+
+            // Assert
+            Assert.IsNotNull(updated);
+            Assert.AreEqual(2, updated.Feedback.Length);
+            Assert.AreEqual("Loved the spice!", updated.Feedback.Last());
+        }
+
+        [Test]
+        public void AddRatingToRamen_Product_With_No_Feedback_Should_Add_Feedback()
+        {
+            // Arrange
+            var sample = TestHelper.ProductService.GetProducts().First();
+
+            pageModel.Product = new ProductModel
+            {
+                Number = sample.Number,
+                Brand = sample.Brand,
+                img = sample.img,
+                Style = sample.Style,
+                Country = sample.Country,
+                Variety = sample.Variety,
+                Ratings = new int[] { 5 },
+                Feedback = null
+            };
+
+            pageModel.Rating = 4;
+            pageModel.Feedback = "Loved the spice!";
+
+            // Act
+            var updated = pageModel.AddRatingToRamen();
+
+            // Assert
+            Assert.IsNotNull(updated);
+            Assert.AreEqual(1, updated.Feedback.Length);
+            Assert.AreEqual("Loved the spice!", updated.Feedback.Last());
+        }
+
 
         [Test]
         public void AddRatingToRamen_InValidProduct_Should_Return_Null()
