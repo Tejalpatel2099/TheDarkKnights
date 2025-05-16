@@ -18,6 +18,21 @@
                 <p><strong>Style:</strong> @Model.Product.Style</p>
                 <p><strong>Country:</strong> @Model.Product.Country</p>
 
+                <!-- Feedbacks Display -->
+                @if ((Model.Product.Feedback == null) == false && Model.Product.Feedback.Any())
+                {
+                    <div class="mt-3">
+                        <h5>What users are saying about this ramen:</h5>
+                        <ul class="list-group">
+                            @foreach (var feedback in Model.Product.Feedback)
+                            {
+                                <li class="list-group-item"> => @feedback</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+
                 <!-- Outputs ratings as average of ratings array -->
                 <p>
                     <strong>Average Rating:</strong>
@@ -130,6 +145,12 @@
             .card p {
                 font-size: 1.2rem;
             }
+
+        .list-group-item {
+            background-color: #f9f9f9;
+            border: none;
+        }
+
     </style>
 </text>
 
