@@ -14,6 +14,8 @@ namespace RamenRatings.WebSite.Models
         public string Country { get; set; }
         public string Variety { get; set; }
         public int[] Ratings { get; set; }
+        
+        public string[] Feedback { get; set; }
 
         public override string ToString() => JsonSerializer.Serialize<ProductModel>(this);
 
