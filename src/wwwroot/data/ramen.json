@@ -7,7 +7,13 @@
     "Country": "Indonesia",
     "Variety": "Chicken Curry",
     "Ratings": [
-      4
+      4,
+      5,
+      5
+    ],
+    "Feedback": [
+      "It is nice",
+      "It is Ramentastic"
     ]
   },
   {
@@ -19,7 +25,8 @@
     "Variety": "Mi Goreng",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 3,
@@ -30,7 +37,8 @@
     "Variety": "Instant Bowl Noodles Artificial Pork",
     "Ratings": [
       2
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 4,
@@ -41,7 +49,8 @@
     "Variety": "Shrimp Creamy Tom Yum",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 5,
@@ -52,7 +61,8 @@
     "Variety": "Artificial Chicken",
     "Ratings": [
       2
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 6,
@@ -63,7 +73,8 @@
     "Variety": "Gotsumori Sauce Yakisoba",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 7,
@@ -74,7 +85,8 @@
     "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 8,
@@ -85,7 +97,8 @@
     "Variety": "Instant Lunch Shrimp",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 9,
@@ -96,7 +109,8 @@
     "Variety": "Yakisoba Chicken",
     "Ratings": [
       2
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 10,
@@ -107,7 +121,8 @@
     "Variety": "Yakisoba Teriyaki Beef",
     "Ratings": [
       2
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 11,
@@ -117,7 +132,11 @@
     "Country": "USA",
     "Variety": "Ramen Noodle Soup Chicken",
     "Ratings": [
-      2
+      2,
+      5
+    ],
+    "Feedback": [
+      "Ramen"
     ]
   },
   {
@@ -129,7 +148,8 @@
     "Variety": "Shin Toyama Black Ramen",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 13,
@@ -140,7 +160,8 @@
     "Variety": "Ippeichan Yakisoba",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 14,
@@ -151,7 +172,8 @@
     "Variety": "Top Ramen Chicken",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 15,
@@ -162,7 +184,8 @@
     "Variety": "Top Ramen Shrimp",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 16,
@@ -173,7 +196,8 @@
     "Variety": "Yakisoba Noodles Karashi",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 17,
@@ -184,7 +208,8 @@
     "Variety": "Shin Ramyun Black",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 18,
@@ -195,7 +220,8 @@
     "Variety": "Kimchi Flavor Noodle Soup",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 19,
@@ -206,7 +232,8 @@
     "Variety": "Spicy Tonkotsu Noodle Soup",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 20,
@@ -217,7 +244,8 @@
     "Variety": "Shin Ramyun Cup",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 21,
@@ -227,8 +255,10 @@
     "Country": "USA",
     "Variety": "Bowl Noodle Spicy Seafood",
     "Ratings": [
-      4
-    ]
+      4,
+      5
+    ],
+    "Feedback": null
   },
   {
     "Number": 22,
@@ -239,7 +269,8 @@
     "Variety": "Shin Ramyun",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 23,
@@ -250,7 +281,8 @@
     "Variety": "Cheese Buldak Bokkeummyun",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 24,
@@ -261,7 +293,8 @@
     "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 25,
@@ -272,7 +305,8 @@
     "Variety": "Shio",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 26,
@@ -283,7 +317,8 @@
     "Variety": "Original Flavor",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 27,
@@ -294,7 +329,8 @@
     "Variety": "Beef Flavor",
     "Ratings": [
       4
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 28,
@@ -305,7 +341,8 @@
     "Variety": "Chicken Flavor",
     "Ratings": [
       3
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 29,
@@ -316,7 +353,8 @@
     "Variety": "Chow Mein",
     "Ratings": [
       5
-    ]
+    ],
+    "Feedback": null
   },
   {
     "Number": 30,
@@ -325,6 +363,7 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Shrimp Flavor",
-    "Ratings": null
+    "Ratings": null,
+    "Feedback": null
   }
 ]
