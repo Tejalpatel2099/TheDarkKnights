@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RamenRatings.WebSite.Models;
@@ -40,6 +39,10 @@ namespace RamenRatings.WebSite.Pages
         [BindProperty(SupportsGet = true)]
         public List<string> SelectedBrands { get; set; }
 
+        // The selected sort option from the dropdown
+        [BindProperty(SupportsGet = true)]
+        public string SortOption { get; set; }
+
         // Handles GET requests for the page. Loads filter options and applies selected filters
         public void OnGet()
         {
@@ -47,20 +50,17 @@ namespace RamenRatings.WebSite.Pages
             var products = ProductService.GetProducts();
 
             // Creates the Brand list for the filter
-            AllBrands = products.Select(p => p.Brand).Where(b => (string.IsNullOrEmpty(b)) == false).Distinct().OrderBy(b => b).ToList();
+            AllBrands = products.Select(p => p.Brand).Where(b => !string.IsNullOrEmpty(b)).Distinct().OrderBy(b => b).ToList();
             // Creates the style list for the filter
-            AllStyles = products.Select(p => p.Style).Where(s => (string.IsNullOrEmpty(s)) == false).Distinct().OrderBy(s => s).ToList();
+            AllStyles = products.Select(p => p.Style).Where(s => !string.IsNullOrEmpty(s)).Distinct().OrderBy(s => s).ToList();
 
             // Apply the Brand filter if they are selected
             if (SelectedBrands?.Any() == true)
                 products = products.Where(p => SelectedBrands.Contains(p.Brand));
 
             // Apply the Style filter if they are selected
-            if (string.IsNullOrEmpty(SelectedStyle) == false)
+            if (!string.IsNullOrEmpty(SelectedStyle))
                 products = products.Where(p => p.Style == SelectedStyle);
-
-            // Set the products
-            Products = products;
 
             // Sets the default rating range
             double min = 1.0;
@@ -80,6 +80,15 @@ namespace RamenRatings.WebSite.Pages
             // Apply filter for rating range
             Products = products.Where(p => (p.Ratings?.FirstOrDefault() ?? 0) >= min && (p.Ratings?.FirstOrDefault() ?? 0) <= max).ToList();
 
+            // Apply sorting based on selected option
+            Products = SortOption switch
+            {
+                "BrandAsc" => Products.OrderBy(p => p.Brand).ToList(),
+                "BrandDesc" => Products.OrderByDescending(p => p.Brand).ToList(),
+                "RatingAsc" => Products.OrderBy(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
+                "RatingDesc" => Products.OrderByDescending(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
+                _ => Products
+            };
         }
     }
 }

@@ -9,7 +9,7 @@
 <form method="get">
     <div class="row">
         <!--Filter Brands with drop down form field-->
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label for="SelectedBrands">Brands</label>
             <select id="SelectedBrands" name="SelectedBrands" class="form-control" multiple>
                 @foreach (var brand in Model.AllBrands)
@@ -22,7 +22,7 @@
         </div>
 
         <!--Filter styles with a drop down form field-->
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label for="SelectedStyle">Style</label>
             <select id="SelectedStyle" name="SelectedStyle" class="form-control">
                 <option value="">-- All Styles --</option>
@@ -35,14 +35,24 @@
             </select>
         </div>
 
-        <!--Filter ratings with a double ended slider-->
-        <div class="form-group col-md-4">
+        <!--Rating range slider-->
+        <div class="form-group col-md-3">
             <label>Rating Range: <span id="ratingRangeText">1 - 5</span></label>
             <div id="ratingSlider"></div>
-
-            <!-- Hidden fields for slider output -->
             <input type="hidden" id="MinRating" name="MinRating" />
             <input type="hidden" id="MaxRating" name="MaxRating" />
+        </div>
+
+        <!--Sort by dropdown-->
+        <div class="form-group col-md-3">
+            <label for="SortOption">Sort By</label>
+            <select id="SortOption" name="SortOption" class="form-control">
+                <option value="">-- No Sorting --</option>
+                <option value="BrandAsc" selected="@(Model.SortOption == "BrandAsc")">Brand (A-Z)</option>
+                <option value="BrandDesc" selected="@(Model.SortOption == "BrandDesc")">Brand (Z-A)</option>
+                <option value="RatingAsc" selected="@(Model.SortOption == "RatingAsc")">Rating (Low to High)</option>
+                <option value="RatingDesc" selected="@(Model.SortOption == "RatingDesc")">Rating (High to Low)</option>
+            </select>
         </div>
     </div>
 
@@ -54,7 +64,6 @@
 
 <hr />
 
-<!--Populate filtered cards-->
 @if (Model.Products.Any())
 {
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -86,7 +95,6 @@ else
 
 <a class="btn btn-secondary mt-3" href="/">Back to Index</a>
 
-<!--Script for Rating slider-->
 <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
 <script>
     var slider = document.getElementById('ratingSlider');
@@ -101,9 +109,9 @@ else
     noUiSlider.create(slider, {
         start: [min, max],
         connect: true,
-        range: {'min': 1, 'max': 5},
+        range: { 'min': 1, 'max': 5 },
         step: 0.1,
-        format: {to: value => value.toFixed(1), from: value => parseFloat(value)}
+        format: { to: value => value.toFixed(1), from: value => parseFloat(value) }
     });
 
     slider.noUiSlider.on('update', function (values) {
