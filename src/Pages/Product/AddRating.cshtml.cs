@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace RamenRatings.WebSite.Pages.Product
         // The rating submitted by the user via form.
         [BindProperty]
         public int Rating { get; set; }
+
+        [BindProperty]
+        public string Feedback { get; set; }
 
         // Service for loading and manipulating product data
         public JsonFileProductService ProductService { get; }
@@ -88,7 +92,7 @@ namespace RamenRatings.WebSite.Pages.Product
                 updatedRatings.Add(Rating); // add the new rating
 
                 // return the updated product with new rating
-                return new ProductModel
+                var updatedProduct = new ProductModel
                 {
                     Number = original.Number,
                     Brand = original.Brand,
@@ -98,13 +102,29 @@ namespace RamenRatings.WebSite.Pages.Product
                     Variety = original.Variety,
                     Ratings = updatedRatings.ToArray()
                 };
+
+                if (string.IsNullOrWhiteSpace(Feedback) == false)
+                {
+                    List<string> updatedFeedback;
+
+                    if ((original.Feedback == null) == false)
+                    {
+                        updatedFeedback = original.Feedback.ToList();
+                    }
+                    else
+                    {
+                        updatedFeedback = new List<string>();
+                    }
+                    updatedFeedback.Add(Feedback);
+                    updatedProduct.Feedback = updatedFeedback.ToArray();
+                }
+
+                return updatedProduct;
             }
             else
             {
                 return null;
             }
-
-           
         }
 
         // Replaces the original product in the product list and saves all data back to the JSON 
