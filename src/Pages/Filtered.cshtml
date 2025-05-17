@@ -23,8 +23,8 @@
 
         <!--Filter styles with multiple select drop down form field-->
         <div class="form-group col-md-3">
-            <label for="SelectedStyle">Style</label>
-            <select id="SelectedStyle" name="SelectedStyle" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Brand(s)">
+            <label for="SelectedStyles">Style</label>
+            <select id="SelectedStyles" name="SelectedStyles" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Style(s)">
                 @foreach (var style in Model.AllStyles)
                 {
                     <option value="@style" selected="@(Model.SelectedStyles?.Contains(style) == true)">
@@ -111,7 +111,8 @@ else
     const min = parseFloat(urlParams.get("MinRating")) || 1;
     const max = parseFloat(urlParams.get("MaxRating")) || 5;
 
-    noUiSlider.create(slider, {
+    noUiSlider.create(slider, 
+    {
         start: [min, max],
         connect: true,
         range: { 'min': 1, 'max': 5 },
@@ -119,7 +120,8 @@ else
         format: { to: value => value.toFixed(1), from: value => parseFloat(value) }
     });
 
-    slider.noUiSlider.on('update', function (values) {
+    slider.noUiSlider.on('update', function (values) 
+    {
         minInput.value = values[0];
         maxInput.value = values[1];
         rangeText.innerText = `${values[0]} - ${values[1]}`;
