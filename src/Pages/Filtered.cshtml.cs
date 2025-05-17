@@ -33,7 +33,7 @@ namespace RamenRatings.WebSite.Pages
 
         // The style chosen by the user to filter products
         [BindProperty(SupportsGet = true)]
-        public string SelectedStyle { get; set; }
+        public List<string> SelectedStyles { get; set; }
 
         // The brand chosen the the user to filter products
         [BindProperty(SupportsGet = true)]
@@ -59,8 +59,8 @@ namespace RamenRatings.WebSite.Pages
                 products = products.Where(p => SelectedBrands.Contains(p.Brand));
 
             // Apply the Style filter if they are selected
-            if (!string.IsNullOrEmpty(SelectedStyle))
-                products = products.Where(p => p.Style == SelectedStyle);
+            if (SelectedStyles?.Any() == true)
+                products = products.Where(p => SelectedStyles.Contains(p.Style));
 
             // Sets the default rating range
             double min = 1.0;
