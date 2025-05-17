@@ -8,10 +8,10 @@
 
 <form method="get">
     <div class="row">
-        <!--Filter Brands with drop down form field-->
+        <!--Filter Brands with multiple select drop down form field-->
         <div class="form-group col-md-3">
             <label for="SelectedBrands">Brands</label>
-            <select id="SelectedBrands" name="SelectedBrands" class="form-control" multiple>
+            <select id="SelectedBrands" name="SelectedBrands" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Brand(s)">
                 @foreach (var brand in Model.AllBrands)
                 {
                     <option value="@brand" selected="@(Model.SelectedBrands?.Contains(brand) == true)">
