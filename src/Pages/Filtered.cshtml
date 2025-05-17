@@ -21,14 +21,13 @@
             </select>
         </div>
 
-        <!--Filter styles with a drop down form field-->
+        <!--Filter styles with multiple select drop down form field-->
         <div class="form-group col-md-3">
             <label for="SelectedStyle">Style</label>
-            <select id="SelectedStyle" name="SelectedStyle" class="form-control">
-                <option value="">-- All Styles --</option>
+            <select id="SelectedStyle" name="SelectedStyle" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Brand(s)">
                 @foreach (var style in Model.AllStyles)
                 {
-                    <option value="@style" selected="@(style == Model.SelectedStyle)">
+                    <option value="@style" selected="@(Model.SelectedStyles?.Contains(style) == true)">
                         @style
                     </option>
                 }
