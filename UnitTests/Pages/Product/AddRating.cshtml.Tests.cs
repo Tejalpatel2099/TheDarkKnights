@@ -12,15 +12,23 @@ using Microsoft.AspNetCore.Routing;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit testing for Add Ratings Model
+    /// </summary>
     public class AddRatingTests
     {
         #region TestSetup
-
+        // Declare the model of the Add Rating page to be used in unit tests
         public static AddRatingModel pageModel;
 
+
         [SetUp]
+        /// <summary>
+        /// Initializes mock Add Rating model for testing.
+        /// </summary>
         public void TestInitialize()
         {
+            // Initialize the page model with a mock ProductService
             pageModel = new AddRatingModel(TestHelper.ProductService)
             {
                 PageContext = TestHelper.PageContext,
@@ -34,6 +42,9 @@ namespace UnitTests.Pages.Product
         #region OnGet
 
         [Test]
+        /// <summary>
+        /// Valid product ID should return the product and page result
+        /// </summary>
         public void OnGet_ValidId_Should_Return_Page()
         {
             // Arrange
@@ -47,6 +58,9 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
+        /// <summary>
+        /// InValid product ID should return the error page
+        /// </summary>
         public void OnGet_InvalidId_Should_RedirectToError()
         {
             // Arrange
@@ -66,6 +80,9 @@ namespace UnitTests.Pages.Product
         #region OnPost
 
         [Test]
+        /// <summary>
+        /// Invalid ModelState should return the page result
+        /// </summary>
         public void OnPost_Invalid_ModelState_Should_Return_PageResult()
         {
             // Arrange
@@ -79,6 +96,9 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
+        /// <summary>
+        /// Invalid product ID should redirect to the error page
+        /// </summary>
         public void OnPost_Product_Not_Found_Should_RedirectToError()
         {
             // Arrange
@@ -100,6 +120,9 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
+        /// <summary>
+        /// Valid rating should save data and redirect to the index page
+        /// </summary>
         public void OnPost_Valid_Rating_Should_SaveData_And_RedirectToIndex()
         {
             // Arrange
@@ -144,6 +167,9 @@ namespace UnitTests.Pages.Product
         #region AddRatingToRamen
 
         [Test]
+        /// <summary>
+        /// Valid product without feedback should add the rating
+        /// </summary>
         public void AddRatingToRamen_ValidProduct_Without_Feedback_Should_AddRating()
         {
             // Arrange
@@ -172,6 +198,9 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
+        /// <summary>
+        /// Valid product with feedback should add the rating
+        /// </summary>
         public void AddRatingToRamen_With_Feedback_Should_Add_Feedback()
         {
             // Arrange
@@ -202,6 +231,9 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
+        /// <summary>
+        /// Valid product with null feedback should add the rating
+        /// </summary>
         public void AddRatingToRamen_Product_With_No_Feedback_Should_Add_Feedback()
         {
             // Arrange
@@ -233,6 +265,9 @@ namespace UnitTests.Pages.Product
 
 
         [Test]
+        /// <summary>
+        /// Invalid product should return null
+        /// </summary>
         public void AddRatingToRamen_InValidProduct_Should_Return_Null()
         {
             // Arrange
