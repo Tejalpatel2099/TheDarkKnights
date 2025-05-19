@@ -101,7 +101,8 @@
         <input type="hidden" name="Rating" id="Rating" value="0" required />
     </div>
     
-
+    <!-- Go Back Button -->
+    <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
     <!-- Save/submit the new product -->
     <button type="submit" class="btn btn-primary">Create Ramen</button>
 
@@ -110,6 +111,12 @@
 
 <!-- Script for showing or hiding the input fields for new brand or new style -->
 @section Scripts {
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+	</script>
+
     <partial name="_ValidationScriptsPartial" />
     <script>
         // Show Brand error message and style error message
