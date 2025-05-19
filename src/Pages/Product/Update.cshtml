@@ -12,11 +12,11 @@
         <!-- Select from list of existing brands, with option to enter a new Brand -->
         <div class="form-group">
             <label for="Brand">Brand</label>
-            <select class="form-control" id="Brand" name="Brand" required>
+            <select class="form-control" id="Brand" name="Product.Brand">
                 <option value="">Select an Existing Brand</option>
                 @foreach (var brand in Model.ExistingBrands.Distinct())
                 {
-                    <option value="@brand" selected="@(brand == @Model.Product.Brand)" )>@brand</option>
+                    <option value="@brand" selected="@(brand == @Model.Product.Brand)">@brand</option>
                 }
                 <option value="Other">Other</option>
 
@@ -32,14 +32,14 @@
         <!-- Input Variety -->
         <div class="form-group">
             <label for="Variety">Variety</label>
-            <input type="text" class="form-control" id="Variety" name="Variety" placeholder="Enter variety" value="@Model.Product.Variety" required />
+            <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety"/>
             <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
         </div>
 
         <!-- Select from list of existing styles, with option to enter new style -->
         <div class="form-group">
             <label for="Style">Style</label>
-            <select class="form-control" id="Style" name="Style" required>
+            <select class="form-control" id="Style" name="Product.Style">
                 <option value="">Select an Existing Style</option>
                 @foreach (var style in Model.ExistingStyles.Distinct())
                 {
@@ -59,7 +59,7 @@
         <!-- Input Country -->
         <div class="form-group">
             <label for="Country">Country</label>
-            <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter country" value="@Model.Product.Country" required>
+            <input type="text" class="form-control" id="Country" name="Product.Country" placeholder="Enter country" value="@Model.Product.Country">
         </div>
 
         <!-- Upload an image -->
@@ -73,12 +73,13 @@
         <!-- Display Rating (read-only) -->
         <div class="form-group">
             <label for="Rating">Current Rating</label>
-            <input type="text" class="form-control" id="Rating" name="Rating"
+            <input type="text" class="form-control" id="Rating"
                    value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
                    readonly style="background-color: #e9ecef; cursor: not-allowed;" />
             <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
         </div>
 
+        <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
 
         <!-- Save/submit the new product -->
         <button type="submit" class="btn btn-primary">Update Ramen</button>
