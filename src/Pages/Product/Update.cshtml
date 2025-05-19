@@ -59,7 +59,16 @@
         <!-- Input Country -->
         <div class="form-group">
             <label for="Country">Country</label>
-            <input type="text" class="form-control" id="Country" name="Product.Country" placeholder="Enter country" value="@Model.Product.Country">
+            <select class="form-control" id="Country" name="Product.Country">
+                <option value="">Select a Country</option>
+                @foreach (var country in Model.Countries.Distinct())
+                {
+                    <option value="@country" selected="@(country == Model.Product.Country)">
+                        @country
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Product.Country" class="text-danger"></span>
         </div>
 
         <!-- Upload an image -->
