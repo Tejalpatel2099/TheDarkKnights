@@ -1,13 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- configuration -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title -->
     <title>@ViewData["Title"] - Ramen Ratings</title>
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <!-- Custom site-wide CSS -->
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Styles for sliders and multi-select -->
     <link href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" rel="stylesheet">
 
@@ -25,8 +36,6 @@
             border-radius: 20px;
         }
        
-        
-
         /* Brand Styling */
         .ramen-brand {
             font-family: 'Yellowtail', cursive;
@@ -34,30 +43,38 @@
             color: #e67e22 !important;
         }
 
-        /* Nav Links */
+        /* Nav Links and hover behavior*/
         .ramen-link {
             font-weight: 600;
             color: #5a3e1b !important;
             transition: color 0.3s ease;
         }
 
-            .ramen-link:hover {
-                color: #d35400 !important;
-                text-decoration: none;
-            }
-
+        .ramen-link:hover {
+            color: #d35400 !important;
+            text-decoration: none;
+        }
 
     </style>
+
 </head>
 <body style="background-color: #fff8f0;">
+
+    <!-- Header containing navigation -->
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom shadow-sm ramen-navbar">
             <div class="container">
+
+                <!-- Logo and home link -->
                 <a class="navbar-brand ramen-brand" asp-area="" asp-page="/Index">🍜 Ramen Ratings</a>
+
+                <!-- Mobile toggle for collapsed menu -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Navigation links -->
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
@@ -72,17 +89,23 @@
                         <li class="nav-item">
                             <a class="nav-link ramen-link" asp-area="" asp-page="/Filtered">Filter</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link ramen-link" asp-area="" asp-page="/Product/Compare">Compare</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Main content container -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+    <!-- Footer -->
     <footer class="border-top footer text-muted bg-footer">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom shadow-sm ramen-navbar">
         <div class="container">
@@ -91,12 +114,15 @@
         </nav>
     </footer>
 
+    <!-- JavaScript libraries -->
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     <!--Multi select styling-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 
+    <!-- page-specific scripts -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>
