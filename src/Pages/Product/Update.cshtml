@@ -90,6 +90,8 @@
 
         <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
 
+        <!-- Go Back Button -->
+        <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
         <!-- Save/submit the new product -->
         <button type="submit" class="btn btn-primary">Update Ramen</button>
     </form>
@@ -98,6 +100,9 @@
     <!-- Script for showing or hiding the input fields for new brand or new style -->
     @section Scripts {
         <script>
+            function goBack() {
+                window.history.back();
+            }
             // Show Brand error message and style error message
             window.onload = function () {
                 var errorMessageBrand = '@Model.BrandError';
