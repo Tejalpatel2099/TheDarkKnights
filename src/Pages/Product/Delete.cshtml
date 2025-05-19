@@ -41,6 +41,8 @@
                 <input type="text" class="form-control" value="@string.Join(", ", Model.Product.Ratings ?? new int[0])" readonly disabled />
             </div>
 
+            <!-- Go Back Button -->
+            <button type="button" class="btn btn-secondary mt-3 ms-3" onclick="goBack()">Go Back</button>
             <!-- Submit button to confirm ramen delete -->
             <button type="submit" class="btn btn-danger mt-3">🗑️Delete Ramen</button>
         </div>
@@ -51,5 +53,8 @@
 <script>
     function confirmDelete() {
         return confirm("Are you sure you want to delete this ramen product?");
+    }
+    function goBack() {
+        window.history.back();
     }
 </script>
