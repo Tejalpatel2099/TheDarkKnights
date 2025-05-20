@@ -15,6 +15,7 @@ namespace RamenRatings.WebSite.Pages
         // handles get requests when the privacy page is accessed
         public void OnGet()
         {
+
         }
     }
 }

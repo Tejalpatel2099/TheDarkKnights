@@ -1,5 +1,7 @@
 using RamenRatings.WebSite.Pages;
 using NUnit.Framework;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace UnitTests.Pages
 {
@@ -9,10 +11,14 @@ namespace UnitTests.Pages
         public static AboutModel pageModel;
         
         [SetUp]
+
         public void TestInitialize()
         {
-            pageModel = new AboutModel()
+            var MockLoggerDirect = Mock.Of<ILogger<AboutModel>>();
+            pageModel = new AboutModel(MockLoggerDirect)
             {
+                PageContext = TestHelper.PageContext,
+                TempData = TestHelper.TempData,
             };
         }
 
@@ -22,10 +28,10 @@ namespace UnitTests.Pages
         [Test]
         public void OnGet_Valid_Should_Return_Valid_Page()
         {
-            // Arrange
-
             // Act
             pageModel.OnGet();
+
+            // Reset
 
             // Assert
             Assert.AreEqual(true, pageModel.ModelState.IsValid);

@@ -41,7 +41,7 @@ namespace UnitTests.Pages.Product
             // Arrange
 
             // Act
-            pageModel.OnGet();
+            pageModel.OnGet("chicken");
 
             // Assert 
             // How many are there?
