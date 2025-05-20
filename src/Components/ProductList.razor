@@ -11,6 +11,21 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">@product.Variety</h5>
+                <p>
+                    <strong>Average Rating: </strong>
+                    @{
+                        var ratings = product.Ratings;
+                        if ((ratings == null) == false && ratings.Length > 0)
+                        {
+                            double avg = ratings.Average();
+                            @($"{avg:F1} / 5.0")
+                        }
+                        else
+                        {
+                            @("No ratings yet")
+                        }
+                    }
+                </p>
             </div>
             <div class="card-footer">
                 <small class="text-muted">
