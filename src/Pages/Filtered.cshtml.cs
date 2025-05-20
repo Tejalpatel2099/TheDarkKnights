@@ -87,6 +87,8 @@ namespace RamenRatings.WebSite.Pages
                 "BrandDesc" => Products.OrderByDescending(p => p.Brand).ToList(),
                 "RatingAsc" => Products.OrderBy(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
                 "RatingDesc" => Products.OrderByDescending(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
+                "RatingNumHigh" => Products.OrderByDescending(p => p.Ratings.Length).ToList(),
+                "RatingNumLow" => Products.OrderBy(p => p.Ratings.Length).ToList(),
                 _ => Products
             };
         }
