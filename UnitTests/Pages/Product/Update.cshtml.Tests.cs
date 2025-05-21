@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnitTests.Pages.Product
 {
@@ -78,21 +80,34 @@ namespace UnitTests.Pages.Product
         public void OnPost_ValidModel_Should_RedirectToProductsPage()
         {
             // Arrange
-            var sample = TestHelper.ProductService.GetProducts().First();
-            pageModel.Product = new ProductModel
+            // Arrange
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var pageModel = new UpdateModel(TestHelper.ProductService)
             {
-                Number = sample.Number,
-                Brand = sample.Brand,
-                Style = sample.Style,
-                Variety = "Updated Variety",
-                Country = "Updated Country"
+                Product = new ProductModel
+                {
+                    Number = original.Number,
+                    Brand = "Other",
+                    Style = "Other",
+                    Variety = "Spicy",
+                    Country = "Japan"
+                },
+                NewBrand = "NotNoodle",
+                NewStyle = "NotSnack",
             };
 
             // Act
-            var result = pageModel.OnPost() as PageResult;
+            var result = pageModel.OnPost();
 
-            //Assert
-            Assert.IsInstanceOf<Microsoft.AspNetCore.Mvc.RazorPages.PageResult>(result);
+
+            // get the redirected page
+            var redirect = result as RedirectToPageResult;
+
+            // Confirm that the page is redirected to a Read page
+            Assert.AreEqual("/Product/ProductsPage", redirect.PageName);
+
+
         }
 
         /// <summary>
@@ -111,6 +126,35 @@ namespace UnitTests.Pages.Product
             Assert.IsInstanceOf<PageResult>(result);
         }
 
+        #endregion OnPost
+        #region OnPost
+        [Test]
+        public void OnPost_Validation_Failure()
+        {
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var pageModel = new UpdateModel(TestHelper.ProductService)
+            {
+                Product = new ProductModel
+                {
+                    Number = original.Number,
+                    Brand = "Other",
+                    Style = "Other",
+                    Variety = "Spicy",
+                    Country = "Japan"
+                },
+                NewBrand = "Noodle",
+                NewStyle = "Snack",
+            };
+
+            // Act
+            var result = pageModel.OnPost();
+
+
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+        }
         #endregion OnPost
 
         #region UpdateData
@@ -134,10 +178,22 @@ namespace UnitTests.Pages.Product
             pageModel.NewBrand = "New Brand";
             pageModel.NewStyle = "Dry";
 
+            // Add a test image
+            var fileName = "test.jpg";
+            var ms = new MemoryStream(new byte[] { 1, 2, 3 });
+            var file = new FormFile(ms, 0, ms.Length, "Image", fileName)
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = "image/jpeg"
+            };
+
+            pageModel.Image = file;
+
             // Act
             var updated = pageModel.UpdateData();
 
             // Assert
+            Assert.IsNotNull(updated);
             Assert.AreEqual("New Brand", updated.Brand);
             Assert.AreEqual("Dry", updated.Style);
             Assert.AreEqual("Spicy", updated.Variety);
@@ -167,5 +223,173 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion SaveData
+
+        #region ValidateData
+
+        /// <summary>
+        /// Validate Data should return false if data is valid
+        /// </summary>
+        [Test]
+        public void ValidateData_All_Data_Is_Valid()
+        {
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "New Brand",
+                Style = "Dry",
+                Variety = "Spicy",
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+           pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            var validated = pageModel.ValidateData(product, true, true);
+
+            Assert.IsTrue(validated);
+            Assert.IsNull(pageModel.BrandError);
+            Assert.IsNull(pageModel.StyleError);
+            Assert.IsNull(pageModel.VarietyError);
+
+        }
+        [Test]
+        public void ValidateData_Brand_Other_Not_Valid()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "Mama",
+                Style = "Dry",
+                Variety = "Spicy",
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, true, true);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual(pageModel.BrandError, "Brand already exists");
+            Assert.IsNull(pageModel.StyleError);
+            Assert.IsNull(pageModel.VarietyError);
+
+        }
+        [Test]
+        public void ValidateData_Brand_Characters_Not_Valid()
+        {
+            //Create Product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = new string('B', 21),
+                Style = "Dry",
+                Variety = "Spicy",
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, true, true);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual(pageModel.BrandError, "Character Limit is 20");
+            Assert.IsNull(pageModel.StyleError);
+            Assert.IsNull(pageModel.VarietyError);
+
+        }
+        [Test]
+        public void ValidateData_Style_Other_Not_Valid()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "New Brand",
+                Style = "Bowl",
+                Variety = "Spicy",
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, true, true);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual(pageModel.StyleError, "Style already exists");
+            Assert.IsNull(pageModel.BrandError);
+            Assert.IsNull(pageModel.VarietyError);
+
+        }
+        [Test]
+        public void ValidateData_Style_Characters_Not_Valid()
+        {
+            //Takes original product
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            //creates new product
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = original.Brand,
+                Style = new string('S', 21),
+                Variety = "Spicy",
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Checks if boolean validated
+            var validated = pageModel.ValidateData(product, false, true);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual(pageModel.StyleError, "Character Limit is 20");
+            Assert.IsNull(pageModel.BrandError);
+            Assert.IsNull(pageModel.VarietyError);
+
+        }
+        [Test]
+        public void ValidateData_Style_Variety_Not_Valid()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = original.Brand,
+                Style = original.Style,
+                Variety = new string('V', 21),
+                Country = "Japan"
+            };
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, false, false);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual("Character Limit is 20", pageModel.VarietyError);
+
+
+        }
+
+        #endregion ValidateData
+
     }
 }
