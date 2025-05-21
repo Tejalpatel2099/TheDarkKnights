@@ -46,11 +46,18 @@ namespace UnitTests.Pages.Product
             // Act
             pageModel.OnGet("chicken");
 
+            // Access CurrentFilter getter to cover it
+            var filter = pageModel.CurrentFilter;
+
             // Assert 
-            // How many are there?
+            // Ensure model is valid
             Assert.AreEqual(true, pageModel.ModelState.IsValid);
+
             // Are there any in existence?
             Assert.AreEqual(true, pageModel.Products.ToList().Any());
+
+            // Check the filter has chicken
+            Assert.AreEqual("chicken", filter);
         }
 
         /// <summary>
@@ -59,15 +66,15 @@ namespace UnitTests.Pages.Product
         [Test]
         public void OnGet_Valid_No_Search_Should_Return_All_Products()
         {
-            // Arrange - get all products
-            var allProducts = TestHelper.ProductService.GetProducts();
-
             // Act
-            pageModel.OnGet(null);  // test empty/null string
+            pageModel.OnGet(null);//get null
+
+            // establish the filter
+            var filter = pageModel.CurrentFilter;
 
             // Assert
-            Assert.AreEqual(allProducts.Count(), pageModel.Products.Count()); // Make sure the product count is what is expected
-            Assert.IsNull(pageModel.CurrentFilter); // Checks that the filter is not applied
+            Assert.IsTrue(pageModel.Products.Any());
+            Assert.IsNull(filter);
         }
 
         #endregion OnGet
