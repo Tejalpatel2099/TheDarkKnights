@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Moq;
+using RamenRatings.WebSite.Models;
+using RamenRatings.WebSite.Services;
 
 namespace UnitTests.Pages.Product
 {
@@ -49,6 +52,24 @@ namespace UnitTests.Pages.Product
             // Are there any in existence?
             Assert.AreEqual(true, pageModel.Products.ToList().Any());
         }
+
+        /// <summary>
+        /// Tests that nothing entered in search should still return products with the filter applied
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_No_Search_Should_Return_All_Products()
+        {
+            // Arrange - get all products
+            var allProducts = TestHelper.ProductService.GetProducts();
+
+            // Act
+            pageModel.OnGet(null);  // test empty/null string
+
+            // Assert
+            Assert.AreEqual(allProducts.Count(), pageModel.Products.Count()); // Make sure the product count is what is expected
+            Assert.IsNull(pageModel.CurrentFilter); // Checks that the filter is not applied
+        }
+
         #endregion OnGet
     }
 }
