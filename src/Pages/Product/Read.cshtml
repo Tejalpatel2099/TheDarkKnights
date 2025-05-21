@@ -17,6 +17,7 @@
                 <p><strong>Brand:</strong> @Model.Product.Brand</p>
                 <p><strong>Style:</strong> @Model.Product.Style</p>
                 <p><strong>Country:</strong> @Model.Product.Country</p>
+                <p> @Model.Product.Vegetarian</p>
 
                 <!-- Feedbacks Display -->
                 @if ((Model.Product.Feedback == null) == false && Model.Product.Feedback.Any())
