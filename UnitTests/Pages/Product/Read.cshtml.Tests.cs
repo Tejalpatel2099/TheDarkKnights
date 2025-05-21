@@ -46,7 +46,7 @@ namespace UnitTests.Pages.Product
         /// Valid product ID should return the product and page result
         /// </summary>
         [Test]
-        public void OnGet_ValidId_Should_Return_Page()
+        public void OnGet_Valid_ValidId_Should_Return_Page()
         {
             // Act
             var result = pageModel.OnGet(4);
@@ -60,7 +60,7 @@ namespace UnitTests.Pages.Product
         /// Invalid product ID should redirect to the error page
         /// </summary>
         [Test]
-        public void OnGet_InvalidId_Should_RedirectToError()
+        public void OnGet_Valid_InvalidId_Should_Redirect_To_Error()
         {
             // Arrange
             int invalidId = 999;
@@ -83,7 +83,7 @@ namespace UnitTests.Pages.Product
         /// Product with exisiting ratings should add a new rating
         /// </summary>
         [Test]
-        public void OnPostAddRatingAsync_ValidProduct_Should_AddRating_And_Redirect()
+        public void OnPostAddRatingAsync_Valid_Product_Should_Add_Rating_And_Redirect()
         {
             // Arrange
             var productNumber = TestHelper.ProductService.GetProducts().First().Number;
@@ -106,7 +106,7 @@ namespace UnitTests.Pages.Product
         /// Product with null ratings should initialize ratings and add a new rating 
         /// </summary>
         [Test]
-        public void OnPostAddRatingAsync_ProductWithNullRatings_ShouldInitializeAndAddRating()
+        public void OnPostAddRatingAsync_Valid_Product_With_Null_Ratings_Should_Initialize_And_Add_Rating()
         {
             // Arrange
             var productNumber = 30;
@@ -128,7 +128,7 @@ namespace UnitTests.Pages.Product
         /// Invalid product ID should redirect without crashing
         /// </summary>
         [Test]
-        public void OnPostAddRatingAsync_InvalidProduct_Should_RedirectWithoutCrash()
+        public void OnPostAddRatingAsync_Valid_Invalid_Product_Should_Redirect_Without_Crash()
         {
             // Arrange
             var invalidProductNumber = 9999;
