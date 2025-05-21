@@ -42,7 +42,6 @@ namespace RamenRatings.WebSite.Pages
             {
                 // Filter products by variety (case insensitive)
                 products = products.Where(p =>
-                    !string.IsNullOrEmpty(p.Variety) &&
                     p.Variety.Contains(SearchString, System.StringComparison.OrdinalIgnoreCase));
             }
 
