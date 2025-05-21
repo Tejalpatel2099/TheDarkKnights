@@ -6,6 +6,7 @@
     "Style": "Pack",
     "Country": "Indonesia",
     "Variety": "Chicken Curry",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4,
       5,
@@ -23,6 +24,7 @@
     "Style": "Pack",
     "Country": "Indonesia",
     "Variety": "Mi Goreng",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -35,6 +37,7 @@
     "Style": "Bowl",
     "Country": "Thailand",
     "Variety": "Instant Bowl Noodles Artificial Pork",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       2
     ],
@@ -47,6 +50,7 @@
     "Style": "Pack",
     "Country": "Thailand",
     "Variety": "Shrimp Creamy Tom Yum",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -59,6 +63,7 @@
     "Style": "Pack",
     "Country": "Thailand",
     "Variety": "Artificial Chicken",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       2
     ],
@@ -71,6 +76,7 @@
     "Style": "Tray",
     "Country": "Japan",
     "Variety": "Gotsumori Sauce Yakisoba",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -83,6 +89,7 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -95,6 +102,7 @@
     "Style": "Cup",
     "Country": "USA",
     "Variety": "Instant Lunch Shrimp",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -107,6 +115,7 @@
     "Style": "Tray",
     "Country": "USA",
     "Variety": "Yakisoba Chicken",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       2
     ],
@@ -119,6 +128,7 @@
     "Style": "Tray",
     "Country": "USA",
     "Variety": "Yakisoba Teriyaki Beef",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       2
     ],
@@ -131,6 +141,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Ramen Noodle Soup Chicken",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       2,
       5
@@ -146,6 +157,7 @@
     "Style": "Bowl",
     "Country": "Japan",
     "Variety": "Shin Toyama Black Ramen",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4
     ],
@@ -158,6 +170,7 @@
     "Style": "Tray",
     "Country": "Japan",
     "Variety": "Ippeichan Yakisoba",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4
     ],
@@ -170,6 +183,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Top Ramen Chicken",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -182,6 +196,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Top Ramen Shrimp",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -194,6 +209,7 @@
     "Style": "Tray",
     "Country": "Japan",
     "Variety": "Yakisoba Noodles Karashi",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -206,6 +222,7 @@
     "Style": "Pack",
     "Country": "South Korea",
     "Variety": "Shin Ramyun Black",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -218,6 +235,7 @@
     "Style": "Cup",
     "Country": "USA",
     "Variety": "Kimchi Flavor Noodle Soup",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -230,6 +248,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Spicy Tonkotsu Noodle Soup",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -242,6 +261,7 @@
     "Style": "Cup",
     "Country": "South Korea",
     "Variety": "Shin Ramyun Cup",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -254,6 +274,7 @@
     "Style": "Bowl",
     "Country": "USA",
     "Variety": "Bowl Noodle Spicy Seafood",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4,
       5
@@ -267,6 +288,7 @@
     "Style": "Pack",
     "Country": "South Korea",
     "Variety": "Shin Ramyun",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4
     ],
@@ -279,6 +301,7 @@
     "Style": "Pack",
     "Country": "South Korea",
     "Variety": "Cheese Buldak Bokkeummyun",
+    "Vegetarian": "Veg",
     "Ratings": [
       4
     ],
@@ -291,6 +314,7 @@
     "Style": "Pack",
     "Country": "South Korea",
     "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4
     ],
@@ -303,6 +327,7 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Shio",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       5
     ],
@@ -315,6 +340,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Original Flavor",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -327,6 +353,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Beef Flavor",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       4
     ],
@@ -339,6 +366,7 @@
     "Style": "Pack",
     "Country": "USA",
     "Variety": "Chicken Flavor",
+    "Vegetarian": "Not Veg",
     "Ratings": [
       3
     ],
@@ -351,6 +379,7 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Chow Mein",
+    "Vegetarian": "Veg",
     "Ratings": [
       5
     ],
@@ -363,7 +392,10 @@
     "Style": "Pack",
     "Country": "Japan",
     "Variety": "Shrimp Flavor",
-    "Ratings": null,
+    "Vegetarian": "Not Veg",
+    "Ratings": [
+      3
+    ],
     "Feedback": null
   }
 ]
