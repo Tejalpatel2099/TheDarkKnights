@@ -45,7 +45,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Valid product ID should return the product and page result
         /// </summary>
-        public void OnGet_ValidId_Should_Return_Page()
+        public void OnGet_Valid_Id_Should_Return_Page()
         {
             // Arrange
 
@@ -61,7 +61,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// InValid product ID should return the error page
         /// </summary>
-        public void OnGet_InvalidId_Should_RedirectToError()
+        public void OnGet_Valid_Invalid_Id_Should_Redirect_To_Error()
         {
             // Arrange
             int invalidId = 999;
@@ -83,7 +83,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Invalid ModelState should return the page result
         /// </summary>
-        public void OnPost_Invalid_ModelState_Should_Return_PageResult()
+        public void OnPost_Valid_Invalid_ModelState_Should_Return_Page_Result()
         {
             // Arrange
             pageModel.ModelState.AddModelError("TestError", "Invalid Model");
@@ -99,7 +99,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Invalid product ID should redirect to the error page
         /// </summary>
-        public void OnPost_Product_Not_Found_Should_RedirectToError()
+        public void OnPost_Valid_Product_Not_Found_Should_Redirect_To_Error()
         {
             // Arrange
             var context = new DefaultHttpContext();
@@ -123,7 +123,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Valid rating should save data and redirect to the index page
         /// </summary>
-        public void OnPost_Valid_Rating_Should_SaveData_And_RedirectToIndex()
+        public void OnPost_Valid_Rating_Should_SaveData_And_Redirect_To_Index()
         {
             // Arrange
             var sample = TestHelper.ProductService.GetProducts().First();
@@ -170,7 +170,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Valid product without feedback should add the rating
         /// </summary>
-        public void AddRatingToRamen_ValidProduct_Without_Feedback_Should_AddRating()
+        public void AddRatingToRamen_Valid_Product_Without_Feedback_Should_Add_Rating()
         {
             // Arrange
             var sample = TestHelper.ProductService.GetProducts().First();
@@ -201,7 +201,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Valid product with feedback should add the rating
         /// </summary>
-        public void AddRatingToRamen_With_Feedback_Should_Add_Feedback()
+        public void AddRatingToRamen_Valid_Feedback_Should_Add_Feedback()
         {
             // Arrange
             var sample = TestHelper.ProductService.GetProducts().First();
@@ -234,7 +234,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Valid product with null feedback should add the rating
         /// </summary>
-        public void AddRatingToRamen_Product_With_No_Feedback_Should_Add_Feedback()
+        public void AddRatingToRamen_Valid_Product_With_No_Feedback_Should_Add_Feedback()
         {
             // Arrange
             var sample = TestHelper.ProductService.GetProducts().First();
@@ -268,7 +268,7 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Invalid product should return null
         /// </summary>
-        public void AddRatingToRamen_InValidProduct_Should_Return_Null()
+        public void AddRatingToRamen_Valid_InValidProduct_Should_Return_Null()
         {
             // Arrange
             pageModel.Product = null;
