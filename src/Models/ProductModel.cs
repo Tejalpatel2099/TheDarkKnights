@@ -13,6 +13,7 @@ namespace RamenRatings.WebSite.Models
         public string Style { get; set; }
         public string Country { get; set; }
         public string Variety { get; set; }
+        public string Vegetarian{ get; set; }
         public int[] Ratings { get; set; }
         
         public string[] Feedback { get; set; }
