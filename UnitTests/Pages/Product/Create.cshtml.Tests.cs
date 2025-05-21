@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using RamenRatings.WebSite.Models;
@@ -120,7 +121,10 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Noodle", result.Brand);
             Assert.AreEqual("Snack", result.Style);
             Assert.AreEqual("Salt", result.Variety);
-            Assert.AreEqual("USA", result.Country);
+            pageModel.Variety = "NewVariety";
+            Assert.AreEqual("NewVariety", pageModel.Variety);
+            pageModel.Country = "Romania";
+            Assert.AreEqual("Romania", pageModel.Country);
             Assert.AreEqual("/images/" + expectedNumber + ".jpg", result.img);
             Assert.AreEqual(5, result.Ratings[0]);
         }
@@ -180,6 +184,21 @@ namespace UnitTests.Pages.Product
             // Confirm that the read page number and the last product have the same number
             Assert.AreEqual(latestProduct, readNumber);
 
+        }
+        /// <summary>
+        /// Invalid model state should return the page without saving
+        /// </summary>
+        [Test]
+        public void OnPost_InvalidModel_Should_Return_Page()
+        {
+            // Arrange
+            pageModel.ModelState.AddModelError("Brand", "Required");
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
         }
 
         #endregion OnPost

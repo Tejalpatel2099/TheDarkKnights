@@ -25,7 +25,7 @@
             <label for="NewBrand">Other Brand</label>
             <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
         </div>
-        <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
+        <div id="brand-error" class="text-danger mt-1" style="display: none;"></div>
     </div>
 
     <!-- Input Variety -->
@@ -52,7 +52,7 @@
             <label for="NewStyle">Other Style</label>
             <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
         </div>
-        <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
+        <div id="style-error" class="text-danger mt-1" style="display: none;"></div>
     </div>
 
     <!-- Select from list of Countries -->
@@ -122,20 +122,6 @@
         // Show Brand error message and style error message
         window.onload = function () 
         {
-            var errorMessageBrand = '@Model.BrandError';
-            if (errorMessageBrand) 
-            {
-                var errorDiv = document.getElementById("brand-error");
-                errorDiv.innerText = errorMessageBrand;
-                errorDiv.style.display = "block";
-            }
-            var errorMessageStyle = '@Model.StyleError';
-            if (errorMessageStyle) 
-            {
-                var errorDiv = document.getElementById("style-error");
-                errorDiv.innerText = errorMessageStyle;
-                errorDiv.style.display = "block";
-            }
         }
         // Script for showing a new Brand text field when 'Other' is selected
         document.getElementById('Brand').addEventListener('change', function () 
