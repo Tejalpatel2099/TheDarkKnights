@@ -7,11 +7,11 @@
 
 <h2 class="text-center mb-4">Compare Ramens</h2>
 
-<!-- Form field dropdowns for comparing two ramens, listed by Brand then Variety-->
+<!-- Form field dropdowns for comparing two ramens -->
 <form method="post">
-    <div class="row mb-4">
+    <div class="row mb-4 justify-content-center">
+        <!-- Select Ramen 1 -->
         <div class="col-md-5">
-            <!-- First Ramen dropdown to select -->
             <label for="Selected1">Select Ramen #1</label>
             <select class="form-control" id="Selected1" name="Selected1">
                 @foreach (var ramen in Model.Products)
@@ -21,12 +21,15 @@
             </select>
         </div>
 
-        <div class="col-md-2 text-center d-flex align-items-end justify-content-center">
+        <!-- Submit the form -->
+
+        <div class="col-md-2 d-flex align-items-end justify-content-center">
             <button type="submit" class="btn btn-primary mt-2">Compare</button>
         </div>
 
+        <!-- Select Ramen 2 -->
+
         <div class="col-md-5">
-            <!-- Second Ramen dropdown to select -->
             <label for="Selected2">Select Ramen #2</label>
             <select class="form-control" id="Selected2" name="Selected2">
                 @foreach (var ramen in Model.Products)
@@ -38,118 +41,108 @@
     </div>
 </form>
 
+<!-- Checking if both ramens are selected and if yes then display comparision -->
 @if (Model.Ramen1 is ProductModel && Model.Ramen2 is ProductModel)
 {
-    <div class="row mt-5">
-        <div class="col-md-6 text-center">
-            <img src="@Model.Ramen1.img" alt="@Model.Ramen1.Variety" class="img-fluid rounded mb-2" width="250" height="250" />
-            
-            <!-- Output Brand for Ramen1 -->
-            <p><strong>Brand:</strong> @Model.Ramen1.Brand</p>
-
-            <!-- Output Variety for Ramen1 -->
-            <p><strong>Variety:</strong> @Model.Ramen1.Variety</p>
-
-            <!-- Output Style for Ramen1 -->
-            <p><strong>Style:</strong> @Model.Ramen1.Style</p>
-
-            <!-- Outputs Country for Ramen1 -->
-            <p><strong>Country:</strong> @Model.Ramen1.Country</p>
-
-            <!-- Outputs Vegetarian info for Ramen1 -->
-            <p><strong>@Model.Ramen1.Vegetarian</strong> </p>
-            
-            <!-- Outputs ratings for Ramen1 as average of ratings array with # of ratings-->
-            <p>
-                <strong>Average Rating:</strong>
-                @{
-                    var ratings = Model.Ramen1.Ratings;
-                    if ((ratings == null) == false && ratings.Length > 0)
-                    {
-                        double avg = ratings.Average();
-                        <text>@($"{avg:F1} / 5 ({ratings.Length} rating{(ratings.Length == 1 ? "" : "s")})")</text>
-                    }
-                    else // If no ratings, print no ratings
-                    {
-                        @("No ratings yet")
-                    }
-                }
-            </p>
-
-            <p>
-                <strong>Users Reviews:</strong><br/>
-                @{
-                    var feedbacks = Model.Ramen1.Feedback;
-                    if ((feedbacks == null) == false && feedbacks.Length > 0)
-                    {
-                        @foreach (var feedback in feedbacks)
-                        {
-                            <text> @($"{feedback}") </text>
-                            <br />
+    <div class="row mt-5 justify-content-center">
+        <!-- Ramen 1 Card -->
+        <div class="col-md-5 d-flex">
+            <div class="card shadow-lg rounded p-3 w-100 h-100 d-flex flex-column">
+                <img src="@Model.Ramen1.img" alt="@Model.Ramen1.Variety" class="card-img-top rounded mb-2" style="max-height: 250px; object-fit: cover;" />
+                <div class="card-body text-center flex-grow-1 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title">@Model.Ramen1.Brand - @Model.Ramen1.Variety</h5>
+                        <p class="card-text"><strong>Style:</strong> @Model.Ramen1.Style</p>
+                        <p class="card-text"><strong>Country:</strong> @Model.Ramen1.Country</p>
+                        <p class="card-text">
+                            <strong>Type:</strong>
+                            <span class="badge badge-success">@Model.Ramen1.Vegetarian</span>
+                        </p>
+                        <p class="card-text">
+                            <strong>Average Rating:</strong>
+                            @{
+                                var ratings = Model.Ramen1.Ratings;
+                                if ((ratings == null) == false && ratings.Length > 0)
+                                {
+                                    double avg = ratings.Average();
+                                    <text>@($"{avg:F1} / 5 ({ratings.Length} rating{(ratings.Length == 1 ? "" : "s")})")</text>
+                                }
+                                else
+                                {
+                                    @("No ratings yet")
+                                }
+                            }
+                        </p>
+                    </div>
+                    <div>
+                        <strong>User Reviews:</strong>
+                        @{
+                            var feedbacks = Model.Ramen1.Feedback;
+                            if ((feedbacks == null) == false && feedbacks.Length > 0)
+                            {
+                                foreach (var feedback in feedbacks)
+                                {
+                                    <span class="d-block mb-1 text-muted">"@feedback"</span>
+                                }
+                            }
+                            else
+                            {
+                                @("No reviews yet")
+                            }
                         }
-                    }
-                    else // If no ratings, print no ratings
-                    {
-                        @("No feedback yet")
-                    }
-                }
-            </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-6 text-center">
-
-            <img src="@Model.Ramen2.img" alt="@Model.Ramen2.Variety" class="img-fluid rounded mb-2" width="250" height="250" />
-
-            <!-- Output Brand for Ramen2 -->
-            <p><strong>Brand:</strong> @Model.Ramen2.Brand</p>
-
-            <!-- Output Variety for Ramen2 -->
-            <p><strong>Variety:</strong> @Model.Ramen2.Variety</p>
-
-            <!-- Output Style for Ramen2 -->
-            <p><strong>Style:</strong> @Model.Ramen2.Style</p>
-
-            <!-- Output Country for Ramen2 -->
-            <p><strong>Country:</strong> @Model.Ramen2.Country</p>
-
-            <!-- Outputs Vegetarian info for Ramen1 -->
-            <p><strong>@Model.Ramen2.Vegetarian</strong> </p>
-            
-            <!-- Outputs ratings for Ramen2 as average of ratings array with # of ratings -->
-            <p>
-                <strong>Average Rating:</strong>
-                @{
-                    var ratings2 = Model.Ramen2.Ratings;
-                    if ((ratings2 == null) == false && ratings2.Length > 0)
-                    {
-                        double avg = ratings2.Average();
-                        <text>@($"{avg:F1} / 5 ({ratings2.Length} rating{(ratings2.Length == 1 ? "" : "s")})")</text>
-                    }
-                    else // If no ratings, print no ratings
-                    {
-                        @("No ratings yet")
-                    }
-                }
-            </p>
-
-            <p>
-                <strong>Users Reviews:</strong><br />
-                @{
-                    var feedbacksInRamen2 = Model.Ramen2.Feedback;
-                    if ((feedbacksInRamen2 == null) == false && feedbacksInRamen2.Length > 0)
-                    {
-                        @foreach (var feedback2 in feedbacksInRamen2)
-                        {
-                            <text> @($"{feedback2}") </text>
-                            <br />
+        <!-- Ramen 2 Card -->
+        <div class="col-md-5 d-flex">
+            <div class="card shadow-lg rounded p-3 w-100 h-100 d-flex flex-column">
+                <img src="@Model.Ramen2.img" alt="@Model.Ramen2.Variety" class="card-img-top rounded mb-2" style="max-height: 250px; object-fit: cover;" />
+                <div class="card-body text-center flex-grow-1 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title">@Model.Ramen2.Brand - @Model.Ramen2.Variety</h5>
+                        <p class="card-text"><strong>Style:</strong> @Model.Ramen2.Style</p>
+                        <p class="card-text"><strong>Country:</strong> @Model.Ramen2.Country</p>
+                        <p class="card-text">
+                            <strong>Type:</strong>
+                            <span class="badge badge-success">@Model.Ramen2.Vegetarian</span>
+                        </p>
+                        <p class="card-text">
+                            <strong>Average Rating:</strong>
+                            @{
+                                var ratings2 = Model.Ramen2.Ratings;
+                                if ((ratings2 == null) == false && ratings2.Length > 0)
+                                {
+                                    double avg = ratings2.Average();
+                                    <text>@($"{avg:F1} / 5 ({ratings2.Length} rating{(ratings2.Length == 1 ? "" : "s")})")</text>
+                                }
+                                else
+                                {
+                                    @("No ratings yet")
+                                }
+                            }
+                        </p>
+                    </div>
+                    <div>
+                        <strong>Users Review:</strong>
+                        @{
+                            var feedbacks2 = Model.Ramen2.Feedback;
+                            if ((feedbacks2 == null) == false && feedbacks2.Length > 0)
+                            {
+                                foreach (var feedback2 in feedbacks2)
+                                {
+                                    <span class="d-block mb-1 text-muted">"@feedback2"</span>
+                                }
+                            }
+                            else
+                            {
+                                @("No reviews yet")
+                            }
                         }
-                    }
-                    else // If no ratings, print no ratings
-                    {
-                        @("No feedback yet")
-                    }
-                }
-            </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }
