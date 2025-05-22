@@ -99,6 +99,33 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(first.Number, pageModel.Ramen1.Number);
             Assert.AreEqual(second.Number, pageModel.Ramen2.Number);
         }
+
+        /// Checks that the selections for comparing two same ramens are invalid 
+        [Test]
+        public void OnPost_InValid_Selection_Should_Not_Assign_Ramen1_And_Ramen2()
+        {
+            // Arrange
+            // Create the list of products
+            var products = TestHelper.ProductService.GetProducts().ToList();
+
+            // Assign first as the first index of both ramens
+            var first = products[0];
+            var second = products[0];
+            
+
+            // Assign the selections
+            pageModel.Selected1 = first.Number;
+            pageModel.Selected2 = second.Number;
+
+            // Act
+            pageModel.OnPost();
+
+            // Assert
+            // Make sure the 2 ramen selected are null in the model
+            Assert.IsNull(pageModel.Ramen1);
+            Assert.IsNull(pageModel.Ramen2);
+            Assert.AreEqual("Please select two different ramens.", pageModel.ErrorMessage);
+        }
         #endregion OnPost Tests
     }
 }
