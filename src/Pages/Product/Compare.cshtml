@@ -22,9 +22,9 @@
         </div>
 
         <!-- Submit the form -->
-
         <div class="col-md-2 d-flex align-items-end justify-content-center">
             <button type="submit" class="btn btn-primary mt-2">Compare</button>
+            
         </div>
 
         <!-- Select Ramen 2 -->
@@ -39,6 +39,14 @@
             </select>
         </div>
     </div>
+
+    <!-- Error message is shown if both products are same  -->
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger text-center">
+            @Model.ErrorMessage
+        </div>
+    }
 </form>
 
 <!-- Checking if both ramens are selected and if yes then display comparision -->
