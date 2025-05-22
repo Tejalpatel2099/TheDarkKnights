@@ -16,6 +16,9 @@ namespace RamenRatings.WebSite.Pages.Product
         // Service used to retrieve ramen product data
         private JsonFileProductService ProductService;
 
+        // Error message to display if the user selects the same ramen product for comparison
+        public string ErrorMessage { get; set; } = "";
+
         // Constructor that initializes the product service 
         public CompareModel(JsonFileProductService productService)
         {
@@ -50,6 +53,12 @@ namespace RamenRatings.WebSite.Pages.Product
         public void OnPost()
         {
             Products = ProductService.GetProducts().ToList();
+            // Check if the selected ramen products are the same
+            if (Selected1 == Selected2)
+            {
+                ErrorMessage = "Please select two different ramens.";
+                return;
+            }
             Ramen1 = Products.FirstOrDefault(p => p.Number == Selected1);
             Ramen2 = Products.FirstOrDefault(p => p.Number == Selected2);
         }
