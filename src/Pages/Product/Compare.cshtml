@@ -75,6 +75,25 @@
                     }
                 }
             </p>
+
+            <p>
+                <strong>Users Reviews:</strong><br/>
+                @{
+                    var feedbacks = Model.Ramen1.Feedback;
+                    if ((feedbacks == null) == false && feedbacks.Length > 0)
+                    {
+                        @foreach (var feedback in feedbacks)
+                        {
+                            <text> @($"{feedback}") </text>
+                            <br />
+                        }
+                    }
+                    else // If no ratings, print no ratings
+                    {
+                        @("No feedback yet")
+                    }
+                }
+            </p>
         </div>
 
         <div class="col-md-6 text-center">
@@ -109,6 +128,25 @@
                     else // If no ratings, print no ratings
                     {
                         @("No ratings yet")
+                    }
+                }
+            </p>
+
+            <p>
+                <strong>Users Reviews:</strong><br />
+                @{
+                    var feedbacksInRamen2 = Model.Ramen2.Feedback;
+                    if ((feedbacksInRamen2 == null) == false && feedbacksInRamen2.Length > 0)
+                    {
+                        @foreach (var feedback2 in feedbacksInRamen2)
+                        {
+                            <text> @($"{feedback2}") </text>
+                            <br />
+                        }
+                    }
+                    else // If no ratings, print no ratings
+                    {
+                        @("No feedback yet")
                     }
                 }
             </p>
