@@ -68,6 +68,20 @@
         <span asp-validation-for="Country" class="text-danger"></span>
     </div>
 
+    <!-- Select Vegetarian Option -->
+    <div class="form-group">
+        <label for="Vegetarian">Vegetarian</label>
+        <select class="form-control" id="Vegetarian" name="NewProduct.Vegetarian" required>
+            <option value="">Select an option</option>
+            @foreach (var option in Model.VegetarianOptions)
+            {
+                <option value="@option">@option</option>
+            }
+        </select>
+        <span asp-validation-for="NewProduct.Vegetarian" class="text-danger"></span>
+    </div>
+
+
     <!-- Upload an image -->
     <div class="form-group">
         <label for="Image">Upload Image</label>
