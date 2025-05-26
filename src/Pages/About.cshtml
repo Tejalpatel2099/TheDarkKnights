@@ -4,6 +4,36 @@
     ViewData["Title"] = "About Us";
 }
 
+<!-- About the Products Chart Section -->
+<section class="container mt-5 mb-5">
+    <h2 class="text-center">📊 Explore the Noodle Numbers </h2>
+
+    <div class="row align-items-start">
+        <!-- Legend -->
+        <div class="col-md-3" id="chartLegendContainer">
+            <div id="chartLegend" class="small"></div>
+        </div>
+
+        <!-- Chart -->
+        <div class="col-md-6 text-center">
+            <canvas id="pieChart" style="max-height: 250px;"></canvas>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="col-md-3 text-end">
+            <label for="chartTypeSelect" class="form-label">Select a category to explore</label>
+            <select id="chartTypeSelect" class="form-select">
+                <option value="Rating">Rating</option>
+                <option value="Brand">Brand</option>
+                <option value="Country">Country</option>
+                <option value="Vegetarian">Vegetarian</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+
+<!-- About Us Section -->
 <div class="about-container" style="max-width: 800px; margin: auto; padding: 2rem; font-family: 'Segoe UI', sans-serif; line-height: 1.6;">
     <h1 style="text-align: center;">🍜 About Us</h1>
     <!-- Lists Team Members -->
@@ -41,3 +71,95 @@
         </p>
     </section>
 </div>
+
+@section Scripts {
+
+    <script>
+        // Generate chart colors
+        function generateColors(count)
+        {
+            return Array.from({ length: count }, (_, i) =>
+                `hsl(${Math.round((360 / count) * i)}, 70%, 60%)`
+            );
+        }
+
+        const rawData = @Html.Raw(ViewData["ChartData"]);
+        let chart;
+
+        // Create pie chart display
+        function createChart(category)
+        {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            const dataSet = rawData[category];
+
+            const colors = generateColors(dataSet.length);
+            const labels = dataSet.map(x => x.label);
+            const values = dataSet.map(x => x.count);
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx,
+            {
+                type: 'pie',
+                data:
+                {
+                    labels: labels,
+                    datasets:
+                    [{
+                        label: 'Product Distribution',
+                        data: values,
+                        backgroundColor: colors
+                    }]
+                },
+                options:
+                {
+                    responsive: true,
+                    plugins:
+                    {
+                        legend:
+                        {
+                            display: false
+                        },
+                        title:
+                        {
+                            display: true,
+                            text: `${category} Distribution`
+                        },
+
+                        // Add percentage information
+                        tooltip:
+                        {
+                            callbacks:
+                            {
+                                label: function (context)
+                                {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                    const percent = ((value / total) * 100).toFixed(1);
+                                    return `${value} Products (${percent}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update custom legend
+            const legendContainer = document.getElementById('chartLegend');
+            legendContainer.innerHTML = labels.map((label, i) =>
+                `<div style="display:flex; align-items:center; margin-bottom:6px;">
+                    <div style="width:16px; height:16px; background-color:${colors[i]}; margin-right:8px;"></div>
+                    <span>${label}</span>
+                 </div>`
+            ).join('');
+        }
+
+        // Load default chart
+        createChart('Rating');
+
+        // Update chart on dropdown change
+        document.getElementById('chartTypeSelect').addEventListener('change', function () {
+            createChart(this.value);
+        });
+    </script>
+}
