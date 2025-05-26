@@ -2,8 +2,8 @@
   {
     "Number": 1,
     "Brand": "Indomie",
-    "img": "/images/1.jpg",
-    "Style": "Pack",
+    "img": "/images/1.png",
+    "Style": "Tray",
     "Country": "Indonesia",
     "Variety": "Chicken Curry",
     "Vegetarian": "Not Veg",
@@ -12,10 +12,7 @@
       5,
       5
     ],
-    "Feedback": [
-      "It is nice",
-      "It is Ramentastic"
-    ]
+    "Feedback": null
   },
   {
     "Number": 2,
@@ -32,11 +29,11 @@
   },
   {
     "Number": 3,
-    "Brand": "Mama",
-    "img": "/images/3.jpg",
-    "Style": "Bowl",
-    "Country": "Thailand",
-    "Variety": "Instant Bowl Noodles Artificial Pork",
+    "Brand": "Lucian",
+    "img": "/images/3.png",
+    "Style": "Cup",
+    "Country": "Swaziland",
+    "Variety": "Lucian",
     "Vegetarian": "Not Veg",
     "Ratings": [
       2
@@ -393,9 +390,7 @@
     "Country": "Japan",
     "Variety": "Shrimp Flavor",
     "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
+    "Ratings": null,
     "Feedback": null
   }
 ]
