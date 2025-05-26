@@ -1,396 +1,399 @@
 [
-  {
-    "Number": 1,
-    "Brand": "Indomie",
-    "img": "/images/1.png",
-    "Style": "Tray",
-    "Country": "Indonesia",
-    "Variety": "Chicken Curry",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4,
-      5,
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 2,
-    "Brand": "Indomie",
-    "img": "/images/2.jpg",
-    "Style": "Pack",
-    "Country": "Indonesia",
-    "Variety": "Mi Goreng",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 3,
-    "Brand": "Lucian",
-    "img": "/images/3.png",
-    "Style": "Cup",
-    "Country": "Swaziland",
-    "Variety": "Lucian",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      2
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 4,
-    "Brand": "Mama",
-    "img": "/images/4.jpg",
-    "Style": "Pack",
-    "Country": "Thailand",
-    "Variety": "Shrimp Creamy Tom Yum",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 5,
-    "Brand": "Mama",
-    "img": "/images/5.jpg",
-    "Style": "Pack",
-    "Country": "Thailand",
-    "Variety": "Artificial Chicken",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      2
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 6,
-    "Brand": "Maruchan",
-    "img": "/images/6.jpg",
-    "Style": "Tray",
-    "Country": "Japan",
-    "Variety": "Gotsumori Sauce Yakisoba",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 7,
-    "Brand": "Maruchan",
-    "img": "/images/7.png",
-    "Style": "Pack",
-    "Country": "Japan",
-    "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 8,
-    "Brand": "Maruchan",
-    "img": "/images/8.jpg",
-    "Style": "Cup",
-    "Country": "USA",
-    "Variety": "Instant Lunch Shrimp",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 9,
-    "Brand": "Maruchan",
-    "img": "/images/9.jpg",
-    "Style": "Tray",
-    "Country": "USA",
-    "Variety": "Yakisoba Chicken",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      2
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 10,
-    "Brand": "Maruchan",
-    "img": "/images/10.png",
-    "Style": "Tray",
-    "Country": "USA",
-    "Variety": "Yakisoba Teriyaki Beef",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      2
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 11,
-    "Brand": "Maruchan",
-    "img": "/images/11.jpg",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Ramen Noodle Soup Chicken",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      2,
-      5
-    ],
-    "Feedback": [
-      "Ramen"
-    ]
-  },
-  {
-    "Number": 12,
-    "Brand": "Myojo",
-    "img": "/images/12.jpg",
-    "Style": "Bowl",
-    "Country": "Japan",
-    "Variety": "Shin Toyama Black Ramen",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 13,
-    "Brand": "Myojo",
-    "img": "/images/13.jpg",
-    "Style": "Tray",
-    "Country": "Japan",
-    "Variety": "Ippeichan Yakisoba",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 14,
-    "Brand": "Nissin",
-    "img": "/images/14.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Top Ramen Chicken",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 15,
-    "Brand": "Nissin",
-    "img": "/images/15.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Top Ramen Shrimp",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 16,
-    "Brand": "Nissin",
-    "img": "/images/16.png",
-    "Style": "Tray",
-    "Country": "Japan",
-    "Variety": "Yakisoba Noodles Karashi",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 17,
-    "Brand": "Nongshim",
-    "img": "/images/17.png",
-    "Style": "Pack",
-    "Country": "South Korea",
-    "Variety": "Shin Ramyun Black",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 18,
-    "Brand": "Nongshim",
-    "img": "/images/18.png",
-    "Style": "Cup",
-    "Country": "USA",
-    "Variety": "Kimchi Flavor Noodle Soup",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 19,
-    "Brand": "Nongshim",
-    "img": "/images/19.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Spicy Tonkotsu Noodle Soup",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 20,
-    "Brand": "Nongshim",
-    "img": "/images/20.jpg",
-    "Style": "Cup",
-    "Country": "South Korea",
-    "Variety": "Shin Ramyun Cup",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 21,
-    "Brand": "Nongshim",
-    "img": "/images/21.jpg",
-    "Style": "Bowl",
-    "Country": "USA",
-    "Variety": "Bowl Noodle Spicy Seafood",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4,
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 22,
-    "Brand": "Nongshim",
-    "img": "/images/22.jpg",
-    "Style": "Pack",
-    "Country": "South Korea",
-    "Variety": "Shin Ramyun",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 23,
-    "Brand": "Samyang Foods",
-    "img": "/images/23.jpg",
-    "Style": "Pack",
-    "Country": "South Korea",
-    "Variety": "Cheese Buldak Bokkeummyun",
-    "Vegetarian": "Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 24,
-    "Brand": "Samyang Foods",
-    "img": "/images/24.png",
-    "Style": "Pack",
-    "Country": "South Korea",
-    "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 25,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/25.png",
-    "Style": "Pack",
-    "Country": "Japan",
-    "Variety": "Shio",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 26,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/26.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Original Flavor",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 27,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/27.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Beef Flavor",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      4
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 28,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/28.png",
-    "Style": "Pack",
-    "Country": "USA",
-    "Variety": "Chicken Flavor",
-    "Vegetarian": "Not Veg",
-    "Ratings": [
-      3
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 29,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/29.png",
-    "Style": "Pack",
-    "Country": "Japan",
-    "Variety": "Chow Mein",
-    "Vegetarian": "Veg",
-    "Ratings": [
-      5
-    ],
-    "Feedback": null
-  },
-  {
-    "Number": 30,
-    "Brand": "Sapporo Ichiban",
-    "img": "/images/30.png",
-    "Style": "Pack",
-    "Country": "Japan",
-    "Variety": "Shrimp Flavor",
-    "Vegetarian": "Not Veg",
-    "Ratings": null,
-    "Feedback": null
-  }
+    {
+        "Number": 1,
+        "Brand": "Indomie",
+        "img": "/images/1.jpg",
+        "Style": "Pack",
+        "Country": "Indonesia",
+        "Variety": "Chicken Curry",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4,
+            5,
+            5
+        ],
+        "Feedback": [
+            "It is nice",
+            "It is Ramentastic"
+        ]
+    },
+    {
+        "Number": 2,
+        "Brand": "Indomie",
+        "img": "/images/2.jpg",
+        "Style": "Pack",
+        "Country": "Indonesia",
+        "Variety": "Mi Goreng",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 3,
+        "Brand": "Mama",
+        "img": "/images/3.jpg",
+        "Style": "Bowl",
+        "Country": "Thailand",
+        "Variety": "Instant Bowl Noodles Artificial Pork",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            2
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 4,
+        "Brand": "Mama",
+        "img": "/images/4.jpg",
+        "Style": "Pack",
+        "Country": "Thailand",
+        "Variety": "Shrimp Creamy Tom Yum",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 5,
+        "Brand": "Mama",
+        "img": "/images/5.jpg",
+        "Style": "Pack",
+        "Country": "Thailand",
+        "Variety": "Artificial Chicken",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            2
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 6,
+        "Brand": "Maruchan",
+        "img": "/images/6.jpg",
+        "Style": "Tray",
+        "Country": "Japan",
+        "Variety": "Gotsumori Sauce Yakisoba",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 7,
+        "Brand": "Maruchan",
+        "img": "/images/7.png",
+        "Style": "Pack",
+        "Country": "Japan",
+        "Variety": "Seimen Japanese Instant Ramen Noodles Soy Sauce Taste",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 8,
+        "Brand": "Maruchan",
+        "img": "/images/8.jpg",
+        "Style": "Cup",
+        "Country": "USA",
+        "Variety": "Instant Lunch Shrimp",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 9,
+        "Brand": "Maruchan",
+        "img": "/images/9.jpg",
+        "Style": "Tray",
+        "Country": "USA",
+        "Variety": "Yakisoba Chicken",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            2
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 10,
+        "Brand": "Maruchan",
+        "img": "/images/10.png",
+        "Style": "Tray",
+        "Country": "USA",
+        "Variety": "Yakisoba Teriyaki Beef",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            2
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 11,
+        "Brand": "Maruchan",
+        "img": "/images/11.jpg",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Ramen Noodle Soup Chicken",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            2,
+            5
+        ],
+        "Feedback": [
+            "Ramen"
+        ]
+    },
+    {
+        "Number": 12,
+        "Brand": "Myojo",
+        "img": "/images/12.jpg",
+        "Style": "Bowl",
+        "Country": "Japan",
+        "Variety": "Shin Toyama Black Ramen",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 13,
+        "Brand": "Myojo",
+        "img": "/images/13.jpg",
+        "Style": "Tray",
+        "Country": "Japan",
+        "Variety": "Ippeichan Yakisoba",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 14,
+        "Brand": "Nissin",
+        "img": "/images/14.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Top Ramen Chicken",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 15,
+        "Brand": "Nissin",
+        "img": "/images/15.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Top Ramen Shrimp",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 16,
+        "Brand": "Nissin",
+        "img": "/images/16.png",
+        "Style": "Tray",
+        "Country": "Japan",
+        "Variety": "Yakisoba Noodles Karashi",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 17,
+        "Brand": "Nongshim",
+        "img": "/images/17.png",
+        "Style": "Pack",
+        "Country": "South Korea",
+        "Variety": "Shin Ramyun Black",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 18,
+        "Brand": "Nongshim",
+        "img": "/images/18.png",
+        "Style": "Cup",
+        "Country": "USA",
+        "Variety": "Kimchi Flavor Noodle Soup",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 19,
+        "Brand": "Nongshim",
+        "img": "/images/19.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Spicy Tonkotsu Noodle Soup",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 20,
+        "Brand": "Nongshim",
+        "img": "/images/20.jpg",
+        "Style": "Cup",
+        "Country": "South Korea",
+        "Variety": "Shin Ramyun Cup",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 21,
+        "Brand": "Nongshim",
+        "img": "/images/21.jpg",
+        "Style": "Bowl",
+        "Country": "USA",
+        "Variety": "Bowl Noodle Spicy Seafood",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4,
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 22,
+        "Brand": "Nongshim",
+        "img": "/images/22.jpg",
+        "Style": "Pack",
+        "Country": "South Korea",
+        "Variety": "Shin Ramyun",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 23,
+        "Brand": "Samyang Foods",
+        "img": "/images/23.jpg",
+        "Style": "Pack",
+        "Country": "South Korea",
+        "Variety": "Cheese Buldak Bokkeummyun",
+        "Vegetarian": "Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 24,
+        "Brand": "Samyang Foods",
+        "img": "/images/24.png",
+        "Style": "Pack",
+        "Country": "South Korea",
+        "Variety": "Buldalk Bokkeummyeon (Hot Fried Chicken Ramyun)",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 25,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/25.png",
+        "Style": "Pack",
+        "Country": "Japan",
+        "Variety": "Shio",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 26,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/26.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Original Flavor",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 27,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/27.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Beef Flavor",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            4
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 28,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/28.png",
+        "Style": "Pack",
+        "Country": "USA",
+        "Variety": "Chicken Flavor",
+        "Vegetarian": "Not Veg",
+        "Ratings": [
+            3
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 29,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/29.png",
+        "Style": "Pack",
+        "Country": "Japan",
+        "Variety": "Chow Mein",
+        "Vegetarian": "Veg",
+        "Ratings": [
+            5
+        ],
+        "Feedback": null
+    },
+    {
+        "Number": 30,
+        "Brand": "Sapporo Ichiban",
+        "img": "/images/30.png",
+        "Style": "Pack",
+        "Country": "Japan",
+        "Variety": "Shrimp Flavor",
+        "Vegetarian": "Not Veg",
+        "Ratings": null,
+        "Feedback": null
+    }
 ]
