@@ -380,9 +380,7 @@
         "Country": "Japan",
         "Variety": "Chow Mein",
         "Vegetarian": "Veg",
-        "Ratings": [
-            5
-        ],
+        "Ratings": null,
         "Feedback": null
     },
     {
