@@ -1,191 +1,150 @@
 ﻿@page "{number}"
 @model RamenRatings.WebSite.Pages.Product.UpdateModel
 @{
-    <!-- Page heading -->
-    <h2>Update Existing Ramen Product</h2>
+    ViewData["Title"] = "Update Existing Ramen Product";
+}
 
-    <!-- Form to handle Update functionality -->
-    <form method="post" enctype="multipart/form-data">
-        <p> Current Ramen Image </p>
-        <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
+<h2>Update Existing Ramen Product</h2>
 
-        <!-- Select from list of existing brands, with option to enter a new Brand -->
-        <div class="form-group">
-            <label for="Brand">Brand</label>
-            <select class="form-control" id="Brand" name="Product.Brand">
-                <option value="">Select an Existing Brand</option>
-                @foreach (var brand in Model.ExistingBrands.Distinct())
-                {
-                    <option value="@brand" selected="@(brand == @Model.Product.Brand)">@brand</option>
-                }
-                <option value="Other">Other</option>
+<form method="post" enctype="multipart/form-data">
+    <p> Current Ramen Image </p>
+    <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
 
-            </select>
-            <!-- If Other is selected, enter a new brand -->
-            <div class="form-group" id="newBrandGroup" style="display:none;">
-                <label for="NewBrand">Other Brand</label>
-                <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
-            </div>
-            <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
-        </div>
-
-        <!-- Input Variety -->
-        <div class="form-group">
-            <label for="Variety">Variety</label>
-            <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety"/>
-            <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
-        </div>
-
-        <!-- Select from list of existing styles, with option to enter new style -->
-        <div class="form-group">
-            <label for="Style">Style</label>
-            <select class="form-control" id="Style" name="Product.Style">
-                <option value="">Select an Existing Style</option>
-                @foreach (var style in Model.ExistingStyles.Distinct())
-                {
-                    <option value="@style" selected="@(style == @Model.Product.Style)">@style</option>
-                }
-                <option value="Other">Other</option>
-            </select>
-
-            <!-- If Other is selected, enter a new style -->
-            <div class="form-group" id="newStyleGroup" style="display:none;">
-                <label for="NewStyle">Other Style</label>
-                <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
-            </div>
-            <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
-        </div>
-
-        <!-- Input Country -->
-        <div class="form-group">
-            <label for="Country">Country</label>
-            <select class="form-control" id="Country" name="Product.Country">
-                <option value="">Select a Country</option>
-                @foreach (var country in Model.Countries.Distinct())
-                {
-                    <option value="@country" selected="@(country == Model.Product.Country)">
-                        @country
-                    </option>
-                }
-            </select>
-            <span asp-validation-for="Product.Country" class="text-danger"></span>
-        </div>
-
-        <!-- Select Vegetarian Option -->
-        <div class="form-group">
-            <label for="Vegetarian">Vegetarian</label>
-            <select class="form-control" id="Vegetarian" name="Product.Vegetarian" required>
-                <option value="">Select an option</option>
-                @foreach (var option in Model.VegetarianOptions)
-                {
-                    <option value="@option" selected="@(option == Model.Product.Vegetarian)">
-                        @option
-                    </option>
-                }
-            </select>
-            <span asp-validation-for="Product.Vegetarian" class="text-danger"></span>
-        </div>
-
-        <!-- Upload an image -->
-        <div class="form-group">
-            <label for="Image">Upload Image</label>
-            <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
-            <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
-            <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
-        </div>
-
-        <!-- Display Rating (read-only) -->
-        <div class="form-group">
-            <label for="Rating">Current Rating</label>
-            <input type="text" class="form-control" id="Rating"
-                   value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
-                   readonly style="background-color: #e9ecef; cursor: not-allowed;" />
-            <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
-        </div>
-
-        <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
-
-        <!-- Go Back Button -->
-        <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
-        <!-- Save/submit the new product -->
-        <button type="submit" class="btn btn-primary">Update Ramen</button>
-    </form>
-
-
-    <!-- Script for showing or hiding the input fields for new brand or new style -->
-    @section Scripts {
-        <script>
-            function goBack() {
-                window.history.back();
+    <div class="form-group">
+        <label for="Brand">Brand</label>
+        <select class="form-control" id="Brand" name="Product.Brand">
+            <option value="">Select an Existing Brand</option>
+            @foreach (var brand in Model.ExistingBrands.Distinct())
+            {
+                <option value="@brand" selected="@(brand == @Model.Product.Brand)">@brand</option>
             }
-            // Show Brand error message and style error message
-            window.onload = function () {
-                var errorMessageBrand = '@Model.BrandError';
-                if (errorMessageBrand) {
-                    var errorDiv = document.getElementById("brand-error");
-                    errorDiv.innerText = errorMessageBrand;
+            <option value="Other">Other</option>
+        </select>
+        <div class="form-group" id="newBrandGroup" style="display:none;">
+            <label for="NewBrand">Other Brand</label>
+            <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+        </div>
+        <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
+    </div>
+
+    <div class="form-group">
+        <label for="Variety">Variety</label>
+        <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety" />
+        <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
+    </div>
+
+    <div class="form-group">
+        <label for="Style">Style</label>
+        <select class="form-control" id="Style" name="Product.Style">
+            <option value="">Select an Existing Style</option>
+            @foreach (var style in Model.ExistingStyles.Distinct())
+            {
+                <option value="@style" selected="@(style == @Model.Product.Style)">@style</option>
+            }
+            <option value="Other">Other</option>
+        </select>
+        <div class="form-group" id="newStyleGroup" style="display:none;">
+            <label for="NewStyle">Other Style</label>
+            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
+        </div>
+        <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
+    </div>
+
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <select class="form-control" id="Country" name="Product.Country">
+            <option value="">Select a Country</option>
+            @foreach (var country in Model.Countries.Distinct())
+            {
+                <option value="@country" selected="@(country == Model.Product.Country)">@country</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Country" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Vegetarian">Vegetarian</label>
+        <select class="form-control" id="Vegetarian" name="Product.Vegetarian" required>
+            <option value="">Select an option</option>
+            @foreach (var option in Model.VegetarianOptions)
+            {
+                <option value="@option" selected="@(option == Model.Product.Vegetarian)">@option</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Vegetarian" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Upload Image</label>
+        <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
+        <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
+        <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Rating">Current Rating</label>
+        <input type="text" class="form-control" id="Rating"
+               value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
+               readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+        <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
+    </div>
+
+    <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
+
+    <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
+    <button type="submit" class="btn btn-primary">Update Ramen</button>
+</form>
+
+@section Scripts {
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        window.onload = function () {
+            const showError = (id, message) => {
+                if (message) {
+                    const errorDiv = document.getElementById(id);
+                    errorDiv.innerText = message;
                     errorDiv.style.display = "block";
                 }
-                var errorMessageStyle = '@Model.StyleError';
-                if (errorMessageStyle) {
-                    var errorDiv = document.getElementById("style-error");
-                    errorDiv.innerText = errorMessageStyle;
-                    errorDiv.style.display = "block";
-                }
-                var errorMessageVariety = '@Model.VarietyError';
-                if (errorMessageVariety) {
-                    var errorDiv = document.getElementById("variety-error");
-                    errorDiv.innerText = errorMessageVariety;
-                    errorDiv.style.display = "block";
+            };
+
+            showError("brand-error", '@Model.BrandError');
+            showError("style-error", '@Model.StyleError');
+            showError("variety-error", '@Model.VarietyError');
+        };
+
+        document.getElementById('Brand').addEventListener('change', function () {
+            const newBrandGroup = document.getElementById('newBrandGroup');
+            const errorDiv = document.getElementById("brand-error");
+            newBrandGroup.style.display = this.value === "Other" ? "block" : "none";
+            errorDiv.style.display = "none";
+        });
+
+        document.getElementById('Style').addEventListener('change', function () {
+            const newStyleGroup = document.getElementById('newStyleGroup');
+            const errorDiv = document.getElementById("style-error");
+            newStyleGroup.style.display = this.value === "Other" ? "block" : "none";
+            errorDiv.style.display = "none";
+        });
+
+        document.getElementById('Image').addEventListener('change', function () {
+            const file = this.files[0];
+            const errorDiv = document.getElementById('image-error');
+            const maxSize = 3 * 1024 * 1024;
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            this.classList.remove('is-invalid');
+
+            if (file && (!allowedTypes.includes(file.type) || file.size > maxSize)) {
+                errorDiv.textContent = 'Sorry, this file is not supported.';
+                errorDiv.style.display = 'block';
+                this.classList.add('is-invalid');
+                this.value = '';
             }
-            }
-			// Show  the input fields for new brand or new style based on selection
-            document.getElementById('Brand').addEventListener('change', function () {
-                var newBrandGroup = document.getElementById('newBrandGroup');
-                var errorDiv = document.getElementById("brand-error");
-                if(this.value === "Other"){
-                    newBrandGroup.style.display = "block";
-                    errorDiv.style.display = "none";
-                }
-                if((this.value == "Other")== false){
-                    newBrandGroup.style.display = "none";
-                }
-             });
-            document.getElementById('Style').addEventListener('change', function () {
-                var newStyleGroup = document.getElementById('newStyleGroup');
-                var errorDiv = document.getElementById("style-error");
-                if(this.value === "Other"){
-                    newStyleGroup.style.display = "block";
-                errorDiv.style.display = "none";
-                }
-                if((this.value == "Other") == false){
-                    newStyleGroup.style.display = "none";
-                }
-            });
-
-            // Scipt for file upload to only allow certain file types and sizes
-            document.getElementById('Image').addEventListener('change', function () {
-                const fileInput = this;
-                const errorDiv = document.getElementById('image-error');
-                const file = fileInput.files[0];
-                const maxSize = 3 * 1024 * 1024; // 3 MB max file size
-                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-
-                // Reset error message
-                errorDiv.style.display = 'none';
-                errorDiv.textContent = '';
-                fileInput.classList.remove('is-invalid');
-
-                // checks that it is a file and if the file is not supported, then print message
-                if (file && ((allowedTypes.includes(file.type) == false) || file.size > maxSize)) {
-                    errorDiv.textContent = 'Sorry, this file is not supported.';
-                    errorDiv.style.display = 'block';
-                    fileInput.classList.add('is-invalid');
-                    fileInput.value = '';
-                }   
-            });
-        </script>
-    }
-	<!-- End of script section -->
-
+        });
+    </script>
 }
