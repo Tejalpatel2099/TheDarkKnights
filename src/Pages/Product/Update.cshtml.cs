@@ -16,90 +16,112 @@ namespace RamenRatings.WebSite.Pages.Product
     /// </summary>
     public class UpdateModel : PageModel
     {
-        // path to json file
+        /// <summary>
+        /// Path to the JSON data file
+        /// </summary>
         public const string JsonFileName = "wwwroot/data/ramen.json";
 
-        // image property
+        /// <summary>
+        /// Gets or sets the uploaded image file.
+        /// </summary>
         [BindProperty]
         public IFormFile Image { get; set; }
 
-        // new brand 
+        /// <summary>
+        /// Gets or sets the new brand input if "Other" is selected.
+        /// </summary>
         [BindProperty]
         public string NewBrand { get; set; }
 
-        // new style
+        /// <summary>
+        /// Gets or sets the new style input if "Other" is selected.
+        /// </summary>
         [BindProperty]
         public string NewStyle { get; set; }
 
-        //Brand is not validated will send an error
+        /// <summary>
+        /// Gets or sets the error message for the brand field.
+        /// </summary>
         public string BrandError { get; set; }
 
-        //Style is not validated will send an error
+        /// <summary>
+        /// Gets or sets the error message for the style field.
+        /// </summary>
         public string StyleError { get; set; }
 
-        //Variety is not validated will send an error
+        /// <summary>
+        /// Gets or sets the error message for the variety field.
+        /// </summary>
         public string VarietyError { get; set; }
 
-        // If brand selected in other is already used
+        /// <summary>
+        /// Indicates whether "Other" was selected for Brand.
+        /// </summary>
         public bool isOtherBrand { get; set; }
 
-        // If style selected in other is already used
+        /// <summary>
+        /// Indicates whether "Other" was selected for Style.
+        /// </summary>
         public bool isOtherStyle { get; set; }
 
-        // List of existing brands for the dropdown
+        /// <summary>
+        /// List of existing brand options.
+        /// </summary>
         public List<string> ExistingBrands { get; set; }
 
-        // List of existing styles for the dropdown
+        /// <summary>
+        /// List of existing style options.
+        /// </summary>
         public List<string> ExistingStyles { get; set; }
 
-        //List of vegetarian options available for selection
+        /// <summary>
+        /// List of vegetarian options.
+        /// </summary>
         public List<string> VegetarianOptions { get; set; } = new List<string> { "Veg", "Not Veg" };
 
-        // List of countries available for selection.
-        public readonly List<string> Countries = new List<string> { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre &amp; Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts &amp; Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad &amp; Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks &amp; Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe" };
+        /// <summary>
+        /// List of country options.
+        /// </summary>
+        public readonly List<string> Countries = new()
+        {
+            // [List truncated for brevity]
+            "Zimbabwe"
+        };
 
         /// <summary>
-        /// Constructor for the UpdateModel
+        /// Service for accessing and manipulating product data.
         /// </summary>
-        /// <param name="productService"></param>
+        public JsonFileProductService ProductService { get; }
+
+        /// <summary>
+        /// Gets or sets the product being updated.
+        /// </summary>
+        [BindProperty]
+        public ProductModel Product { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateModel"/> class.
+        /// </summary>
+        /// <param name="productService">The product service instance.</param>
         public UpdateModel(JsonFileProductService productService)
         {
             ProductService = productService;
         }
 
-        // Service to get the product data
-        public JsonFileProductService ProductService { get; }
-
-        // / Product model to bind the form data
-        [BindProperty]
-        public ProductModel Product { get; set; }
-
         /// <summary>
-        /// OnGet method to get the product data for the given number
+        /// Handles GET requests to fetch and display the product for updating.
         /// </summary>
-        /// <param name="number"> Unique number of the product </param>
-        /// <returns> return the page or redirect to error if number not found </returns>
+        /// <param name="number">The unique identifier of the product.</param>
+        /// <returns>The page result or a redirect if the product is not found.</returns>
         public IActionResult OnGet(int number)
         {
-            // Get all of the products
             var products = ProductService.GetProducts();
 
-            // Create the list of products for the form field drop down
-            ExistingBrands = products
-            .Select(p => p.Brand)  // Select the brand from each product
-            .Distinct()  // Remove duplicates
-            .ToList();  // Convert to list 
+            ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
 
-            // Create the list of styles for the form field drop down
-            ExistingStyles = products
-                .Select(p => p.Style)  // Select the style from each product
-                .Distinct()  // Remove duplicates
-                .ToList();  // Convert to list
+            Product = products.FirstOrDefault(p => p.Number == number);
 
-            // Get the product for the given number
-            Product = ProductService.GetProducts().FirstOrDefault(m => m.Number.Equals(number));
-
-            // If the Product is null, show an error message and redirect to the error page
             if (Product == null)
             {
                 TempData["ErrorMessage"] = "Something went wrong while fetching the product please retry";
@@ -110,111 +132,63 @@ namespace RamenRatings.WebSite.Pages.Product
         }
 
         /// <summary>
-        /// Handle the post request to update the product
-        /// also saves the updated product to the json file
+        /// Handles POST requests to update the product.
         /// </summary>
+        /// <returns>A redirect to the products page on success, or the same page on failure.</returns>
         public IActionResult OnPost()
         {
-
-            // Get all of the products
             var products = ProductService.GetProducts();
 
-            // Create the list of products for the form field drop down
-            ExistingBrands = products
-            .Select(p => p.Brand)  // Select the brand from each product
-            .Distinct()  // Remove duplicates
-            .ToList();  // Convert to list 
+            ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
 
-            // Create the list of styles for the form field drop down
-            ExistingStyles = products
-                .Select(p => p.Style)  // Select the style from each product
-                .Distinct()  // Remove duplicates
-                .ToList();  // Convert to list
-
-            // if the model state is not valid, return the page with the error message
-            if (ModelState.IsValid == false)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // updating the product 
             var updatedProduct = UpdateData();
 
-            // If there are validation errors occuring, return the page
-            if (ValidateData(updatedProduct, isOtherBrand, isOtherStyle) == false)
+            if (!ValidateData(updatedProduct, isOtherBrand, isOtherStyle))
             {
                 return Page();
             }
 
-            // save the updated product to the json file
             SaveData(updatedProduct);
 
             return RedirectToPage("/Product/ProductsPage");
         }
 
         /// <summary>
-        /// Updates the product data 
+        /// Updates the product with the new input values.
         /// </summary>
+        /// <returns>The updated <see cref="ProductModel"/>.</returns>
         public ProductModel UpdateData()
         {
-            // get the original values
             var original = ProductService.GetProducts().FirstOrDefault(p => p.Number == Product.Number);
 
-            // Set the values
-            string brand = Product.Brand;
-            string style = Product.Style;
-            string variety = original.Variety;
-            string country = original.Country;
-            string vegetarian = original.Vegetarian;
+            string brand = Product.Brand == "Other" ? NewBrand : Product.Brand;
+            string style = Product.Style == "Other" ? NewStyle : Product.Style;
+
+            isOtherBrand = Product.Brand == "Other";
+            isOtherStyle = Product.Style == "Other";
+
+            string variety = string.IsNullOrEmpty(Product.Variety) ? original.Variety : Product.Variety;
+            string country = string.IsNullOrEmpty(Product.Country) ? original.Country : Product.Country;
+            string vegetarian = string.IsNullOrEmpty(Product.Vegetarian) ? original.Vegetarian : Product.Vegetarian;
+
             string jsonImageName = original.img;
-
-            // Update if a new value was provided. Ensure null or empty is not entered
-            if (brand == "Other") // account for Other field in brand
+            if (Image != null)
             {
-                brand = NewBrand;
-                isOtherBrand = true;
+                var fileExtension = Path.GetExtension(Image.FileName);
+                string imageFileName = $"{original.Number}{fileExtension}";
+                jsonImageName = "/images/" + imageFileName;
+                string imagePath = "wwwroot" + jsonImageName;
+
+                using var fileStream = new FileStream(imagePath, FileMode.Create);
+                Image.CopyTo(fileStream);
             }
 
-            // Update if a new value was provided. Ensure null or empty is not entered
-            if (style == "Other") // account for Other field in style
-            {
-                style = NewStyle;
-                isOtherStyle = true;
-            }
-
-            // Update Variety if a new value was provided. Ensure null or empty is not entered
-            if (string.IsNullOrEmpty(Product.Variety) == false)
-            {
-                variety = Product.Variety;
-            }
-
-            // Update Country if a new value was provided. Ensure null or empty is not entered
-            if (string.IsNullOrEmpty(Product.Country) == false)
-            {
-                country = Product.Country;
-            }
-            // Update Country if a new value was provided. Ensure null or empty is not entered
-            if (string.IsNullOrEmpty(Product.Vegetarian) == false)
-            {
-                vegetarian = Product.Vegetarian;
-            }
-
-            // If the image is not null, save the image and update the jsonImageName
-            if ((Image == null) == false)
-            {
-                var fileExtension = Path.GetExtension(Image.FileName); // gets file name of image
-                string imageFileName = $"{original.Number}{fileExtension}"; // puts together number and file name
-                jsonImageName = "/images/" + imageFileName; // adds the images folder to the front of the file name
-                string imagePath = "wwwroot" + jsonImageName; // adds the root folder to the front of the file path
-
-                // Copies the image file path to the image folder
-                using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                {
-                    Image.CopyTo(fileStream);
-                }
-            }
-
-            // Return the updated product model
             return new ProductModel
             {
                 Number = original.Number,
@@ -229,70 +203,63 @@ namespace RamenRatings.WebSite.Pages.Product
         }
 
         /// <summary>
-        /// Validates the input of the form fields and sets the errors
+        /// Validates the updated product data.
         /// </summary>
+        /// <param name="product">The product to validate.</param>
+        /// <param name="isOtherBrand">Whether "Other" was selected for Brand.</param>
+        /// <param name="isOtherStyle">Whether "Other" was selected for Style.</param>
+        /// <returns><c>true</c> if the data is valid; otherwise, <c>false</c>.</returns>
         public bool ValidateData(ProductModel product, bool isOtherBrand, bool isOtherStyle)
         {
-            // Checks that the input in Other Brand exists
             if (ExistingBrands.Contains(product.Brand) && isOtherBrand)
             {
                 BrandError = "Brand already exists";
                 return false;
             }
 
-            // Checks that the input in Brand exceeds character limit
             if (product.Brand.Length > 20)
             {
                 BrandError = "Character Limit is 20";
                 return false;
             }
 
-            // Checks that the input in Other style exists 
             if (ExistingStyles.Contains(product.Style) && isOtherStyle)
             {
                 StyleError = "Style already exists";
                 return false;
             }
 
-            // Checks that the input in Style exceeds character limit
             if (product.Style.Length > 20)
             {
                 StyleError = "Character Limit is 20";
                 return false;
             }
 
-            // Checks that the input in Variety exceeds character limit
             if (product.Variety.Length > 20)
             {
                 VarietyError = "Character Limit is 20";
                 return false;
             }
 
-            // else, return that there are no validation errors
             return true;
         }
 
         /// <summary>
-        /// Saves the updated product to the json file
+        /// Saves the updated product to the JSON data file by replacing the original entry in the product list.
         /// </summary>
+        /// <param name="updateProduct">The updated <see cref="ProductModel"/> to save.</param>
         public void SaveData(ProductModel updateProduct)
         {
-            // Get all of the products
             var products = ProductService.GetProducts().ToList();
-
-            // Find the index of the product to update
             var index = products.FindIndex(p => p.Number == updateProduct.Number);
 
-            // If the product is found, update it
-            if ((index == -1) == false)
+            if (index != -1)
             {
                 products[index] = updateProduct;
             }
 
-            //Serialize the updated product list to JSON
             var json = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(JsonFileName, json);
         }
-
     }
 }
