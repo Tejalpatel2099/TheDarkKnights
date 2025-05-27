@@ -8,15 +8,17 @@ using RamenRatings.WebSite.Services;
 namespace RamenRatings.WebSite.Pages
 {
     /// <summary> 
-    /// Lucian Petriuc
-    /// Veda Ting
-    /// Hema Sri
-    /// Tejal Patel
+    /// The IndexModel class handles the logic for the Index Razor Page,
+    /// including loading and filtering the ramen products based on search criteria.
     /// </summary> 
     public class IndexModel : PageModel
     {
+        // Logger is read only; for debugging and dianostics
         private readonly ILogger<IndexModel> _logger;
 
+        /// <summary>
+        /// Constructor that injects the logger and product service.
+        /// </summary>
         public IndexModel(ILogger<IndexModel> logger,
             JsonFileProductService productService)
         {
@@ -24,20 +26,38 @@ namespace RamenRatings.WebSite.Pages
             ProductService = productService;
         }
 
+        /// <summary>
+        /// Service to access and filter ramen product data from the JSON file
+        /// </summary>
         public JsonFileProductService ProductService { get; }
 
+        /// <summary>
+        /// The list of ramen products to be displayed on the Index page
+        /// </summary>
         public IEnumerable<ProductModel> Products { get; private set; }
 
-        // Store the current search term to show in the search input
+        /// <summary>
+        /// Store the total number of brands 
+        /// </summary>
+        public int TotalBrands { get; private set; }
+
+        /// <summary>
+        /// Store the current search term to show in the search input
+        /// </summary>
         public string CurrentFilter { get; private set; }
 
-        // Accept the search string parameter from the query string
+        /// <summary>
+        /// Accept the search string parameter from the query string
+        /// </summary>
         public void OnGet(string SearchString)
         {
+            // Set the current filter 
             CurrentFilter = SearchString;
 
+            // Set the products
             var products = ProductService.GetProducts();
 
+            // Filter by products based on the search string
             if (!string.IsNullOrEmpty(SearchString))
             {
                 // Filter products by variety (case insensitive)
@@ -46,6 +66,9 @@ namespace RamenRatings.WebSite.Pages
             }
 
             Products = products;
+
+            // Set the TotalBrand value based on product count of brands
+            TotalBrands = Products.Select(p => p.Brand).Distinct().Count();
         }
     }
 }
