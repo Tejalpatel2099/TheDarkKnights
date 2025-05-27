@@ -380,7 +380,9 @@
         "Country": "Japan",
         "Variety": "Chow Mein",
         "Vegetarian": "Veg",
-        "Ratings": null,
+        "Ratings": [
+            5
+        ],
         "Feedback": null
     },
     {
@@ -391,7 +393,9 @@
         "Country": "Japan",
         "Variety": "Shrimp Flavor",
         "Vegetarian": "Not Veg",
-        "Ratings": null,
+        "Ratings": [
+            3
+        ],
         "Feedback": null
     }
 ]
