@@ -21,10 +21,10 @@ namespace UnitTests.Pages.Product
         // Database MiddleTier
         #region TestSetup
 
-        // pageModel for testing
+        // pageModel used for testing
         public static IndexModel pageModel;
 
-        // Logger to for debugging
+        // Logger for debugging
         private readonly ILogger<IndexModel> _logger;
 
         /// <summary>
@@ -131,7 +131,8 @@ namespace UnitTests.Pages.Product
             // Arrange
             var expectedRatings = TestHelper.ProductService
                 .GetProducts()
-                .Sum(p => p.Ratings?.Length ?? 0);
+                .Sum(p => p.Ratings.Length);
+
 
             // Act
             pageModel.OnGet(null);
