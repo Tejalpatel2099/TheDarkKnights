@@ -1,5 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
 
 namespace RamenRatings.WebSite.Models
 {
@@ -42,8 +44,10 @@ namespace RamenRatings.WebSite.Models
         /// <summary>
         /// Get and set the Vegeterian content for the product
         /// </summary>
-        public string Vegetarian{ get; set; }
 
+        [Required(ErrorMessage = "Please specify if the product is vegetarian.")] 
+        public string Vegetarian{ get; set; }
+       
         /// <summary>
         /// Get and set the array of ratings for the product
         /// </summary>
@@ -53,6 +57,9 @@ namespace RamenRatings.WebSite.Models
         /// Get and set feedback for the product
         /// </summary>
         public string[] Feedback { get; set; }
+
+       
+
 
         /// <summary>
         /// Serialize the ProductModel from the json
