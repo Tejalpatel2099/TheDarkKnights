@@ -42,6 +42,11 @@ namespace RamenRatings.WebSite.Pages
         public int TotalBrands { get; private set; }
 
         /// <summary>
+        /// Store the total number of products 
+        /// </summary>
+        public int TotalProducts { get; private set; }
+
+        /// <summary>
         /// Store the current search term to show in the search input
         /// </summary>
         public string CurrentFilter { get; private set; }
@@ -69,6 +74,9 @@ namespace RamenRatings.WebSite.Pages
 
             // Set the TotalBrand value based on product count of brands
             TotalBrands = Products.Select(p => p.Brand).Distinct().Count();
+
+            // Sets the TotalProducts value based on number in JSON
+            TotalProducts = Products.Count();
         }
     }
 }
