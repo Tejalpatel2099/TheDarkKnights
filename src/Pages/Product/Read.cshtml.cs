@@ -63,7 +63,17 @@ namespace RamenRatings.WebSite.Pages
             if ((product == null) == false)
             {
                 // Append new rating to existing ratings array
-                var ratings = product.Ratings?.ToList() ?? new List<int>();
+                List<int> ratings;
+
+                if ((product.Ratings == null) == false)
+                {
+                    ratings = product.Ratings.ToList();
+                }
+                else
+                {
+                    ratings = new List<int>();
+                }
+
                 ratings.Add(Rating);
                 product.Ratings = ratings.ToArray();
 
