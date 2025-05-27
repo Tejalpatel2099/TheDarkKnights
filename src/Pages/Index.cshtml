@@ -6,6 +6,7 @@
     ViewData["Title"] = "Home page";
 }
 
+<!-- Search Bar -->
 <form method="get" class="mb-4 d-flex" role="search">
     <input type="search"
            name="SearchString"
@@ -16,7 +17,55 @@
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
+<!-- Page Stats -->
+<div class="container text-center my-4">
+    <div class="row justify-content-center">
+        <!-- Brands -->
+        <div class="col-md-4 mb-3 d-flex justify-content-center">
+            <div class="ramen-rating-box flex-column text-center">
+                <h2 class="stat-number" data-target="@Model.TotalBrands">0</h2>
+                <h6 class="text-muted">Brands</h6>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Product Cards -->
 @(await Html.RenderComponentAsync<ProductList>(
     RenderMode.ServerPrerendered,
-    new { SearchString = Model.CurrentFilter })) 
+    new { SearchString = Model.CurrentFilter }))
+
+
+<!-- Script -->
+@section Scripts 
+{
+    <script>
+        // On page load, show the stat number via animate number
+        document.addEventListener("DOMContentLoaded", function () 
+        {
+            const counters = document.querySelectorAll(".stat-number");
+
+            // Update the count for each number via incremented animation
+            counters.forEach(counter => 
+            {
+                const updateCount = () => 
+                {
+                    const target = +counter.getAttribute("data-target");
+                    const current = +counter.innerText;
+                    const increment = Math.ceil(target / 40);
+
+                    if (current < target) 
+                    {
+                        counter.innerText = current + increment;
+                        setTimeout(updateCount, 30);
+                    } else 
+                    {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+
+                updateCount();
+            });
+        });
+    </script>
+}
