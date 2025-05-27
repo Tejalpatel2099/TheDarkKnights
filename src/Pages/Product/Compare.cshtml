@@ -66,14 +66,32 @@
                             <strong>Type:</strong>
                             <span class="badge badge-success">@Model.Ramen1.Vegetarian</span>
                         </p>
-                        <p class="card-text">
+                        <p>
                             <strong>Average Rating:</strong>
                             @{
                                 var ratings = Model.Ramen1.Ratings;
                                 if ((ratings == null) == false && ratings.Length > 0)
                                 {
                                     double avg = ratings.Average();
-                                    <text>@($"{avg:F1} / 5 ({ratings.Length} rating{(ratings.Length == 1 ? "" : "s")})")</text>
+                                    int fullStars = (int)Math.Floor(avg);
+                                    bool hasHalfStar = (avg - fullStars) >= 0.5;
+                                    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                                    <span>
+                                        @for (int i = 0; i < fullStars; i++)
+                                        {
+                                            <i class="fas fa-star text-warning"></i>
+                                        }
+                                        @if (hasHalfStar)
+                                        {
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        }
+                                        @for (int i = 0; i < emptyStars; i++)
+                                        {
+                                            <i class="far fa-star text-warning"></i>
+                                        }
+                                        <span class="ml-2">(@($"{avg:F1}") / 5)</span>
+                                    </span>
                                 }
                                 else
                                 {
@@ -116,14 +134,32 @@
                             <strong>Type:</strong>
                             <span class="badge badge-success">@Model.Ramen2.Vegetarian</span>
                         </p>
-                        <p class="card-text">
+                        <p>
                             <strong>Average Rating:</strong>
                             @{
-                                var ratings2 = Model.Ramen2.Ratings;
-                                if ((ratings2 == null) == false && ratings2.Length > 0)
+                                var ramen2Ratings = Model.Ramen2.Ratings;
+                                if ((ramen2Ratings == null) == false && ramen2Ratings.Length > 0)
                                 {
-                                    double avg = ratings2.Average();
-                                    <text>@($"{avg:F1} / 5 ({ratings2.Length} rating{(ratings2.Length == 1 ? "" : "s")})")</text>
+                                    double avg = ramen2Ratings.Average();
+                                    int fullStars = (int)Math.Floor(avg);
+                                    bool hasHalfStar = (avg - fullStars) >= 0.5;
+                                    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                                    <span>
+                                        @for (int i = 0; i < fullStars; i++)
+                                        {
+                                            <i class="fas fa-star text-warning"></i>
+                                        }
+                                        @if (hasHalfStar)
+                                        {
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        }
+                                        @for (int i = 0; i < emptyStars; i++)
+                                        {
+                                            <i class="far fa-star text-warning"></i>
+                                        }
+                                        <span class="ml-2">(@($"{avg:F1}") / 5)</span>
+                                    </span>
                                 }
                                 else
                                 {
