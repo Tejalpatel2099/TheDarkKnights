@@ -53,19 +53,21 @@ namespace RamenRatings.WebSite.Services
 
             var target = products.First(x => x.Number == productId);
 
-            // Checks if ratings array exists
-            if (target.Ratings == null)
+            List<int> ratings;
+
+            // If ratings is not null then convert it to a list
+            if ((target.Ratings == null) == false)
             {
-                // Creates a new rating array consisting of the rating
-                target.Ratings = new int[] { rating };
+                ratings = target.Ratings.ToList();
             }
+            // If ratings is  null, create a new list
             else
             {
-                // Adds rating to already existing array
-                var ratings = target.Ratings.ToList();
-                ratings.Add(rating);
-                target.Ratings = ratings.ToArray();
+                ratings = new List<int>();
             }
+            // Add the new rating to the list
+            ratings.Add(rating);
+            target.Ratings = ratings.ToArray();
 
             // Save updated list
             SaveProducts(products);
