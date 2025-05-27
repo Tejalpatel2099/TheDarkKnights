@@ -88,6 +88,7 @@ namespace UnitTests.Pages.Product
                     Brand = "Other",
                     Style = "Other",
                     Variety = "Salt",
+                    Vegetarian = "Veg",
                     Country = "USA"
                 },
                 NewBrand = "Noodle",
@@ -121,6 +122,7 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Noodle", result.Brand);
             Assert.AreEqual("Snack", result.Style);
             Assert.AreEqual("Salt", result.Variety);
+            Assert.AreEqual(true, pageModel.VegetarianOptions.Contains("Veg"));
             pageModel.Variety = "NewVariety";
             Assert.AreEqual("NewVariety", pageModel.Variety);
             pageModel.Country = "Romania";
