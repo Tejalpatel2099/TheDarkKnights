@@ -38,11 +38,33 @@
                 <p>
                     <strong>Average Rating:</strong>
                     @{
+                        //Getting the current ratings
                         var ratings = Model.Product.Ratings;
                         if ((ratings == null) == false && ratings.Length > 0)
                         {
+                            //If the ratings arenot null and not empty then we will get average and fill stars accordingly
                             double avg = ratings.Average();
-                            @($"{avg:F1} / 5")
+                            int fullStars = (int)Math.Floor(avg);
+                            bool hasHalfStar = (avg - fullStars) >= 0.5;
+                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                            //Font awsome based star filling
+                            <span>
+                                @for (int i = 0; i < fullStars; i++)
+                                {
+                                    <i class="fas fa-star text-warning"></i>
+                                }
+                                @if (hasHalfStar)
+                                {
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                }
+                                @for (int i = 0; i < emptyStars; i++)
+                                {
+                                    <i class="far fa-star text-warning"></i>
+                                }
+                                <!-- Displaying average rating as text -->
+                                <span class="ml-2">(@($"{avg:F1}") / 5)</span>
+                            </span>
                         }
                         else
                         {
@@ -50,6 +72,7 @@
                         }
                     }
                 </p>
+
 
                 <!-- Action Buttons -->
                 <div class="mt-3">
