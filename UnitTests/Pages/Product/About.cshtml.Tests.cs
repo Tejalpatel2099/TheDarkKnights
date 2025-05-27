@@ -2,6 +2,7 @@ using RamenRatings.WebSite.Pages;
 using NUnit.Framework;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Text.Json;
 
 namespace UnitTests.Pages
 {
@@ -49,6 +50,33 @@ namespace UnitTests.Pages
 
             // Assert
             Assert.AreEqual(true, pageModel.ModelState.IsValid);
+        }
+
+        /// <summary>
+        /// Verifies that OnGet populates Chart Data 
+        /// containing Rating, Brand, Country, and Vegetarian keys.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Should_Populate_Chart_Data()
+        {
+            // Act
+            pageModel.OnGet();
+
+            // Assert
+            Assert.IsTrue(pageModel.ModelState.IsValid);
+            Assert.IsTrue(pageModel.ViewData.ContainsKey("ChartData")); // Ensure page model has ChartData
+
+            var chartDataJson = pageModel.ViewData["ChartData"] as string; 
+            Assert.IsNotNull(chartDataJson);// Ensure Json is not null through ChartData
+
+            using var doc = JsonDocument.Parse(chartDataJson);
+            var root = doc.RootElement;
+
+            // Checks that the root JSON contains the Rating, Brand, Country, Vegetarian properties
+            Assert.IsTrue(root.TryGetProperty("Rating", out _));
+            Assert.IsTrue(root.TryGetProperty("Brand", out _));
+            Assert.IsTrue(root.TryGetProperty("Country", out _));
+            Assert.IsTrue(root.TryGetProperty("Vegetarian", out _));
         }
         #endregion OnGet
     }
