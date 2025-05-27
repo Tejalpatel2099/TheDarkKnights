@@ -1,11 +1,12 @@
-
 using System.Linq;
-using RamenRatings.WebSite.Models;
 using NUnit.Framework;
-
+using RamenRatings.WebSite.Models;
 
 namespace UnitTests.Pages.Services
 {
+    /// <summary>
+    /// Unit tests for JsonFileProductService's AddRating method
+    /// </summary>
     public class JsonFileProductServiceTests
     {
         #region TestSetup
@@ -13,85 +14,69 @@ namespace UnitTests.Pages.Services
         [SetUp]
         public void TestInitialize()
         {
+            // Initialize or reset any mock/stub data if needed in the future
         }
 
         #endregion TestSetup
 
         #region AddRating
+
         /// <summary>
-        /// REST Get Products data
-        /// POST a valid rating
-        /// Test that the data that was added was added correctly
+        /// POST a valid rating on a product with existing ratings
+        /// Should return true
         /// </summary>
         [Test]
-        public void AddRating_Valid_ProductId_Return_true()
+        public void AddRating_Valid_ProductId_With_Existing_Ratings_Should_Return_True()
         {
-            // Arrange
-
-
             // Act
-            // Store the result of the AddRating method (which is being tested)
-            bool validAdd = TestHelper.ProductService.AddRating(30, 4);
+            var result = TestHelper.ProductService.AddRating(8, 5);
 
             // Assert
-            Assert.AreEqual(true, validAdd);
-
+            Assert.IsTrue(result);
         }
 
         /// <summary>
-        /// REST POST data that doesn't fit the constraints defined in function
-        /// Test if it Adds
-        /// Returns False because it wont add
+        /// POST a valid rating on a product with null ratings
+        /// Should return true
         /// </summary>
         [Test]
-        public void AddRating_Invalid_Product_ID_Not_Present_Should_Return_False()
+        public void AddRating_Valid_ProductId_With_Null_Ratings_Should_Return_True()
         {
-            // Arrange
-
             // Act
-            // Store the result of the AddRating method (which is being tested)
-            var result = TestHelper.ProductService.AddRating(123, 5);
+            var result = TestHelper.ProductService.AddRating(1234, 5);
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.IsTrue(result);
         }
 
         /// <summary>
-        /// REST Get Products data
-        /// POST a new valid rating on existing rated product
-        /// Test that the data that was added was added correctly
+        /// POST a valid rating on a product
+        /// Should return true
         /// </summary>
         [Test]
-        public void AddRating_Valid_ProductId_Adding_Rating_On_Existing_Product_Rating_Should_Return_true()
+        public void AddRating_Valid_ProductId_Should_Return_True()
         {
-            // Arrange
-
-
             // Act
-            // Store the result of the AddRating method (which is being tested)
-            bool validAdd = TestHelper.ProductService.AddRating(8, 5);
+            var result = TestHelper.ProductService.AddRating(30, 4);
 
             // Assert
-            Assert.AreEqual(true, validAdd);
+            Assert.IsTrue(result);
         }
 
         /// <summary>
-        /// POST a new valid rating on existing  product with null ratings
-        /// Test that the data that was added was added correctly
+        /// POST a rating on a product ID not present in the data
+        /// Should return false
         /// </summary>
         [Test]
-        public void AddRating_Valid_ProductId_Adding_Rating_On_Existing_Product_Nul_Rating_Should_Return_true()
+        public void AddRating_Invalid_ProductId_Should_Return_False()
         {
-            // Arrange
             // Act
-            // Store the result of the AddRating method (which is being tested)
-            bool validAdd = TestHelper.ProductService.AddRating(29, 5);
+            var result = TestHelper.ProductService.AddRating(9999, 5); // ID 9999 should not exist
 
             // Assert
-
-            Assert.AreEqual(true, validAdd);
+            Assert.IsFalse(result);
         }
 
+        #endregion AddRating
     }
-    #endregion AddRating
 }
