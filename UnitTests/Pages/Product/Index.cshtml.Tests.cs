@@ -20,8 +20,13 @@ namespace UnitTests.Pages.Product
     {
         // Database MiddleTier
         #region TestSetup
+
+        // pageModel for testing
         public static IndexModel pageModel;
+
+        // Logger to for debugging
         private readonly ILogger<IndexModel> _logger;
+
         /// <summary>
         /// Initialize of Test
         /// </summary>
@@ -34,6 +39,7 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion TestSetup
+
         /// <summary>
         /// Checking whether product user want is there in result or not.
         /// </summary>
@@ -76,6 +82,64 @@ namespace UnitTests.Pages.Product
             Assert.IsTrue(pageModel.Products.Any());
             Assert.IsNull(filter);
         }
+
+        /// <summary>
+        /// Tests that the Brands stats value matches the number of brands in the json
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Stats_Should_Return_Number_Of_Brands()
+        {
+            // Arrange
+            var expectedBrands = TestHelper.ProductService
+                .GetProducts()
+                .Select(p => p.Brand)
+                .Where(b => !string.IsNullOrEmpty(b))
+                .Distinct()
+                .Count();
+
+            // Act
+            pageModel.OnGet(null);
+
+            // Assert
+            Assert.AreEqual(expectedBrands, pageModel.TotalBrands);
+        }
+
+        /// <summary>
+        /// Tests that the Products stats value matches the number of products in the json
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Stats_Should_Return_Number_Of_Products()
+        {
+            // Arrange
+            var expectedProducts = TestHelper.ProductService
+                .GetProducts()
+                .Count();
+
+            // Act
+            pageModel.OnGet(null);
+
+            // Assert
+            Assert.AreEqual(expectedProducts, pageModel.TotalProducts);
+        }
+
+        /// <summary>
+        /// Tests that the Ratings stats value matches the number of ratings in the json
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Stats_Should_Return_Number_Of_Ratings()
+        {
+            // Arrange
+            var expectedRatings = TestHelper.ProductService
+                .GetProducts()
+                .Sum(p => p.Ratings?.Length ?? 0);
+
+            // Act
+            pageModel.OnGet(null);
+
+            // Assert
+            Assert.AreEqual(expectedRatings, pageModel.TotalRatings);
+        }
+
 
         #endregion OnGet
     }
