@@ -84,7 +84,7 @@ namespace RamenRatings.WebSite.Pages
             TotalProducts = Products.Count();
 
             // Sums the total number of ratings that the products have
-            TotalRatings = Products.Sum(p => p.Ratings?.Length ?? 0);
+            TotalRatings = Products.Sum(p => p.Ratings.Length);
         }
     }
 }
