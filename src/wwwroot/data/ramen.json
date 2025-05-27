@@ -393,9 +393,7 @@
         "Country": "Japan",
         "Variety": "Shrimp Flavor",
         "Vegetarian": "Not Veg",
-        "Ratings": [
-            3
-        ],
+        "Ratings": null,
         "Feedback": null
     }
 ]
