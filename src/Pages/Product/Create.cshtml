@@ -10,7 +10,10 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <!-- Select from list of existing brands, with option to enter a new Brand -->
     <div class="form-group">
-        <label for="Brand">Brand</label>
+        <label for="Brand">Brand
+            <!-- Brand tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
+        </label>
         <select class="form-control" id="Brand" name="Brand" required>
             <option value="">Select a Brand</option>
             @foreach (var brand in Model.ExistingBrands.Distinct()) 
@@ -30,14 +33,20 @@
 
     <!-- Input Variety -->
     <div class="form-group">
-        <label for="Variety">Variety</label>
+        <label for="Variety">Variety
+            <!-- Variety tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
+        </label>
         <input asp-for="Variety" class="form-control" placeholder="Enter variety" />
         <span asp-validation-for="Variety" class="text-danger"></span>
     </div>
 
     <!-- Select from list of existing styles, with option to enter new style -->
     <div class="form-group">
-        <label for="Style">Style</label>
+        <label for="Style">Style
+            <!-- Style tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
+        </label>
         <select class="form-control" id="Style" name="Style" required>
             <option value="">Select a Style</option>
             @foreach (var style in Model.ExistingStyles.Distinct())  
@@ -57,7 +66,10 @@
 
     <!-- Select from list of Countries -->
     <div class="form-group">
-        <label for="Country">Country</label>
+        <label for="Country">Country
+            <!-- Country tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
+        </label>
         <select class="form-control" id="Country" name="Country" required>
             <option value="">Select a Country </option>
 			@foreach (var country in Model.Countries.Distinct())
@@ -84,7 +96,10 @@
 
     <!-- Upload an image -->
     <div class="form-group">
-        <label for="Image">Upload Image</label>
+        <label for="Image">Upload Image
+            <!-- Image tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
+        </label>
         <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
         <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
         <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
@@ -124,7 +139,8 @@
 
 
 <!-- Script for showing or hiding the input fields for new brand or new style -->
-@section Scripts {
+@section Scripts 
+{
     <script>
         function goBack() {
             window.history.back();
