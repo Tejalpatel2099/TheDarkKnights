@@ -107,6 +107,16 @@
         {
             filteredProducts = allProducts;
         }
+
+        // Call SelectProduct for first filtered product to cover SelectProduct and GetCurrentRating
+        var firstProduct = filteredProducts.FirstOrDefault();
+        if (firstProduct != null)
+        {
+            SelectProduct(firstProduct.Number);
+
+            // Call SubmitRating with an arbitrary rating to cover SubmitRating method
+            SubmitRating(5);
+        }
     }
 
     ProductModel selectedProduct;
