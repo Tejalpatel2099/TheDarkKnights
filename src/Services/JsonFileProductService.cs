@@ -2,15 +2,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-
-using RamenRatings.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
+using RamenRatings.WebSite.Models;
 
 namespace RamenRatings.WebSite.Services
 {
+    /// <summary>
+    /// Service for reading and writing product data to JSON file.
+    /// </summary>
     public class JsonFileProductService
     {
-        // WebHostEnvironment injected via constructor
+        /// <summary>
+        /// Constructor injects the web host environment to get access to the wwwroot path.
+        /// </summary>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
@@ -18,93 +22,81 @@ namespace RamenRatings.WebSite.Services
 
         public IWebHostEnvironment WebHostEnvironment { get; }
 
-        // Gets path of the JSON file ramen.json that will be used for product data
-        private string JsonFileName
-        {
-            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "ramen.json"); }
-        }
+        /// <summary>
+        /// Full path to the JSON file.
+        /// </summary>
+        private string JsonFileName =>
+            Path.Combine(WebHostEnvironment.WebRootPath, "data", "ramen.json");
 
         /// <summary>
         /// Returns all of the products in the JSON file.
         /// </summary>
         public IEnumerable<ProductModel> GetProducts()
         {
-            using (var jsonFileReader = File.OpenText(JsonFileName))
-            {
-                return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
-                    new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
-            }
+            using var jsonFileReader = File.OpenText(JsonFileName);
+
+            return JsonSerializer.Deserialize<ProductModel[]>(
+                jsonFileReader.ReadToEnd(),
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
         }
 
         /// <summary>
-        /// With the given productId adds a rating to that product.
+        /// Adds a rating to the product with the specified ID.
+        /// Returns false if product is not found.
         /// </summary>
         public bool AddRating(int productId, int rating)
         {
             var products = GetProducts();
 
-            if (products.All(product => (product.Number == productId) == false))
+            if (products.All(product => product.Number != productId))
             {
                 return false;
             }
 
             var target = products.First(x => x.Number == productId);
 
-            List<int> ratings;
+            var ratings = target.Ratings?.ToList() ?? new List<int>();
 
-            // If ratings is not null then convert it to a list
-            if ((target.Ratings == null) == false)
-            {
-                ratings = target.Ratings.ToList();
-            }
-            // If ratings is  null, create a new list
-            else
-            {
-                ratings = new List<int>();
-            }
-            // Add the new rating to the list
             ratings.Add(rating);
             target.Ratings = ratings.ToArray();
 
-            // Save updated list
             SaveProducts(products);
+
             return true;
         }
 
         /// <summary>
-        /// Updates the given product in the list and saves it.
+        /// Updates the given product in the JSON file.
         /// </summary>
         public void UpdateProduct(ProductModel updatedProduct)
         {
             var products = GetProducts().ToList();
             var index = products.FindIndex(p => p.Number == updatedProduct.Number);
 
-            if ((index == -1) == false)
+            if (index != -1)
             {
                 products[index] = updatedProduct;
-
                 SaveProducts(products);
             }
         }
 
         /// <summary>
-        /// Saves the product list to the JSON file.
+        /// Writes the given product list to the JSON file.
         /// </summary>
         private void SaveProducts(IEnumerable<ProductModel> products)
         {
-            using (var outputStream = File.Create(JsonFileName))
-            {
-                JsonSerializer.Serialize<IEnumerable<ProductModel>>(
-                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
-                    {
-                        Indented = true
-                    }),
-                    products
-                );
-            }
+            using var outputStream = File.Create(JsonFileName);
+
+            JsonSerializer.Serialize(
+                new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                {
+                    Indented = true
+                }),
+                products
+            );
         }
     }
 }
