@@ -47,6 +47,11 @@ namespace RamenRatings.WebSite.Pages
         public int TotalProducts { get; private set; }
 
         /// <summary>
+        /// Store the total number of ratings 
+        /// </summary>
+        public int TotalRatings { get; private set; }
+
+        /// <summary>
         /// Store the current search term to show in the search input
         /// </summary>
         public string CurrentFilter { get; private set; }
@@ -77,6 +82,9 @@ namespace RamenRatings.WebSite.Pages
 
             // Sets the TotalProducts value based on number in JSON
             TotalProducts = Products.Count();
+
+            // Sums the total number of ratings that the products have
+            TotalRatings = Products.Sum(p => p.Ratings?.Length ?? 0);
         }
     }
 }
