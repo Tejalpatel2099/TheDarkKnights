@@ -75,6 +75,23 @@ namespace UnitTests.Pages.Services
             Assert.AreEqual(true, validAdd);
         }
 
+        /// <summary>
+        /// POST a new valid rating on existing  product with null ratings
+        /// Test that the data that was added was added correctly
+        /// </summary>
+        [Test]
+        public void AddRating_Valid_ProductId_Adding_Rating_On_Existing_Product_Nul_Rating_Should_Return_true()
+        {
+            // Arrange
+            // Act
+            // Store the result of the AddRating method (which is being tested)
+            bool validAdd = TestHelper.ProductService.AddRating(29, 5);
+
+            // Assert
+
+            Assert.AreEqual(true, validAdd);
+        }
+
     }
     #endregion AddRating
 }
