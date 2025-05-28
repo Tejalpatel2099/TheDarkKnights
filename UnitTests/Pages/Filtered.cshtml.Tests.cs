@@ -99,16 +99,25 @@ namespace UnitTests.Pages
         [Test]
         public void OnGet_Valid_Filter_By_Rating_Range_Should_Return_Expected()
         {
-            // Arrange - create the query string
+            var products = TestHelper.ProductService.GetProducts();
+
+            // Assign specific ratings to test filtering by average
+            foreach (var product in products)
+            {
+                product.Ratings = new[] { 3, 4, 5 }; // average = 4
+                TestHelper.ProductService.UpdateProduct(product);
+            }
+
+            // query parameters to trigger filter logic
             TestHelper.HttpContextDefault.Request.QueryString = new QueryString("?MinRating=3&MaxRating=5");
 
             // Act
             pageModel.OnGet();
 
-            // Assert - ensure the ratings is between 3 adn 5
-            Assert.IsTrue(pageModel.Products.All(p =>
-                (p.Ratings?.FirstOrDefault() ?? 0) >= 3 &&
-                (p.Ratings?.FirstOrDefault() ?? 0) <= 5));
+            // Assert - All products should have average ratings between 3 and 5
+            var averages = pageModel.Products.Select(p => p.Ratings.Average()).ToList();
+            Assert.IsTrue(averages.All(avg => avg >= 3 && avg <= 5));
+
         }
 
         /// <summary>
@@ -159,8 +168,8 @@ namespace UnitTests.Pages
             pageModel.OnGet();
 
             // Assert
-            var expected = pageModel.Products.OrderBy(p => p.Ratings?.FirstOrDefault() ?? 0).Select(p => p.Ratings.FirstOrDefault()).ToList();
-            var actual = pageModel.Products.Select(p => p.Ratings.FirstOrDefault()).ToList();
+            var expected = pageModel.Products.OrderBy(p => p.Ratings.Average()).Select(p => p.Ratings.Average()).ToList();
+            var actual = pageModel.Products.Select(p => p.Ratings.Average()).ToList();
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -177,8 +186,8 @@ namespace UnitTests.Pages
             pageModel.OnGet();
 
             // Assert
-            var expected = pageModel.Products.OrderByDescending(p => p.Ratings?.FirstOrDefault() ?? 0).Select(p => p.Ratings.FirstOrDefault()).ToList();
-            var actual = pageModel.Products.Select(p => p.Ratings.FirstOrDefault()).ToList();
+            var expected = pageModel.Products.OrderByDescending(p => p.Ratings.Average()).Select(p => p.Ratings.Average()).ToList();
+            var actual = pageModel.Products.Select(p => p.Ratings.Average()).ToList();
             CollectionAssert.AreEqual(expected, actual);
         }
 
