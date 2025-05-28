@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RamenRatings.WebSite.Services;
+using System;
 using System.Linq;
 using System.Text.Json;
 
@@ -28,10 +29,15 @@ namespace RamenRatings.WebSite.Pages
         {
             var products = ProductService.GetProducts();
 
-            // Rating distribution (1 to 5)
-            var ratingCounts = Enumerable.Range(1, 5)
-                .Select(r => new { label = $"{r} Stars", count = products.Count(p => (p.Ratings?.FirstOrDefault() ?? 0) == r) })
-                .ToList();
+            // Rating distribution (1 to 5) - round to floor
+            var ratingCounts = Enumerable.Range(1, 5).Select(r => new
+            {
+                label = $"{r} Stars",
+                count = products.Count(p =>p.Ratings.Any() && (int)Math.Floor(p.Ratings.Average()) == r)
+            })
+            .ToList();
+
+
 
             // Brand distribution
             var brandCounts = products
