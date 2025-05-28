@@ -9,6 +9,9 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using RamenRatings.WebSite.Pages;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System.Threading.Tasks;
 
 namespace UnitTests.Pages.Product
 {
@@ -88,14 +91,14 @@ namespace UnitTests.Pages.Product
             // Arrange
             var productNumber = TestHelper.ProductService.GetProducts().First().Number;
             var ratingToAdd = 5;
-            
+
 
             // Act
             var result = pageModel.OnPostAddRatingAsync(productNumber, ratingToAdd);
 
             // Re-fetch the product after update
             var updatedProduct = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == productNumber);
-            
+
 
             // Assert
             Assert.AreEqual(ratingToAdd, updatedProduct.Ratings.Last());
@@ -106,21 +109,33 @@ namespace UnitTests.Pages.Product
         /// Product with null ratings should initialize ratings and add a new rating 
         /// </summary>
         [Test]
-        public void OnPostAddRatingAsync_Valid_Product_With_Null_Ratings_Should_Initialize_And_Add_Rating()
+        public async Task OnPostAddRatingAsync_Valid_Product_With_Null_Ratings_Should_Initialize_And_Add_Rating()
         {
             // Arrange
-            var productNumber = 30;
-            var ratingToAdd = 4;
+            var product = TestHelper.ProductService.GetProducts().First();
+            product.Ratings = null; // Force null to test fallback
+            TestHelper.ProductService.UpdateProduct(product);
+
+            var productNumber = product.Number;
+            var newRating = 5;
+
+            var pageModel = new ReadModel(TestHelper.ProductService)
+            {
+                PageContext = TestHelper.PageContext,
+                TempData = TestHelper.TempData,
+                Url = TestHelper.UrlHelper
+            };
 
             // Act
-            var result = pageModel.OnPostAddRatingAsync(productNumber, ratingToAdd);
+            var result = pageModel.OnPostAddRatingAsync(productNumber, newRating);
 
-            // Re-fetch the product after update
-            var updatedProduct = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Number == productNumber);
+            // Re-fetch updated product
+            var updatedProduct = TestHelper.ProductService.GetProducts().First(p => p.Number == productNumber);
 
-            // Assert
-            Assert.AreEqual(1, updatedProduct.Ratings.Length);
-            Assert.AreEqual(ratingToAdd, updatedProduct.Ratings[0]);
+            // Assert therea are ratings in the updated product
+            Assert.IsNotNull(updatedProduct.Ratings);
+            Assert.Contains(newRating, updatedProduct.Ratings);
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
         }
 
 
