@@ -126,8 +126,6 @@ namespace UnitTests.Pages.Product
             Assert.IsInstanceOf<PageResult>(result);
         }
 
-        #endregion OnPost
-        #region OnPost
         [Test]
         public void OnPost_Valid_Validation_Failure()
         {
@@ -173,7 +171,8 @@ namespace UnitTests.Pages.Product
                 Brand = "Other",
                 Style = "Other",
                 Variety = "Spicy",
-                Country = "Japan"
+                Country = "Japan",
+                Vegetarian = "Veg"
             };
             pageModel.NewBrand = "New Brand";
             pageModel.NewStyle = "Dry";
@@ -198,6 +197,7 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Dry", updated.Style);
             Assert.AreEqual("Spicy", updated.Variety);
             Assert.AreEqual("Japan", updated.Country);
+            Assert.AreEqual("Veg", updated.Vegetarian);
         }
 
         #endregion UpdateData
@@ -243,7 +243,7 @@ namespace UnitTests.Pages.Product
                 Country = "Japan"
             };
             pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
-           pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
 
             var validated = pageModel.ValidateData(product, true, true);
 
