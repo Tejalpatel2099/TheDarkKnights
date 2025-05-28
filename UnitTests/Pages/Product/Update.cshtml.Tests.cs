@@ -10,15 +10,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for the Update page model
+    /// </summary>
     public class UpdateTests
     {
         #region TestSetup
 
         public static UpdateModel pageModel;
 
+        /// <summary>
+        /// Sets up the Tests with ProductService
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -47,9 +55,49 @@ namespace UnitTests.Pages.Product
             var result = pageModel.OnGet(4);
 
             // Assert
-            //Assert.IsInstanceOf<PageResult>(result);
+            Assert.IsInstanceOf<PageResult>(result);
             Assert.IsNotNull(pageModel.Product);
+
+
         }
+
+        /// <summary>
+        /// Checks that the VegetarianOptions have Veg and Not Veg options and they exist
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Id_Should_Contain_Vegetarain()
+        {
+            // Arrange
+
+            // Act
+            var result = pageModel.OnGet(4);
+
+            // Assert
+            // verify VegetarianOptions are initialized properly
+            var options = pageModel.VegetarianOptions;
+            Assert.IsNotNull(options);
+            Assert.Contains("Veg", options);
+            Assert.Contains("Not Veg", options);
+            Assert.AreEqual(2, options.Count);
+        }
+
+        [Test]
+        public void OnGet_Valid_Id_Can_Set_Vegetarian()
+        {
+            // Act
+            var result = pageModel.OnGet(4);
+
+            // Assert original expectations
+            Assert.IsNotNull(pageModel.Product);
+
+            // --- Cover the setter ---
+            var newOptions = new List<string> { "Yes", "No" };
+            pageModel.VegetarianOptions = newOptions;
+
+            // Confirm it was set correctly
+            Assert.AreEqual(newOptions, pageModel.VegetarianOptions);
+        }
+
 
         /// <summary>
         /// Invalid product ID should redirect to the error page
@@ -126,6 +174,9 @@ namespace UnitTests.Pages.Product
             Assert.IsInstanceOf<PageResult>(result);
         }
 
+        /// <summary>
+        /// Tests the validation for brand and style
+        /// </summary>
         [Test]
         public void OnPost_Valid_Validation_Failure()
         {
@@ -200,6 +251,38 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Veg", updated.Vegetarian);
         }
 
+        /// <summary>
+        /// Tests UpdateData with products in the event that there could be null fields entered
+        /// </summary>
+        [Test]
+        public void UpdateData_Valid_Default_Values_Should_Use_Original_For_Empty_Fields()
+        {
+            // Arrange - based on first product
+            var original = TestHelper.ProductService.GetProducts().First();
+
+            // initialize the product
+            pageModel.Product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = original.Brand,
+                Style = original.Style,
+                Variety = null,
+                Country = null,
+                Vegetarian = original.Vegetarian
+            };
+
+            // Act
+            var updated = pageModel.UpdateData();
+
+            // Assert
+            Assert.AreEqual(original.Brand, updated.Brand);
+            Assert.AreEqual(original.Style, updated.Style);
+            Assert.AreEqual(original.Variety, updated.Variety);
+            Assert.AreEqual(original.Country, updated.Country);
+            Assert.AreEqual(original.Vegetarian, updated.Vegetarian);
+        }
+
+
         #endregion UpdateData
 
         #region SaveData
@@ -253,6 +336,10 @@ namespace UnitTests.Pages.Product
             Assert.IsNull(pageModel.VarietyError);
 
         }
+
+        /// <summary>
+        /// ValidateData checks that the entry for Other Brand is not valid 
+        /// </summary>
         [Test]
         public void ValidateData_Valid_Brand_Other_Not_Valid()
         {
@@ -280,6 +367,10 @@ namespace UnitTests.Pages.Product
             Assert.IsNull(pageModel.VarietyError);
 
         }
+
+        /// <summary>
+        /// Validate data checks that the character Brand error returns
+        /// </summary>
         [Test]
         public void ValidateData_Valid_Brand_Characters_Not_Valid()
         {
@@ -307,6 +398,10 @@ namespace UnitTests.Pages.Product
             Assert.IsNull(pageModel.VarietyError);
 
         }
+
+        /// <summary>
+        /// ValidateData checks that the Other Style entered is not valid
+        /// </summary>
         [Test]
         public void ValidateData_Valid_Style_Other_Not_Valid()
         {
@@ -334,6 +429,10 @@ namespace UnitTests.Pages.Product
             Assert.IsNull(pageModel.VarietyError);
 
         }
+
+        /// <summary>
+        /// ValidateData checks that the style characters are not valid
+        /// </summary>
         [Test]
         public void ValidateData_Valid_Style_Characters_Not_Valid()
         {
@@ -362,6 +461,10 @@ namespace UnitTests.Pages.Product
             Assert.IsNull(pageModel.VarietyError);
 
         }
+
+        /// <summary>
+        /// ValidateData checks that the style variety is not a valid style
+        /// </summary>
         [Test]
         public void ValidateData_Valid_Style_Variety_Not_Valid()
         {
@@ -388,7 +491,6 @@ namespace UnitTests.Pages.Product
 
 
         }
-
         #endregion ValidateData
 
     }
