@@ -24,7 +24,7 @@ namespace RamenRatings.WebSite.Pages
             ProductService = productService;
         }
 
-        // Handle get when the page is accessed - this will view counts of Ratings
+        // Handle get when the page is accessed 
         public void OnGet()
         {
             var products = ProductService.GetProducts();
@@ -33,7 +33,9 @@ namespace RamenRatings.WebSite.Pages
             var ratingCounts = Enumerable.Range(1, 5).Select(r => new
             {
                 label = $"{r} Stars",
-                count = products.Count(p =>p.Ratings.Any() && (int)Math.Floor(p.Ratings.Average()) == r)
+                count = products
+                .Select(p => (int)Math.Floor(p.Ratings.Average()))
+                .Count(avg => avg == r)
             })
             .ToList();
 
