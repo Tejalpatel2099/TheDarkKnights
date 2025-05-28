@@ -11,7 +11,13 @@
     <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
 
     <div class="form-group">
-        <label for="Brand">Brand</label>
+        <!-- Brand -->
+        <label for="Brand">Brand
+
+            <!-- Brand tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
+
+        </label>
         <select class="form-control" id="Brand" name="Product.Brand">
             <option value="">Select an Existing Brand</option>
             @foreach (var brand in Model.ExistingBrands.Distinct())
@@ -28,13 +34,25 @@
     </div>
 
     <div class="form-group">
-        <label for="Variety">Variety</label>
+        <!-- Variety -->
+        <label for="Variety">Variety
+
+            <!-- Variety tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
+
+        </label>
         <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety" />
         <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
     </div>
 
     <div class="form-group">
-        <label for="Style">Style</label>
+        <!-- Style -->
+        <label for="Style">Style
+
+            <!-- Style tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
+
+        </label>
         <select class="form-control" id="Style" name="Product.Style">
             <option value="">Select an Existing Style</option>
             @foreach (var style in Model.ExistingStyles.Distinct())
@@ -51,7 +69,11 @@
     </div>
 
     <div class="form-group">
-        <label for="Country">Country</label>
+        <!-- Country -->
+        <label for="Country">Country
+            <!-- Country tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
+        </label>
         <select class="form-control" id="Country" name="Product.Country">
             <option value="">Select a Country</option>
             @foreach (var country in Model.Countries.Distinct())
@@ -63,6 +85,7 @@
     </div>
 
     <div class="form-group">
+        <!-- Vegetarian -->
         <label for="Vegetarian">Vegetarian</label>
         <select class="form-control" id="Vegetarian" name="Product.Vegetarian" required>
             <option value="">Select an option</option>
@@ -75,13 +98,20 @@
     </div>
 
     <div class="form-group">
-        <label for="Image">Upload Image</label>
+        <!-- Image -->
+        <label for="Image">Upload Image
+
+            <!-- Image tooltip -->
+            @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
+
+        </label>
         <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
         <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
         <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
     </div>
 
     <div class="form-group">
+        <!-- Rating -->
         <label for="Rating">Current Rating</label>
         <input type="text" class="form-control" id="Rating"
                value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
