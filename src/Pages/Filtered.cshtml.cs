@@ -78,15 +78,15 @@ namespace RamenRatings.WebSite.Pages
             }
 
             // Apply filter for rating range
-            Products = products.Where(p => (p.Ratings?.FirstOrDefault() ?? 0) >= min && (p.Ratings?.FirstOrDefault() ?? 0) <= max).ToList();
+            Products = products.ToList();
 
             // Apply sorting based on selected option
             Products = SortOption switch
             {
                 "BrandAsc" => Products.OrderBy(p => p.Brand).ToList(),
                 "BrandDesc" => Products.OrderByDescending(p => p.Brand).ToList(),
-                "RatingAsc" => Products.OrderBy(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
-                "RatingDesc" => Products.OrderByDescending(p => p.Ratings?.FirstOrDefault() ?? 0).ToList(),
+                "RatingAsc" => Products.OrderBy(p => p.Ratings.Average()).ToList(),
+                "RatingDesc" => Products.OrderByDescending(p => p.Ratings.Average()).ToList(),
                 "RatingNumHigh" => Products.OrderByDescending(p => p.Ratings.Length).ToList(),
                 "RatingNumLow" => Products.OrderBy(p => p.Ratings.Length).ToList(),
                 _ => Products
