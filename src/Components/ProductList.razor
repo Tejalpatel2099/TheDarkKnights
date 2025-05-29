@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
+<!-- Product card layout -->
 <div class="card-columns">
     @foreach (var product in filteredProducts)
     {
@@ -37,6 +38,7 @@
     }
 </div>
 
+<!-- Modal for selected product -->
 @if (selectedProduct != null)
 {
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
@@ -86,13 +88,22 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-@code
-{
+@code {
+    /// <summary>
+    /// Optional search string used to filter products by variety.
+    /// </summary>
     [Parameter]
     public string SearchString { get; set; }
 
+    /// <summary>
+    /// Filtered list of products based on the search string.
+    /// </summary>
     private IEnumerable<ProductModel> filteredProducts;
 
+    /// <summary>
+    /// Called when component parameters are set.
+    /// Filters products based on the search string and triggers mock rating.
+    /// </summary>
     protected override void OnParametersSet()
     {
         var allProducts = ProductService.GetProducts();
@@ -108,20 +119,28 @@
             filteredProducts = allProducts;
         }
 
-        // Call SelectProduct for first filtered product to cover SelectProduct and GetCurrentRating
         var firstProduct = filteredProducts.FirstOrDefault();
         if (firstProduct != null)
         {
             SelectProduct(firstProduct.Number);
-
-            // Call SubmitRating with an arbitrary rating to cover SubmitRating method
-            SubmitRating(5);
+            SubmitRating(5); // Simulate a rating to cover logic during initialization/testing
         }
     }
 
+    /// <summary>
+    /// The currently selected product for the modal.
+    /// </summary>
     ProductModel selectedProduct;
+
+    /// <summary>
+    /// The ID of the selected product.
+    /// </summary>
     int selectedProductId;
 
+    /// <summary>
+    /// Sets the selected product based on its ID and updates current rating.
+    /// </summary>
+    /// <param name="productId">Product number to select.</param>
     void SelectProduct(int productId)
     {
         selectedProductId = productId;
@@ -129,10 +148,24 @@
         GetCurrentRating();
     }
 
+    /// <summary>
+    /// Average star rating of the selected product.
+    /// </summary>
     int currentRating = 0;
+
+    /// <summary>
+    /// Number of votes for the selected product.
+    /// </summary>
     int voteCount = 0;
+
+    /// <summary>
+    /// Text label ("Vote" or "Votes") for display.
+    /// </summary>
     string voteLabel;
 
+    /// <summary>
+    /// Calculates the current average rating and updates vote count/label.
+    /// </summary>
     void GetCurrentRating()
     {
         if (selectedProduct.Ratings == null)
@@ -150,10 +183,14 @@
         System.Console.WriteLine($"Current rating for {selectedProduct.Number}: {currentRating}");
     }
 
+    /// <summary>
+    /// Submits a rating for the selected product and updates the product state.
+    /// </summary>
+    /// <param name="rating">Rating value between 1 and 5.</param>
     void SubmitRating(int rating)
     {
         System.Console.WriteLine($"Rating received for {selectedProduct.Number}: {rating}");
         ProductService.AddRating(selectedProductId, rating);
-        SelectProduct(selectedProductId);
+        SelectProduct(selectedProductId); // Refresh after rating
     }
 }
