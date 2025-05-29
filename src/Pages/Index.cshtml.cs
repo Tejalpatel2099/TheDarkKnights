@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -52,6 +53,11 @@ namespace RamenRatings.WebSite.Pages
         public int TotalRatings { get; private set; }
 
         /// <summary>
+        /// Store the highest rated ramen
+        /// </summary>
+        public string HighestRatedRamen { get; private set; }
+
+        /// <summary>
         /// Store the current search term to show in the search input
         /// </summary>
         public string CurrentFilter { get; private set; }
@@ -85,6 +91,22 @@ namespace RamenRatings.WebSite.Pages
 
             // Sums the total number of ratings that the products have
             TotalRatings = Products.Sum(p => p.Ratings.Length);
+
+            // Find the maximum average rating among all products with ratings
+            double maxAverageRating = Products
+                .Where(p => (p.Ratings == null) == false && p.Ratings.Length > 0)
+                .Max(p => p.Ratings.Average());
+
+            // Get all products with that maximum average rating
+            var topRatedProducts = Products
+                .Where(p => (p.Ratings == null) == false && p.Ratings.Length > 0)
+                .Where(p => Math.Abs(p.Ratings.Average() - maxAverageRating) < 0.0001)
+                .ToList();
+
+
+            // Store the highest rated product variety in highest rated ramen 
+            HighestRatedRamen = string.Join(", ", topRatedProducts.Select(p => p.Variety));
+
         }
     }
 }
