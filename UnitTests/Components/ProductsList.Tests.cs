@@ -27,7 +27,7 @@ namespace UnitTests.Components
         }
 
         [Test]
-        public void ProductList_With_SearchString_Filters_Products()
+        public void ProductList_With_Valid_SearchString_Filters_Products()
         {
             // Arrange
             var partialSearch = "Chicken";  // Example search term
