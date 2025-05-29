@@ -43,7 +43,7 @@ namespace UnitTests.Components
         }
 
         [Test]
-        public void ProductList_Without_SearchString_Shows_All_Products()
+        public void Valid_ProductList_Without_SearchString_Shows_All_Products()
         {
             // Arrange
             var allProducts = TestHelper.ProductService.GetProducts();
