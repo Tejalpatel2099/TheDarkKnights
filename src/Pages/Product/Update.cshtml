@@ -127,10 +127,12 @@
 
 @section Scripts {
     <script>
+		// Function to go back to the previous page
         function goBack() {
             window.history.back();
         }
 
+		// Show error messages on page load
         window.onload = function () {
             const showError = (id, message) => {
                 if (message) {
@@ -145,6 +147,7 @@
             showError("variety-error", '@Model.VarietyError');
         };
 
+		// Show or hide the new brand input fields based on selection
         document.getElementById('Brand').addEventListener('change', function () {
             const newBrandGroup = document.getElementById('newBrandGroup');
             const errorDiv = document.getElementById("brand-error");
@@ -152,6 +155,7 @@
             errorDiv.style.display = "none";
         });
 
+        // Show or hide the new style input fields based on selection
         document.getElementById('Style').addEventListener('change', function () {
             const newStyleGroup = document.getElementById('newStyleGroup');
             const errorDiv = document.getElementById("style-error");
@@ -159,6 +163,7 @@
             errorDiv.style.display = "none";
         });
 
+		// Validate the image file type and size
         document.getElementById('Image').addEventListener('change', function () {
             const file = this.files[0];
             const errorDiv = document.getElementById('image-error');
@@ -169,6 +174,7 @@
             errorDiv.textContent = '';
             this.classList.remove('is-invalid');
 
+			// Reset the input if the file is invalid and display the error content
             if (file && (!allowedTypes.includes(file.type) || file.size > maxSize)) {
                 errorDiv.textContent = 'Sorry, this file is not supported.';
                 errorDiv.style.display = 'block';
