@@ -119,9 +119,11 @@
 
 @section Scripts {
     <script>
+		// JavaScript to handle the ramen rating interaction
         let selectedRating = 0; 
         const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
 
+        //Function to show active rating image based on user slide
         function highlightRamen(rating) {
             let icons = document.querySelectorAll('#ramen-rating img');
             icons.forEach((icon, index) => {
@@ -131,6 +133,7 @@
             document.getElementById("reaction-text").innerText = reactions[rating - 1];
         }
 
+		// Function to reset the ramen rating display
         function resetRamen() {
             highlightRamen(selectedRating || 0);
             if (selectedRating === 0) {
@@ -138,6 +141,7 @@
             }
         }
 
+		// Function to set the selected rating and update the hidden input
         function setRating(rating) {
             selectedRating = rating;
             document.getElementById("Rating").value = rating;
