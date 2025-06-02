@@ -11,7 +11,7 @@ using Moq;
 using RamenRatings.WebSite.Models;
 using RamenRatings.WebSite.Services;
 
-namespace UnitTests.Pages.Product
+namespace UnitTests.Pages
 {
     /// <summary>
     /// Unit testing for Index Tests
