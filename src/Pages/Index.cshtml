@@ -5,6 +5,10 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<!-- 
+    Index Razor page for displaying and searching Ramen products
+    Provides search bar, summary statistics, product cards
+-->
 
 <!-- Search Bar -->
 <form method="get" class="mb-4 d-flex" role="search">
@@ -76,25 +80,37 @@
         {
             const counters = document.querySelectorAll(".stat-number");
 
-            // Update the count for each number via incremented animation
+            // Update the count for each number via incremented animation for each counter element found
             counters.forEach(counter => 
             {
+                // Define the function that will animate
                 const updateCount = () => 
                 {
+                    // Get the value to animate
                     const target = +counter.getAttribute("data-target");
+
+                    // Get the current value currently shown in element
                     const current = +counter.innerText;
+
+                    // Choose the amount to increase for the number increment animation
                     const increment = Math.ceil(target / 40);
 
+                    // If current value is less than the target, increment it
                     if (current < target) 
                     {
                         counter.innerText = current + increment;
+
+                        // Schedule next update after 30 milliseconds
                         setTimeout(updateCount, 30);
-                    } else 
-                    {
-                        counter.innerText = target.toLocaleString();
+
                     }
+
+                    // When target reached, set to final target
+                    counter.innerText = target.toLocaleString();
+                    
                 };
 
+                // Start animating the counter
                 updateCount();
             });
         });
