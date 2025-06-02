@@ -17,9 +17,9 @@
         @foreach (var product in ProductService.GetProducts())
         {
             <tr>
-                <!-- Show Brand and Variety for each ramen product-->
+                <!-- Show Brand and Variety (with Country in parentheses) for each ramen product-->
                 <td>@product.Brand</td>
-                <td>@product.Variety</td>
+                <td>@product.Variety (@product.Country)</td>
                 <td>
                     <!-- replace Read button with a bootstrap style button -->
                     <button type="button" class="btn btn-primary rounded-pill me-2">
