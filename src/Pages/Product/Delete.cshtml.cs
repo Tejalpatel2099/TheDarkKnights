@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RamenRatings.WebSite.Models;
 using RamenRatings.WebSite.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RamenRatings.WebSite.Pages.Product
 {
@@ -58,17 +59,12 @@ namespace RamenRatings.WebSite.Pages.Product
         // Handles POST request to confirm and perform the delete operation
         public IActionResult OnPost()
         {
-            // Check if the model state is valid before proceeding
-            if (ModelState.IsValid == false)
-            {
-                return Page(); // Stay on the page if validation fails
-            }
 
             // Delete the product using its unique Number (ID)
             DeleteData(Product.Number);
 
-            // After deletion, redirect back to the home/index page
-            return RedirectToPage("/Index");
+            // After deletion, redirect back to products page
+            return RedirectToPage("/Product/ProductsPage");
         }
 
         /// <summary>
