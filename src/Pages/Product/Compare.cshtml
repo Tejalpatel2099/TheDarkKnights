@@ -14,9 +14,11 @@
         <div class="col-md-5">
             <label for="Selected1">Select Ramen #1</label>
             <select class="form-control" id="Selected1" name="Selected1">
+
+                <!-- Display each ramen Brand, Variety, Country -->
                 @foreach (var ramen in Model.Products)
                 {
-                    <option value="@ramen.Number">@ramen.Brand @ramen.Variety</option>
+                    <option value="@ramen.Number">@ramen.Brand @ramen.Variety (@ramen.Country)</option>
                 }
             </select>
         </div>
@@ -32,9 +34,11 @@
         <div class="col-md-5">
             <label for="Selected2">Select Ramen #2</label>
             <select class="form-control" id="Selected2" name="Selected2">
+
+                <!-- Display each ramen Brand, Variety, Country -->
                 @foreach (var ramen in Model.Products)
                 {
-                    <option value="@ramen.Number">@ramen.Brand @ramen.Variety</option>
+                    <option value="@ramen.Number">@ramen.Brand @ramen.Variety (@ramen.Country)</option>
                 }
             </select>
         </div>
