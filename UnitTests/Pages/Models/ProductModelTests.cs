@@ -6,7 +6,7 @@ namespace RamenRatings.Tests.Models
     public class ProductModelTests
     {
         [Test]
-        public void ToString_Valid_Product_Should_Return_Json_Representation()
+        public void ToString_Valid_Product_Data_Should_Return_Json_Representation()
         {
             // Arrange: Create a ProductModel instance with test data
             var product = new ProductModel
