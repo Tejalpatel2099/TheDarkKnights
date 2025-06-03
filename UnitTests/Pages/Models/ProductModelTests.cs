@@ -5,6 +5,9 @@ namespace RamenRatings.Tests.Models
 {
     public class ProductModelTests
     {
+        /// <summary>
+        /// Tests the ToString method of ProductModel to ensure it returns a valid JSON representation of the product data.
+        /// </summary>
         [Test]
         public void ToString_Valid_Product_Data_Should_Return_Json_Representation()
         {
