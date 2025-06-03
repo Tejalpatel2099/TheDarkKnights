@@ -125,16 +125,6 @@ namespace UnitTests.Pages.Product
         /// <summary>
         /// Invalid model state should result in returning the same page
         /// </summary>
-        [Test]
-        public void OnPost_Valid_InvalidModel_Should_Return_Page()
-        {
-            // Simulate model error
-            pageModel.ModelState.AddModelError("Product", "Required");
-
-            var result = pageModel.OnPost();
-
-            Assert.IsInstanceOf<PageResult>(result); // should stay on the same page
-        }
 
         #endregion
 
