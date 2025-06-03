@@ -5,63 +5,75 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<!-- 
-    Index Razor page for displaying and searching Ramen products
-    Provides search bar, summary statistics, product cards
--->
 
-<!-- Search Bar -->
-<form method="get" class="mb-4 d-flex" role="search">
-    <input type="search"
-           name="SearchString"
-           value="@Model.CurrentFilter"
-           class="form-control me-2"
-           placeholder="Search by variety..."
-           aria-label="Search" />
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
+<!-- Search Section -->
+<div class="search-banner py-5 text-center text-white my-3" style="background: linear-gradient(135deg, #ff9800, #ff5722);">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Explore the Ramentastic World</h1>
+        <p class="lead">Discover, rate, and compare your favorite ramen</p>
+
+        <!-- Search -->
+        <form method="get" class="d-flex justify-content-center mt-4" role="search">
+            <input type="search"
+                   name="SearchString"
+                   value="@Model.CurrentFilter"
+                   class="form-control w-50 me-2"
+                   placeholder="Search by variety..."
+                   aria-label="Search" />
+            <button class="btn" style="background: linear-gradient(135deg, #ff9800, #ffff);" type="submit">Search</button>
+        </form>
+    </div>
+</div>
 
 <!-- Page Stats -->
-<div class="container text-center my-4">
+<div class="container text-center my-5">
     <div class="row justify-content-center">
         <!-- Brands -->
-        <div class="col-md-4 mb-4 d-flex justify-content-center">
-            <div class="ramen-rating-box flex-column text-center">
-                <h2 class="stat-number" data-target="@Model.TotalBrands">0</h2>
-                <h6 class="text-muted">Brands</h6>
+        <div class="col-md-3 mb-4">
+            <div class="stat-card shadow-sm rounded py-4 bg-light">
+                <h2 class="stat-number text-primary" data-target="@Model.TotalBrands">0</h2>
+                <p class="text-muted mb-0">Brands</p>
             </div>
         </div>
 
         <!-- Products -->
-        <div class="col-md-4 mb-4 d-flex justify-content-center">
-            <div class="ramen-rating-box flex-column text-center">
-                <h2 class="stat-number" data-target="@Model.TotalProducts">0</h2>
-                <h6 class="text-muted">Products</h6>
+        <div class="col-md-3 mb-4">
+            <div class="stat-card shadow-sm rounded py-4 bg-light">
+                <h2 class="stat-number text-success" data-target="@Model.TotalProducts">0</h2>
+                <p class="text-muted mb-0">Products</p>
             </div>
         </div>
 
         <!-- Ratings -->
-        <div class="col-md-4 mb-4 d-flex justify-content-center">
-            <div class="ramen-rating-box flex-column text-center">
-                <h2 class="stat-number" data-target="@Model.TotalRatings">0</h2>
-                <h6 class="text-muted">Total Ratings</h6>
+        <div class="col-md-3 mb-4">
+            <div class="stat-card shadow-sm rounded py-4 bg-light">
+                <h2 class="stat-number text-danger" data-target="@Model.TotalRatings">0</h2>
+                <p class="text-muted mb-0">Total Ratings</p>
             </div>
         </div>
+    </div>
 
-		<!-- Average Rating -->
-        <div class="col-md-12 mb-4 d-flex justify-content-center">
-            <div class="ramen-rating-box p-4 rounded shadow text-center w-100" style="background: #fffbe6; border: 1px solid #ffe58f;">
-                <h5 class="mb-3 fw-bold text-dark">🍜 Top Rated Ramen(s)</h5>
-                <div class="d-flex flex-wrap justify-content-center">
+    <!-- Top Rated Section with Horizontal Scroll -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-4 rounded shadow-sm bg-warning-subtle border border-warning text-dark position-relative">
+                <h5 class="fw-bold mb-3">🍜 Top Rated Ramen(s)</h5>
+
+                <!-- Left Arrow -->
+                <button class="scroll-btn left" onclick="scrollBadges(-200)">&#10094;</button>
+
+                <!-- Scrollable Badge Container -->
+                <div class="scroll-container d-flex overflow-auto px-2" id="badgeScroll">
                     @foreach (var name in @Model.HighestRatedRamen.Split(","))
                     {
-                        <span class="badge rounded-pill bg-warning text-dark m-1 px-3 py-2">@name.Trim()</span>
+                        <span class="badge rounded-pill bg-warning text-dark fw-semibold m-1 px-3 py-2 badge-hover">@name.Trim()</span>
                     }
                 </div>
+
+                <!-- Right Arrow -->
+                <button class="scroll-btn right" onclick="scrollBadges(200)">&#10095;</button>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -70,49 +82,93 @@
     RenderMode.ServerPrerendered,
     new { SearchString = Model.CurrentFilter }))
 
-
 <!-- Script -->
-@section Scripts 
-{
+@section Scripts {
     <script>
-        // On page load, show the stat number via animate number
-        document.addEventListener("DOMContentLoaded", function () 
-        {
+        // Animated Counter for page stats
+        document.addEventListener("DOMContentLoaded", function () {
             const counters = document.querySelectorAll(".stat-number");
 
-            // Update the count for each number via incremented animation for each counter element found
-            counters.forEach(counter => 
-            {
-                // Define the function that will animate
-                const updateCount = () => 
-                {
-                    // Get the value to animate
+			// arguments for each counter
+            counters.forEach(counter => {
+                const updateCount = () => {
                     const target = +counter.getAttribute("data-target");
-
-                    // Get the current value currently shown in element
                     const current = +counter.innerText;
-
-                    // Choose the amount to increase for the number increment animation
                     const increment = Math.ceil(target / 40);
-
-                    // If current value is less than the target, increment it
-                    if (current < target) 
-                    {
+                    if (current < target) {
                         counter.innerText = current + increment;
-
-                        // Schedule next update after 30 milliseconds
                         setTimeout(updateCount, 30);
-
+                    } else {
+                        counter.innerText = target.toLocaleString();
                     }
-
-                    // When target reached, set to final target
-                    counter.innerText = target.toLocaleString();
-                    
                 };
-
-                // Start animating the counter
                 updateCount();
             });
         });
+
+        // Badge Scroll Function
+        function scrollBadges(distance) {
+            const container = document.getElementById('badgeScroll');
+            container.scrollBy({ left: distance, behavior: 'smooth' });
+        }
     </script>
+
+    <!-- Custom Styles -->
+    <style>
+        .badge-hover:hover {
+            background-color: #ffcc80 !important;
+            transform: scale(1.05);
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background-color: #fffde7;
+        }
+
+        .search-banner input[type="search"] {
+            max-width: 400px;
+        }
+
+        .scroll-container {
+            scroll-behavior: smooth;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ffc107;
+            border: none;
+            padding: 6px 10px;
+            font-size: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.2s ease;
+        }
+
+        .scroll-btn.left {
+            left: 10px;
+        }
+
+        .scroll-btn.right {
+            right: 10px;
+        }
+
+        .scroll-btn:hover {
+            background-color: #ff9800;
+        }
+    </style>
 }
