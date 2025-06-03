@@ -249,3 +249,54 @@ body::before {
     min-width: 100px;
     text-align: left;
 }
+.animated-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(270deg, #ff416c, #ff4b2b);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: waveFlash 4s ease-in-out infinite, glow 2s ease-in-out infinite;
+}
+
+@keyframes waveFlash {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px 0 0 20px #b0aac0;
+    }
+}
+
+.variety-title {
+    color: #e67e22; /* Beautiful orange (matches your navbar theme) */
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: 'Nunito', sans-serif; /* matches your font if you want */
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+    .card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .card p {
+        font-size: 1.2rem;
+    }
