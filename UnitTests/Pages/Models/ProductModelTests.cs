@@ -8,7 +8,7 @@ namespace RamenRatings.Tests.Models
         [Test]
         public void ToString_Valid_Product_Should_Return_Json_Representation()
         {
-            // Arrange
+            // Arrange: Create a ProductModel instance with test data
             var product = new ProductModel
             {
                 Number = 42,
@@ -22,11 +22,13 @@ namespace RamenRatings.Tests.Models
                 Feedback = new[] { "Good", "Tasty" }
             };
 
-            // Act
+            // Act: Call ToString() which should return a JSON-formatted string
             var json = product.ToString();
 
-            // Assert
+            // Assert: Verify the JSON string is not null
             Assert.IsNotNull(json);
+
+            // Assert: Verify each property is correctly represented in the JSON output
             Assert.IsTrue(json.Contains("\"Number\":42"));
             Assert.IsTrue(json.Contains("\"Brand\":\"Nissin\""));
             Assert.IsTrue(json.Contains("\"img\":\"image.png\""));
