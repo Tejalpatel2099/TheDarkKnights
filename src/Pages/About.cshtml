@@ -83,24 +83,31 @@
             );
         }
 
+		// Initialize chart with raw data from ViewData
         const rawData = @Html.Raw(ViewData["ChartData"]);
         let chart;
 
         // Create pie chart display
         function createChart(category)
         {
+			// Clear previous chart if it exists
             const ctx = document.getElementById('pieChart').getContext('2d');
             const dataSet = rawData[category];
 
+			
             const colors = generateColors(dataSet.length);
             const labels = dataSet.map(x => x.label);
             const values = dataSet.map(x => x.count);
 
             if (chart) chart.destroy();
 
+			//Create new chart instance
             chart = new Chart(ctx,
             {
+				//Specify chart type
                 type: 'pie',
+
+				//Set chart data
                 data:
                 {
                     labels: labels,
@@ -111,9 +118,12 @@
                         backgroundColor: colors
                     }]
                 },
+                //Set chart options
                 options:
                 {
                     responsive: true,
+
+                    //Set chart plugins
                     plugins:
                     {
                         legend:
