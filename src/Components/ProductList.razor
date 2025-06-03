@@ -5,22 +5,55 @@
 
 <!-- Product card layout -->
 <div class="card-columns">
+
+    <!-- Display products which are in filtered products -->
     @foreach (var product in filteredProducts)
     {
+        <!-- Displaying card for each product -->
         <div class="card">
             <div class="card-img" style="background-image: url('@product.img?ts=@DateTime.Now.Ticks');">
             </div>
             <div class="card-body">
                 <h5 class="card-title">@product.Variety</h5>
                 <p>
+                    <!-- Displaying average rating -->
                     <strong>Average Rating: </strong>
                     @{
+                        // Get the current ratings
                         var ratings = product.Ratings;
                         if ((ratings == null) == false && ratings.Length > 0)
                         {
+                            // Compute the average rating
                             double avg = ratings.Average();
-                            @($"{avg:F1} / 5.0")
+
+                            // Calculate number of full stars
+                            int fullStars = (int)Math.Floor(avg);
+
+                            // Determine if a half star is needed
+                            bool hasHalfStar = (avg - fullStars) >= 0.5;
+
+                            // Calculate remaining empty stars
+                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                            // Render star icons based on rating
+                            <span>
+                                @for (int i = 0; i < fullStars; i++)
+                                {
+                                    <i class="fas fa-star text-warning"></i>
+                                }
+                                @if (hasHalfStar)
+                                {
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                }
+                                @for (int i = 0; i < emptyStars; i++)
+                                {
+                                    <i class="far fa-star text-warning"></i>
+                                }
+                                @* Display numeric average *@
+                                <span class="ml-2">(@($"{avg:F1}") / 5)</span>
+                            </span>
                         }
+                        //If no ratings are available then display no ratings yet
                         else
                         {
                             @("No ratings yet")
@@ -28,63 +61,17 @@
                     }
                 </p>
             </div>
+
+            <!-- Buttons for each card -->
             <div class="card-footer">
                 <small class="text-muted">
-                    <a class="btn btn-primary" href="/Product/Read/@product.Number">More Info</a>
-                    <a class="btn btn-primary" href="/Product/AddRating/@product.Number">Add Rating</a>
+                    <a class="btn" style="background: linear-gradient(135deg, #ffff,#ff9800);" href="/Product/Read/@product.Number">More Info</a>
+                    <a class="btn" style="background: linear-gradient(135deg, #ff9800, #ffff);" href="/Product/AddRating/@product.Number">Add Rating</a>
                 </small>
             </div>
         </div>
     }
 </div>
-
-<!-- Modal for selected product -->
-@if (selectedProduct != null)
-{
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productTitle">@selectedProduct.Variety</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('@selectedProduct.img');">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">@selectedProduct.Country</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    @if (voteCount == 0)
-                    {
-                        <span>Be the first to vote!</span>
-                    }
-                    else
-                    {
-                        <span>@voteCount @voteLabel</span>
-                    }
-                    @for (int i = 1; i < 6; i++)
-                    {
-                        var currentStar = i;
-                        if (i <= currentRating)
-                        {
-                            <span class="fa fa-star checked" @onclick="(e => SubmitRating(currentStar))"></span>
-                        }
-                        else
-                        {
-                            <span class="fa fa-star" @onclick="(e => SubmitRating(currentStar))"></span>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
