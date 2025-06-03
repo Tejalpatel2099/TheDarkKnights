@@ -57,6 +57,8 @@
         </div>
     </div>
 
+    
+    <!--Apply and clear filter buttons-->
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">Apply Filter</button>
         <a href="/Filtered" class="btn btn-outline-secondary">Clear Filters</a>
@@ -65,20 +67,21 @@
 
 <hr />
 
+
+<!--If there are products to show, display them-->
 @if (Model.Products.Any())
 {
-    
-        
-    
-
     <div class="card-container">
         @foreach (var product in Model.Products)
         {
             <div class="card-wrapper">
+                <!--Link to the product details page-->
                 <a asp-page="/Details" asp-route-id="@product.Number" class="text-decoration-none text-dark">
                     <div class="card shadow-sm d-flex flex-column">
+                        <!--Product imagen-->
                         <img src="@product.img" class="card-img-top" alt="@product.Variety" style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
+                            <!--Product details-->
                             <h5 class="card-title">@product.Brand</h5>
                             <p class="card-text flex-grow-1"><strong>@product.Variety</strong></p>
                             <p class="card-text">
@@ -93,14 +96,14 @@
             </div>
         }
     </div>
-
-
 }
 else
 {
+    // Message if no products matched the filters
     <p>No products match the selected filters.</p>
 }
 
+<!--Back button to Index page-->
 <a class="btn btn-secondary mt-3" href="/">Back to Index</a>
 
 <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
@@ -109,13 +112,14 @@ else
     var minInput = document.getElementById('MinRating');
     var maxInput = document.getElementById('MaxRating');
     var rangeText = document.getElementById('ratingRangeText');
-
+     
+    // Read values from the URL or use default values (1 to 5)
     const urlParams = new URLSearchParams(window.location.search);
     const min = parseFloat(urlParams.get("MinRating")) || 1;
     const max = parseFloat(urlParams.get("MaxRating")) || 5;
 
-    noUiSlider.create(slider, 
-    {
+    // Create the noUiSlider with range and steps 
+    noUiSlider.create(slider, {
         start: [min, max],
         connect: true,
         range: { 'min': 1, 'max': 5 },
@@ -123,8 +127,8 @@ else
         format: { to: value => value.toFixed(1), from: value => parseFloat(value) }
     });
 
-    slider.noUiSlider.on('update', function (values) 
-    {
+    // Update hidden inputs and display text when slider is changed
+    slider.noUiSlider.on('update', function (values) {
         minInput.value = values[0];
         maxInput.value = values[1];
         rangeText.innerText = `${values[0]} - ${values[1]}`;
