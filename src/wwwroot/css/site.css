@@ -306,3 +306,51 @@ body::before {
     background-color: #f9f9f9;
     border: none;
 }
+/*style for privacy card body*/
+body {
+    background-color: #f2f6fc;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+/*style for header1 for privacy card*/
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #C0392B;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+/*style card privacy*/
+.card {
+    background-color: white;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+/*style for card header privacy card*/
+.card-header {
+    background-color: #f8c471;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+/*style for card body privacy*/
+.card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.card-body td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+.card-body tr:hover {
+    background-color: #f2f2f2;
+}
