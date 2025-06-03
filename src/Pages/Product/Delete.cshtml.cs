@@ -64,7 +64,7 @@ namespace RamenRatings.WebSite.Pages.Product
             DeleteData(Product.Number);
 
             // After deletion, redirect back to products page
-            return RedirectToPage("/Product/ProductsPage");
+            return RedirectToPage("/Index");
         }
 
         /// <summary>
