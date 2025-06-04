@@ -6,10 +6,12 @@
 
 <h2>Create New Ramen Product</h2>
 
-<form method="post" enctype="multipart/form-data">
+<div class="row my-3">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <!-- Select from list of existing brands, with option to enter a new Brand -->
-    <div class="form-group">
+    <div class="form-group my-3">
         <label for="Brand">Brand
             <!-- Brand tooltip -->
             @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
@@ -137,6 +139,8 @@
     <div class="mb-5"></div>
 
 </form>
+    </div>
+</div>
 
 
 <!-- Script for showing or hiding the input fields for new brand or new style -->
