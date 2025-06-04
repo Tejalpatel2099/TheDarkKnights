@@ -242,6 +242,20 @@ body::before {
     min-width: 300px;
 }
 
+/*Box for previewing images*/
+.image-preview-box {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+    border: 1px solid #b3d7ff;
+    width: fit-content;
+    margin: 0 auto;
+}
+
 /*style for rating text reactions*/
 .rating-reaction {
     font-size: 1rem;
