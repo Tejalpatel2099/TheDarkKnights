@@ -4,129 +4,156 @@
     ViewData["Title"] = "Update Existing Ramen Product";
 }
 
-<h2>Update Existing Ramen Product</h2>
+<h2 class="animated-heading text-center mb-4">Update Existing Ramen Product</h2>
 
-<form method="post" enctype="multipart/form-data">
-    <p> Current Ramen Image </p>
-    <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" height="250" width="250" />
+<div class="row">
+    <!-- Left: Form fields -->
+    <div class="col-md-8">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <!-- Brand -->
+                <label for="Brand">
+                    Brand
 
-    <div class="form-group">
-        <!-- Brand -->
-        <label for="Brand">Brand
+                    <!-- Brand tooltip -->
+                    @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
 
-            <!-- Brand tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
+                </label>
+                <select class="form-control" id="Brand" name="Product.Brand">
+                    <option value="">Select an Existing Brand</option>
+                    @foreach (var brand in Model.ExistingBrands.Distinct())
+                    {
+                        <option value="@brand" selected="@(brand == @Model.Product.Brand)">@brand</option>
+                    }
+                    <option value="Other">Other</option>
+                </select>
+                <div class="form-group mt-3" id="newBrandGroup" style="display:none;">
+                    <label for="NewBrand">Other Brand</label>
+                    <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+                </div>
+                <!-- Brand error message -->
+                <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
+            </div>
 
-        </label>
-        <select class="form-control" id="Brand" name="Product.Brand">
-            <option value="">Select an Existing Brand</option>
-            @foreach (var brand in Model.ExistingBrands.Distinct())
-            {
-                <option value="@brand" selected="@(brand == @Model.Product.Brand)">@brand</option>
-            }
-            <option value="Other">Other</option>
-        </select>
-        <div class="form-group" id="newBrandGroup" style="display:none;">
-            <label for="NewBrand">Other Brand</label>
-            <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+            <div class="form-group">
+                <!-- Variety -->
+                <label for="Variety">
+                    Variety
+
+                    <!-- Variety tooltip -->
+                    @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
+
+                </label>
+                <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety" />
+
+                <!-- Variety error message -->
+                <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
+            </div>
+
+            <div class="form-group">
+                <!-- Style -->
+                <label for="Style">
+                    Style
+
+                    <!-- Style tooltip -->
+                    @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
+
+                </label>
+                <select class="form-control" id="Style" name="Product.Style">
+                    <option value="">Select an Existing Style</option>
+                    @foreach (var style in Model.ExistingStyles.Distinct())
+                    {
+                        <option value="@style" selected="@(style == @Model.Product.Style)">@style</option>
+                    }
+                    <option value="Other">Other</option>
+                </select>
+                <div class="form-group mt-3" id="newStyleGroup" style="display:none;">
+                    <label for="NewStyle">Other Style</label>
+                    <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
+                </div>
+
+                <!-- Style error message -->
+                <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
+            </div>
+
+            <div class="form-group">
+                <!-- Country -->
+                <label for="Country">
+                    Country
+                    <!-- Country tooltip -->
+                    @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
+                </label>
+                <select class="form-control" id="Country" name="Product.Country">
+                    <option value="">Select a Country</option>
+                    @foreach (var country in Model.Countries.Distinct())
+                    {
+                        <option value="@country" selected="@(country == Model.Product.Country)">@country</option>
+                    }
+                </select>
+                <span asp-validation-for="Product.Country" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <!-- Vegetarian -->
+                <label for="Vegetarian">Vegetarian</label>
+                <select class="form-control" id="Vegetarian" name="Product.Vegetarian" required>
+                    <option value="">Select an option</option>
+                    @foreach (var option in Model.VegetarianOptions)
+                    {
+                        <option value="@option" selected="@(option == Model.Product.Vegetarian)">@option</option>
+                    }
+                </select>
+                <span asp-validation-for="Product.Vegetarian" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <!-- Image -->
+                <label for="Image">
+                    Upload Image
+
+                    <!-- Image tooltip -->
+                    @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
+
+                </label>
+                <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
+
+                <!-- Image error message -->
+                <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
+                <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
+            </div>
+
+            <div class="form-group">
+                <!-- Rating -->
+                <label for="Rating">Current Rating</label>
+                <input type="text" class="form-control" id="Rating"
+                       value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
+                       readonly style="background-color: #e9ecef; cursor: not-allowed;" />
+                <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
+            </div>
+
+            <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
+
+            <!-- Duplicate error message -->
+            <div id="duplicate-error" class="text-danger mt-1" style="display: none;">@Model.DuplicateError</div>
+
+            <!-- Submit and Go Back Buttons-->
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
+                <button type="submit" class="btn btn-primary">Update Ramen</button>
+            </div>
+            <div class="mb-5"></div>
+        </form>
+    </div>
+
+    <!-- Right: Image display -->
+    <div class="col-md-4 text-center">
+        <div class="ramen-rating-box flex-column text-center mx-auto">
+            <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" style="max-width: 100%; height: auto;" />
+            <p>Current Ramen Image</p>
         </div>
-        <div id="brand-error" class="text-danger mt-1" style="display: none;">@Model.BrandError</div>
     </div>
+</div>
 
-    <div class="form-group">
-        <!-- Variety -->
-        <label for="Variety">Variety
-
-            <!-- Variety tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
-
-        </label>
-        <input type="text" class="form-control" id="Variety" name="Product.Variety" placeholder="Enter variety" value="@Model.Product.Variety" />
-        <div id="variety-error" class="text-danger mt-1" style="display: none;">@Model.VarietyError</div>
-    </div>
-
-    <div class="form-group">
-        <!-- Style -->
-        <label for="Style">Style
-
-            <!-- Style tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
-
-        </label>
-        <select class="form-control" id="Style" name="Product.Style">
-            <option value="">Select an Existing Style</option>
-            @foreach (var style in Model.ExistingStyles.Distinct())
-            {
-                <option value="@style" selected="@(style == @Model.Product.Style)">@style</option>
-            }
-            <option value="Other">Other</option>
-        </select>
-        <div class="form-group" id="newStyleGroup" style="display:none;">
-            <label for="NewStyle">Other Style</label>
-            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
-        </div>
-        <div id="style-error" class="text-danger mt-1" style="display: none;">@Model.StyleError</div>
-    </div>
-
-    <div class="form-group">
-        <!-- Country -->
-        <label for="Country">Country
-            <!-- Country tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
-        </label>
-        <select class="form-control" id="Country" name="Product.Country">
-            <option value="">Select a Country</option>
-            @foreach (var country in Model.Countries.Distinct())
-            {
-                <option value="@country" selected="@(country == Model.Product.Country)">@country</option>
-            }
-        </select>
-        <span asp-validation-for="Product.Country" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <!-- Vegetarian -->
-        <label for="Vegetarian">Vegetarian</label>
-        <select class="form-control" id="Vegetarian" name="Product.Vegetarian" required>
-            <option value="">Select an option</option>
-            @foreach (var option in Model.VegetarianOptions)
-            {
-                <option value="@option" selected="@(option == Model.Product.Vegetarian)">@option</option>
-            }
-        </select>
-        <span asp-validation-for="Product.Vegetarian" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <!-- Image -->
-        <label for="Image">Upload Image
-
-            <!-- Image tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
-
-        </label>
-        <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
-        <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
-        <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
-    </div>
-
-    <div class="form-group">
-        <!-- Rating -->
-        <label for="Rating">Current Rating</label>
-        <input type="text" class="form-control" id="Rating"
-               value="@(Model.Product.Ratings?.FirstOrDefault().ToString("0.0") ?? "N/A")"
-               readonly style="background-color: #e9ecef; cursor: not-allowed;" />
-        <small class="form-text text-muted">This field is read-only. Ratings cannot be updated.</small>
-    </div>
-
-    <input type="hidden" name="Product.Number" value="@Model.Product.Number" />
-
-    <div class="form-group">
-        <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
-        <button type="submit" class="btn btn-primary">Update Ramen</button>
-    </div>
-    <div class="mb-5"></div>
-</form>
 
 @section Scripts {
     <script>
@@ -145,9 +172,11 @@
                 }
             };
 
+            // Indicidual error messaages for brand, style, variety, duplicate
             showError("brand-error", '@Model.BrandError');
             showError("style-error", '@Model.StyleError');
             showError("variety-error", '@Model.VarietyError');
+            showError("duplicate-error", '@Model.DuplicateError');
         };
 
 		// Show or hide the new brand input fields based on selection
