@@ -1,17 +1,23 @@
 ﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using RamenRatings.WebSite.Components;  // Adjust if your ProductList is in a different namespace
+using RamenRatings.WebSite.Components;
 using RamenRatings.WebSite.Services;
 using System.Linq;
 using UnitTests.Pages;
 
 namespace UnitTests.Components
 {
+    /// <summary>
+    /// Tests fpr Product Lists component
+    /// </summary>
     public class ProductListTests
     {
         private Bunit.TestContext ctx;
 
+        /// <summary>
+        /// Setting up the context for the test
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -20,14 +26,20 @@ namespace UnitTests.Components
             ctx.Services.AddSingleton<JsonFileProductService>(TestHelper.ProductService);
         }
 
+        /// <summary>
+        /// Clean up the resources after disposing the context
+        /// </summary>
         [TearDown]
         public void TearDown()
         {
             ctx.Dispose();
         }
 
+        /// <summary>
+        /// Returns or filter the product(s) if the search string is given
+        /// </summary>
         [Test]
-        public void ProductList_With_Valid_SearchString_Filters_Products()
+        public void ProductList_Valid_Search_String_Filters_Products()
         {
             // Arrange
             var partialSearch = "Chicken";  // Example search term
@@ -42,8 +54,11 @@ namespace UnitTests.Components
             Assert.IsTrue(productTitles.All(title => title.TextContent.Contains(partialSearch, System.StringComparison.OrdinalIgnoreCase)));
         }
 
+        /// <summary>
+        /// Returns or filter the default product(s) if the search string is not given
+        /// </summary>
         [Test]
-        public void Valid_ProductList_Without_SearchString_Shows_All_Products()
+        public void ProductList_Valid_Without_Any_Search_String_Shows_All_Products()
         {
             // Arrange
             var allProducts = TestHelper.ProductService.GetProducts();
@@ -55,7 +70,5 @@ namespace UnitTests.Components
             var productTitles = cut.FindAll(".card-body > .card-title");
             Assert.AreEqual(allProducts.Count(), productTitles.Count);
         }
-
-        // Optional: Additional tests for selecting a product or submitting a rating could be added here
     }
 }
