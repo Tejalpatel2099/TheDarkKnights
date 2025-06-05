@@ -66,16 +66,22 @@ namespace RamenRatings.WebSite.Pages
             double min = 1.0;
             double max = 5.0;
 
-            // Parse the rating range if needed
+            // Parse the rating range from query
             if (double.TryParse(Request.Query["MinRating"], out var parsedMin))
-            {
                 min = parsedMin;
-            }
 
             if (double.TryParse(Request.Query["MaxRating"], out var parsedMax))
-            {
                 max = parsedMax;
-            }
+
+            // Apply filter for rating range
+            products = products.Where(p =>
+            {
+                if (p.Ratings == null || p.Ratings.Length == 0)
+                    return false;
+
+                var avg = p.Ratings.Average();
+                return avg >= min && avg <= max;
+            });
 
             // Apply filter for rating range
             Products = products.ToList();
