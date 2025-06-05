@@ -268,6 +268,13 @@ namespace RamenRatings.WebSite.Pages.Product
         /// <returns><c>true</c> if the data is valid; otherwise, <c>false</c>.</returns>
         public bool ValidateData(ProductModel product, bool isOtherBrand, bool isOtherStyle)
         {
+            // Check if the brand entered or not
+            if (string.IsNullOrWhiteSpace(product.Brand))
+            {
+                // Set brand error message and return false
+                BrandError = "Brand is required.";
+                return false;
+            }
             // Check if the brand already exists and the user has selected "Other"
             if (ExistingBrands.Contains(product.Brand) && isOtherBrand)
             {
@@ -283,7 +290,13 @@ namespace RamenRatings.WebSite.Pages.Product
                 BrandError = "Character Limit is 20"; 
                 return false;
             }
-
+            // Check if the brand entered or not
+            if (string.IsNullOrWhiteSpace(product.Style))
+            {
+                // Set style error message and return false
+                StyleError = "Style is required.";
+                return false;
+            }
             // Check if the style already exists and the user has selected "Other"
             if (ExistingStyles.Contains(product.Style) && isOtherStyle)
             {
@@ -299,7 +312,13 @@ namespace RamenRatings.WebSite.Pages.Product
                 StyleError = "Character Limit is 20";
                 return false;
             }
-
+            // Check if the variety entered or not
+            if (string.IsNullOrWhiteSpace(product.Variety))
+            {
+                // Set variety error message and return false
+                VarietyError = "Variety is required.";
+                return false;
+            }
             // Enforce a character limit for the variety name
             if (product.Variety.Length > 20)
             {
@@ -307,6 +326,7 @@ namespace RamenRatings.WebSite.Pages.Product
                 VarietyError = "Character Limit is 20";
                 return false;
             }
+            
 
             // Check if a product with the same brand, variety, country, style,
             // and pack already exists (excluding the current one)
