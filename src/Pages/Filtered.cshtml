@@ -4,121 +4,168 @@
     ViewData["Title"] = "Filtered Results";
 }
 
-<h2>Filtered Results</h2>
+<div class="container my-5">
+    <!-- Filter Form in a Stylish Card -->
+    <div class="custom-form-card">
+        <h3 class="text-center mb-4 fw-bold">Filter Ramen Products</h3>
+        <form method="get">
+            <div class="row g-4">
+                <!--Filter Brands with multiple select drop down form field-->
+                <div class="form-group col-md-6">
+                    <label for="SelectedBrands">Brands</label>
+                    <select id="SelectedBrands" name="SelectedBrands" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Brand(s)">
+                        @foreach (var brand in Model.AllBrands)
+                        {
+                            <option value="@brand" selected="@(Model.SelectedBrands?.Contains(brand) == true)">
+                                @brand
+                            </option>
+                        }
+                    </select>
+                </div>
 
-<form method="get">
-    <div class="row">
-        <!--Filter Brands with multiple select drop down form field-->
-        <div class="form-group col-md-3">
-            <label for="SelectedBrands">Brands</label>
-            <select id="SelectedBrands" name="SelectedBrands" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Brand(s)">
-                @foreach (var brand in Model.AllBrands)
-                {
-                    <option value="@brand" selected="@(Model.SelectedBrands?.Contains(brand) == true)">
-                        @brand
-                    </option>
-                }
-            </select>
-        </div>
+                <!--Filter styles with multiple select drop down form field-->
+                <div class="form-group col-md-6">
+                    <label for="SelectedStyles">Style</label>
+                    <select id="SelectedStyles" name="SelectedStyles" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Style(s)">
+                        @foreach (var style in Model.AllStyles)
+                        {
+                            <option value="@style" selected="@(Model.SelectedStyles?.Contains(style) == true)">
+                                @style
+                            </option>
+                        }
+                    </select>
+                </div>
 
-        <!--Filter styles with multiple select drop down form field-->
-        <div class="form-group col-md-3">
-            <label for="SelectedStyles">Style</label>
-            <select id="SelectedStyles" name="SelectedStyles" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true" title="Select Style(s)">
-                @foreach (var style in Model.AllStyles)
-                {
-                    <option value="@style" selected="@(Model.SelectedStyles?.Contains(style) == true)">
-                        @style
-                    </option>
-                }
-            </select>
-        </div>
+                <!--Rating range slider-->
+                <div class="form-group col-md-6">
+                    <label>Rating Range: <span id="ratingRangeText">1 - 5</span></label>
+                    <div id="ratingSlider"></div>
+                    <input type="hidden" id="MinRating" name="MinRating" />
+                    <input type="hidden" id="MaxRating" name="MaxRating" />
+                </div>
 
-        <!--Rating range slider-->
-        <div class="form-group col-md-3">
-            <label>Rating Range: <span id="ratingRangeText">1 - 5</span></label>
-            <div id="ratingSlider"></div>
-            <input type="hidden" id="MinRating" name="MinRating" />
-            <input type="hidden" id="MaxRating" name="MaxRating" />
-        </div>
-
-        <!--Sort by dropdown-->
-        <div class="form-group col-md-3">
-            <label for="SortOption">Sort By</label>
-            <select id="SortOption" name="SortOption" class="form-control">
-                <option value="">-- No Sorting --</option>
-                <option value="BrandAsc" selected="@(Model.SortOption == "BrandAsc")">Brand (A-Z)</option>
-                <option value="BrandDesc" selected="@(Model.SortOption == "BrandDesc")">Brand (Z-A)</option>
-                <option value="RatingAsc" selected="@(Model.SortOption == "RatingAsc")">Rating (Low to High)</option>
-                <option value="RatingDesc" selected="@(Model.SortOption == "RatingDesc")">Rating (High to Low)</option>
-                <option value="RatingNumHigh" selected="@(Model.SortOption == "RatingNumHigh")">Rating (Highest number of ratings)</option>
-                <option value="RatingNumLow" selected="@(Model.SortOption == "RatingNumLow")">Rating (Lowest number of ratings)</option>
-            </select>
-        </div>
-    </div>
-
-    
-    <!--Apply and clear filter buttons-->
-    <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Apply Filter</button>
-        <a href="/Filtered" class="btn btn-outline-secondary">Clear Filters</a>
-    </div>
-</form>
-
-<hr />
-
-
-<!--If there are products to show, display them-->
-@if (Model.Products.Any())
-{
-    <div class="card-container">
-        @foreach (var product in Model.Products)
-        {
-            <div class="card-wrapper">
-                <!--Link to the product details page-->
-                <a asp-page="/Details" asp-route-id="@product.Number" class="text-decoration-none text-dark">
-                    <div class="card shadow-sm d-flex flex-column">
-                        <!--Product imagen-->
-                        <img src="@product.img" class="card-img-top" alt="@product.Variety" style="height: 200px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <!--Product details-->
-                            <h5 class="card-title">@product.Brand</h5>
-                            <p class="card-text flex-grow-1"><strong>@product.Variety</strong></p>
-                            <p class="card-text">
-                                <span class="text-muted">@product.Style</span><br />
-                                <span class="text-muted">Country: @product.Country</span><br />
-                                <span class="text-muted">Vegetarian: @product.Vegetarian</span><br />
-                                <span class="text-warning">Rating: @(product.Ratings?.FirstOrDefault() ?? 0)/5</span>
-                            </p>
-                        </div>
-                    </div>
-                </a>
+                <!--Sort by dropdown-->
+                <div class="form-group col-md-6">
+                    <label for="SortOption">Sort By</label>
+                    <select id="SortOption" name="SortOption" class="form-control">
+                        <option value="">-- No Sorting --</option>
+                        <option value="BrandAsc" selected="@(Model.SortOption == "BrandAsc")">Brand (A-Z)</option>
+                        <option value="BrandDesc" selected="@(Model.SortOption == "BrandDesc")">Brand (Z-A)</option>
+                        <option value="RatingAsc" selected="@(Model.SortOption == "RatingAsc")">Rating (Low to High)</option>
+                        <option value="RatingDesc" selected="@(Model.SortOption == "RatingDesc")">Rating (High to Low)</option>
+                        <option value="RatingNumHigh" selected="@(Model.SortOption == "RatingNumHigh")">Rating (Highest number of ratings)</option>
+                        <option value="RatingNumLow" selected="@(Model.SortOption == "RatingNumLow")">Rating (Lowest number of ratings)</option>
+                    </select>
+                </div>
             </div>
-        }
+
+            <!--Apply and clear filter buttons-->
+            <div class="mt-4 d-flex gap-3 justify-content-center">
+                <button type="submit" class="custom-btn-gradient btn btn-lg px-4 mx-2">Apply Filter</button>
+                <a href="/Filtered" class="btn btn-outline-secondary btn-lg px-4">Clear Filters</a>
+            </div>
+        </form>
     </div>
-}
-else
-{
-    // Message if no products matched the filters
-    <p>No products match the selected filters.</p>
-}
 
-<!--Back button to Index page-->
-<a class="btn btn-secondary mt-3" href="/">Back to Index</a>
+    <hr />
 
+    <!--If there are products to show, display them-->
+    @if (Model.Products.Any())
+    {
+        <div class="custom-card-container">
+            @foreach (var product in Model.Products)
+            {
+                <div class="custom-card-wrapper">
+                    <!--Link to the product details page-->
+                    <a asp-page="/Details" asp-route-id="@product.Number" class="text-decoration-none text-dark">
+                        <div class="custom-card shadow-sm d-flex flex-column">
+                            <!--Product imagen-->
+                            <img src="@product.img" class="custom-card-img" alt="@product.Variety">
+                            <div class="custom-card-body d-flex flex-column p-3">
+                                <!--Product details-->
+                                <h5 class="card-title">@product.Brand</h5>
+                                <p class="card-text flex-grow-1"><strong>@product.Variety</strong></p>
+                                <p class="card-text">
+                                    <span class="text-muted">@product.Style</span><br />
+                                    <span class="text-muted">Country: @product.Country</span><br />
+                                    <span class="text-muted">Vegetarian: @product.Vegetarian</span><br />
+                                    <span>
+                                        <!-- Displaying average rating -->
+                                        <strong>Average Rating: </strong>
+                                            @{
+                                                // Get the current ratings
+                                                var ratings = product.Ratings;
+                                                if ((ratings == null) == false && ratings.Length > 0)
+                                                {
+                                                    // Compute the average rating
+                                                    double avg = ratings.Average();
+
+                                                    // Calculate number of full stars
+                                                    int fullStars = (int)Math.Floor(avg);
+
+                                                    // Determine if a half star is needed
+                                                    bool hasHalfStar = (avg - fullStars) >= 0.5;
+
+                                                    // Calculate remaining empty stars
+                                                    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                                                    // Render star icons based on rating
+                                                <span>
+                                                        @for (int i = 0; i < fullStars; i++)
+                                                        {
+                                                        <i class="fas fa-star text-warning"></i>
+                                                        }
+                                                        @if (hasHalfStar)
+                                                        {
+                                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                                        }
+                                                        @for (int i = 0; i < emptyStars; i++)
+                                                        {
+                                                        <i class="far fa-star text-warning"></i>
+                                                        }
+                                                </span>
+                                                }
+                                                //If no ratings are available then display no ratings yet
+                                                else
+                                                {
+                                                    @("No ratings yet")
+                                                }
+                                            }
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        // Message if no products matched the filters
+        <p>No products match the selected filters.</p>
+    }
+
+    <!--Back button to Index page-->
+    <div class="text-center mt-5">
+        <a class="btn btn-secondary" href="/">🔙 Back to Index</a>
+    </div>
+</div>
+
+<!-- noUiSlider Script -->
 <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
 <script>
     var slider = document.getElementById('ratingSlider');
     var minInput = document.getElementById('MinRating');
     var maxInput = document.getElementById('MaxRating');
     var rangeText = document.getElementById('ratingRangeText');
-     
+
     // Read values from the URL or use default values (1 to 5)
     const urlParams = new URLSearchParams(window.location.search);
     const min = parseFloat(urlParams.get("MinRating")) || 1;
     const max = parseFloat(urlParams.get("MaxRating")) || 5;
 
-    // Create the noUiSlider with range and steps 
+    // Create the noUiSlider with range and steps
     noUiSlider.create(slider, {
         start: [min, max],
         connect: true,
