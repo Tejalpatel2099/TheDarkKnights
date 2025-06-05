@@ -429,3 +429,63 @@ h1 {
     .scroll-btn:hover {
         background-color: #ff9800;
     }
+/* Style for the filter page */
+
+/* 🎨 Stylish Buttons */
+.custom-btn-gradient {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+    .custom-btn-gradient:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+    }
+
+/* 🧃 Card Grid Layout */
+.custom-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* 📦 Card Effects */
+.custom-card-wrapper .custom-card {
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(145deg, #fff3e0, #ffe0b2); /* light orange-peach gradient */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+    .custom-card-wrapper .custom-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.custom-card-img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.custom-card-body {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.8); /* semi-white for contrast */
+}
+
+
+/* 🎛️ Form Card */
+.custom-form-card {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    background-color: #fff;
+}
