@@ -157,28 +157,6 @@
 
 @section Scripts {
     <script>
-        // Show or hide the Other Brand input box
-        const brandSelect = document.getElementById('Brand');
-        const newBrandGroup = document.getElementById('newBrandGroup');
-        brandSelect.addEventListener('change', () => {
-            newBrandGroup.style.display = brandSelect.value === 'Other' ? 'block' : 'none';
-        });
-        // Initialize visibility on page load
-        if (brandSelect.value === 'Other') newBrandGroup.style.display = 'block';
-
-        // Show or hide the Other Style input box
-        const styleSelect = document.getElementById('Style');
-        const newStyleGroup = document.getElementById('newStyleGroup');
-        styleSelect.addEventListener('change', () => {
-            newStyleGroup.style.display = styleSelect.value === 'Other' ? 'block' : 'none';
-        });
-        if (styleSelect.value === 'Other') newStyleGroup.style.display = 'block';
-
-        // Show popup alert for validation errors
-        var errors = '@TempData["Errors"]';
-        if (errors) {
-            alert(errors);
-        }
 		// Function to go back to the previous page
         function goBack() {
             window.history.back();
