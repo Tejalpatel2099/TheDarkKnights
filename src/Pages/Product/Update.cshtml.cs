@@ -170,32 +170,88 @@ namespace RamenRatings.WebSite.Pages.Product
         /// <returns>A redirect to the products page on success, or the same page on failure.</returns>
         public IActionResult OnPost()
         {
-            // Get all of the product in the product service
             var products = ProductService.GetProducts();
 
-            // Set the list of existing brands and styles without duplicates
             ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
             ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
 
-            // If the model state is valid, return the page
+            isOtherBrand = Product.Brand == "Other";
+            isOtherStyle = Product.Style == "Other";
+
+            // Manual validations and ModelState errors
+
+            // Brand validation
+            string brandToCheck = isOtherBrand ? NewBrand?.Trim() : Product.Brand?.Trim();
+
+            if (string.IsNullOrEmpty(brandToCheck))
+            {
+                ModelState.AddModelError("Brand", "Brand is required.");
+            }
+            else
+            {
+                if (isOtherBrand && ExistingBrands.Contains(brandToCheck))
+                {
+                    ModelState.AddModelError("Brand", "Brand already exists.");
+                }
+                if (brandToCheck.Length > 20)
+                {
+                    ModelState.AddModelError("Brand", "Brand must be 20 characters or less.");
+                }
+            }
+
+            // Variety validation
+            string variety = Product.Variety?.Trim();
+            if (string.IsNullOrEmpty(variety))
+            {
+                ModelState.AddModelError("Variety", "Variety is required.");
+            }
+            else if (variety.Length > 20)
+            {
+                ModelState.AddModelError("Variety", "Variety must be 20 characters or less.");
+            }
+
+            // Country validation
+            string country = Product.Country?.Trim();
+            if (string.IsNullOrEmpty(country))
+            {
+                ModelState.AddModelError("Country", "Country is required.");
+            }
+            else if (!Countries.Contains(country))
+            {
+                ModelState.AddModelError("Country", "Invalid country selected.");
+            }
+
+            // Style validation
+            string styleToCheck = isOtherStyle ? NewStyle?.Trim() : Product.Style?.Trim();
+            if (string.IsNullOrEmpty(styleToCheck))
+            {
+                ModelState.AddModelError("Style", "Style is required.");
+            }
+            else
+            {
+                if (isOtherStyle && ExistingStyles.Contains(styleToCheck))
+                {
+                    ModelState.AddModelError("Style", "Style already exists.");
+                }
+                if (styleToCheck.Length > 20)
+                {
+                    ModelState.AddModelError("Style", "Style must be 20 characters or less.");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
+                // Collect all error messages for popup alert
+                TempData["Errors"] = string.Join("\\n", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
                 return Page();
             }
 
-            // Set the updated product with the updated data
             var updatedProduct = UpdateData();
 
-            // If validation fails, return the page
-            if (!ValidateData(updatedProduct, isOtherBrand, isOtherStyle))
-            {
-                return Page();
-            }
-
-            // Save the updated product to the data
             SaveData(updatedProduct);
 
-            // Return to the products page
             return RedirectToPage("/Product/ProductsPage");
         }
 
