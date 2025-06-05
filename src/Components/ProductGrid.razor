@@ -3,38 +3,52 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-<!-- Create new table style using bootstrap -->
-<table class="table table-hover my-5">
-    <thead>
-        <tr>
-            <th scope="col">Brand</th>
-            <th scope="col">Variety</th>
-            <th scope="col">Country</th>
-            <th scope="col">Style of Packing</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in ProductService.GetProducts())
-        {
-            <tr>
-                <td>@product.Brand</td>
-                <td>@product.Variety</td>
-                <td>@product.Country</td>
-                <td>@product.Style</td>
-                <td>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <a class="btn btn-primary rounded-pill text-white" href="/Product/Read/@product.Number">📖 Read</a>
-                        <a class="btn mx-2 btn-secondary rounded-pill text-white" href="/Product/Update/@product.Number">✏️ Update</a>
-                        <a class="btn btn-danger rounded-pill text-white" href="/Product/Delete/@product.Number">🗑️ Delete</a>
-                    </div>
-                </td>
+<!-- Responsive table for displaying products table -->
+<div class="table-responsive shadow-lg overflow-hidden border border-light-subtle" style="border-radius: 2rem;">
+    <table class="table table-hover table-borderless align-middle mb-0">
+        <!-- Table headers -->
+        <thead class="text-white" style="background: linear-gradient(135deg, #ff9800, #ff5722);">
+            <tr class="text-center">
+                <th scope="col">Brand</th>
+                <th scope="col">Variety</th>
+                <th scope="col">Country</th>
+                <th scope="col">Style</th>
+                <th scope="col">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+            @foreach (var product in ProductService.GetProducts())
+            {
+                <tr class="text-center border-bottom">
+                    <td class="fw-semibold text-capitalize">@product.Brand</td>
+                    <td class="text-muted">@product.Variety</td>
+                    <td>
+                        <span class="badge bg-light text-dark px-3 py-2 rounded-pill">@product.Country</span>
+                    </td>
+                    <td>
+                        <span class="text-capitalize">@product.Style</span>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <a class="btn btn-outline-primary rounded-pill px-3 py-1 shadow-sm" href="/Product/Read/@product.Number">
+                                📖
+                            </a>
+                            <a class="btn mx-2 btn-outline-warning rounded-pill px-3 py-1 shadow-sm" href="/Product/Update/@product.Number">
+                                ✏️
+                            </a>
+                            <a class="btn btn-outline-danger rounded-pill px-3 py-1 shadow-sm" href="/Product/Delete/@product.Number">
+                                🗑️
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 
-@code
-{
+
+@code {
 }
