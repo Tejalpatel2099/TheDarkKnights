@@ -96,7 +96,7 @@ namespace UnitTests.Components
             // Arrange
             var cut = ctx.RenderComponent<ProductList>();
             var instance = cut.Instance;
-            var product = TestHelper.ProductService.GetProducts().First(x => x.Ratings != null && x.Ratings.Length > 0);
+            var product = TestHelper.ProductService.GetProducts().First();
 
             // Act
             var selectMethod = instance.GetType().GetMethod("SelectProduct", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -122,7 +122,7 @@ namespace UnitTests.Components
             // Arrange
             var cut = ctx.RenderComponent<ProductList>();
             var instance = cut.Instance;
-            var product = TestHelper.ProductService.GetProducts().First(p => p.Ratings != null && p.Ratings.Length > 0);
+            var product = TestHelper.ProductService.GetProducts().First();
 
             //Act
             // Use reflection to call SelectProduct and set state
