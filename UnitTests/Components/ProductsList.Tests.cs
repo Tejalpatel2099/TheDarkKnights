@@ -9,7 +9,7 @@ using UnitTests.Pages;
 namespace UnitTests.Components
 {
     /// <summary>
-    /// Tests fpr Product Lists component
+    /// Tests for Product Lists component
     /// </summary>
     public class ProductListTests
     {
@@ -49,7 +49,7 @@ namespace UnitTests.Components
                 parameters => parameters.Add(p => p.SearchString, partialSearch));
 
             // Assert
-            var productTitles = cut.FindAll(".card-body > .card-title");
+            var productTitles = cut.FindAll(".card .card-body .card-title");
             Assert.IsNotEmpty(productTitles);
             Assert.IsTrue(productTitles.All(title => title.TextContent.Contains(partialSearch, System.StringComparison.OrdinalIgnoreCase)));
         }
@@ -67,7 +67,7 @@ namespace UnitTests.Components
             var cut = ctx.RenderComponent<ProductList>();
 
             // Assert
-            var productTitles = cut.FindAll(".card-body > .card-title");
+            var productTitles = cut.FindAll(".card .card-body .card-title");
             Assert.AreEqual(allProducts.Count(), productTitles.Count);
         }
     }
