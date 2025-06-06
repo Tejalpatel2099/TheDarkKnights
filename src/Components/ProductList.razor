@@ -21,41 +21,34 @@
                     @{
                         // Get the current ratings
                         var ratings = product.Ratings;
-                        if ((ratings == null) == false && ratings.Length > 0)
-                        {
-                            // Compute the average rating
-                            double avg = ratings.Average();
+                        
+                        // Compute the average rating
+                        double avg = ratings.Average();
 
-                            // Calculate number of full stars
-                            int fullStars = (int)Math.Floor(avg);
+                        // Calculate number of full stars
+                        int fullStars = (int)Math.Floor(avg);
 
-                            // Determine if a half star is needed
-                            bool hasHalfStar = (avg - fullStars) >= 0.5;
+                        // Determine if a half star is needed
+                        bool hasHalfStar = (avg - fullStars) >= 0.5;
 
-                            // Calculate remaining empty stars
-                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                        // Calculate remaining empty stars
+                        int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-                            // Render star icons based on rating
-                            <span>
-                                @for (int i = 0; i < fullStars; i++)
-                                {
-                                    <i class="fas fa-star text-warning"></i>
-                                }
-                                @if (hasHalfStar)
-                                {
-                                    <i class="fas fa-star-half-alt text-warning"></i>
-                                }
-                                @for (int i = 0; i < emptyStars; i++)
-                                {
-                                    <i class="far fa-star text-warning"></i>
-                                }
-                            </span>
-                        }
-                        //If no ratings are available then display no ratings yet
-                        else
-                        {
-                            @("No ratings yet")
-                        }
+                        // Render star icons based on rating
+                        <span>
+                            @for (int i = 0; i < fullStars; i++)
+                            {
+                                <i class="fas fa-star text-warning"></i>
+                            }
+                            @if (hasHalfStar)
+                            {
+                                <i class="fas fa-star-half-alt text-warning"></i>
+                            }
+                            @for (int i = 0; i < emptyStars; i++)
+                            {
+                                <i class="far fa-star text-warning"></i>
+                            }
+                        </span>
                     }
                 </p>
             </div>
@@ -98,7 +91,6 @@
         if (!string.IsNullOrWhiteSpace(SearchString))
         {
             filteredProducts = allProducts.Where(p =>
-                !string.IsNullOrEmpty(p.Variety) &&
                 p.Variety.Contains(SearchString, StringComparison.OrdinalIgnoreCase));
         }
         else
@@ -153,18 +145,11 @@
     /// </summary>
     void GetCurrentRating()
     {
-        // If the product ratings are null, set the rating and votes to 0
-        if (selectedProduct.Ratings == null)
-        {
-            currentRating = 0;
-            voteCount = 0;
-        }
-        else // Calculate the votes and the ratings
-        {
-            voteCount = selectedProduct.Ratings.Count();
-            voteLabel = voteCount > 1 ? "Votes" : "Vote";
-            currentRating = selectedProduct.Ratings.Sum() / voteCount;
-        }
+
+        voteCount = selectedProduct.Ratings.Count();
+        voteLabel = voteCount > 1 ? "Votes" : "Vote";
+        currentRating = selectedProduct.Ratings.Sum() / voteCount;
+        
 
         System.Console.WriteLine($"Current rating for {selectedProduct.Number}: {currentRating}");
     }
