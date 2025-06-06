@@ -103,13 +103,6 @@
         {
             filteredProducts = allProducts;
         }
-
-        var firstProduct = filteredProducts.FirstOrDefault();
-        if (firstProduct != null)
-        {
-            SelectProduct(firstProduct.Number);
-            SubmitRating(5); // Simulate a rating to cover logic during initialization/testing
-        }
     }
 
     /// <summary>
