@@ -491,6 +491,127 @@ namespace UnitTests.Pages.Product
 
 
         }
+        /// <summary>
+        /// ValidateData checks that the item is not a duplicate
+        /// </summary>
+        [Test]
+        public void ValidateData_Invalid_Duplicate_Item()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "Mama",
+                Style = "Pack",
+                Variety = "Artificial Chicken",
+                Vegetarian = "Not Veg",
+                Country = "Thailand"
+            };
+
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, false, false);
+
+            //Assert
+            Assert.IsFalse(validated);
+            Assert.AreEqual("This product already exists. Modify one or more fields to make it unique.", pageModel.DuplicateError);
+
+
+        }
+        /// <summary>
+        /// ValidateData checks that the item brand input exists
+        /// </summary>
+        [Test]
+        public void ValidateData_Invalid_Input_Brand_Whitespace()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "",
+                Style = "",
+                Variety = "",
+                Vegetarian = "Not Veg",
+                Country = "Thailand"
+            };
+
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, false, false);
+
+            //Assert
+            Assert.IsFalse(validated);
+
+
+        }
+        /// <summary>
+        /// ValidateData checks that the item Style input exists
+        /// </summary>
+        [Test]
+        public void ValidateData_Invalid_Input_Style_Whitespace()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "Mama",
+                Style = "",
+                Variety = "",
+                Vegetarian = "Not Veg",
+                Country = "Thailand"
+            };
+
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, false, false);
+
+            //Assert
+            Assert.IsFalse(validated);
+
+
+        }
+        /// <summary>
+        /// ValidateData checks that the item variety input exists
+        /// </summary>
+        [Test]
+        public void ValidateData_Invalid_Input_Variety_Whitespace()
+        {
+            //Create product that is checked
+            var products = TestHelper.ProductService.GetProducts();
+            var original = products.First();
+            var product = new ProductModel
+            {
+                Number = original.Number,
+                Brand = "Mama",
+                Style = "Pack",
+                Variety = "",
+                Vegetarian = "Not Veg",
+                Country = "Thailand"
+            };
+
+            pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
+            pageModel.ExistingStyles = products.Select(p => p.Style).Distinct().ToList();
+
+            //Validate
+            var validated = pageModel.ValidateData(product, false, false);
+
+            //Assert
+            Assert.IsFalse(validated);
+
+
+        }
         #endregion ValidateData
 
     }

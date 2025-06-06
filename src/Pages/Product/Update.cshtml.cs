@@ -335,6 +335,7 @@ namespace RamenRatings.WebSite.Pages.Product
             p.Brand.Equals(product.Brand, StringComparison.OrdinalIgnoreCase) &&
             p.Variety.Equals(product.Variety, StringComparison.OrdinalIgnoreCase) &&
             p.Country.Equals(product.Country, StringComparison.OrdinalIgnoreCase) &&
+            p.Vegetarian.Equals(product.Vegetarian, StringComparison.OrdinalIgnoreCase) &&
             p.Style.Equals(product.Style, StringComparison.OrdinalIgnoreCase));
 
             // If a duplicate product exists, show error that the product already exists
