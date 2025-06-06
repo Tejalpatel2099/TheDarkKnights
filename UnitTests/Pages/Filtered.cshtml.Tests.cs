@@ -123,6 +123,35 @@ namespace UnitTests.Pages
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Filter_By_Rating_Range_None_Should_Return_Expected()
+        {
+            var products = TestHelper.ProductService.GetProducts();
+
+            // Assign specific ratings to test filtering by average
+            foreach (var product in products)
+            {
+                product.Ratings = new[] { 3, 4, 5 }; // average = 4
+                TestHelper.ProductService.UpdateProduct(product);
+            }
+
+            // query parameters to trigger filter logic
+            TestHelper.HttpContextDefault.Request.QueryString = new QueryString("?MinRating=5&MaxRating=5");
+
+            // Act
+            pageModel.OnGet();
+
+            //Assert - Products should be not null but no product should appear
+            Assert.IsEmpty(pageModel.Products);
+
+            //Resets the query string
+            TestHelper.HttpContextDefault.Request.QueryString = new QueryString("?MinRating=1&MaxRating=5");
+
+        }
+
+        /// <summary>
         /// Should return products sorted by brand ascending
         /// </summary>
         [Test]

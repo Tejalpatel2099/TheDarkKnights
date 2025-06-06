@@ -76,9 +76,6 @@ namespace RamenRatings.WebSite.Pages
             // Apply filter for rating range
             products = products.Where(p =>
             {
-                if (p.Ratings == null || p.Ratings.Length == 0)
-                    return false;
-
                 var avg = p.Ratings.Average();
                 return avg >= min && avg <= max;
             });
