@@ -28,21 +28,23 @@
                 </select>
                 <small class="form-text text-muted">You can select an existing brand or type a new one.</small>
 
+                <!-- Other Brand Input with 20 character limit -->
                 <div class="form-group create-form-group" id="newBrandGroup" style="display:none;">
                     <label for="NewBrand">Other Brand</label>
-                    <input type="text" class="form-control create-input" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+                    <input type="text" class="form-control create-input" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" maxlength="20" />
+                    <small class="form-text text-muted">Max 20 characters</small>
                 </div>
-                <div id="brand-error" class="text-danger mt-1" style="display: none;"></div>
             </div>
 
-            <!-- Variety -->
+
+            <!-- Variety Input with 35 character limit -->
             <div class="form-group create-form-group">
                 <label for="Variety">
                     Variety
                     @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
                 </label>
-                <input asp-for="Variety" class="form-control create-input" name="NewProduct.Variety" placeholder="Enter variety" />
-                <small class="form-text text-muted">You can write the variety of ramen.</small>
+                <input asp-for="Variety" class="form-control create-input" name="NewProduct.Variety" placeholder="Enter variety" maxlength="35" />
+                <small class="form-text text-muted">Max 35 characters</small>
                 <span asp-validation-for="Variety" class="text-danger"></span>
             </div>
 
@@ -61,11 +63,13 @@
                     <option value="Other">Other</option>
                 </select>
                 <small class="form-text text-muted">You can select an existing style or type a new one.</small>
+                <!-- Other Style Input with 20 character limit -->
                 <div class="form-group create-form-group" id="newStyleGroup" style="display:none;">
                     <label for="NewStyle">Other Style</label>
-                    <input type="text" class="form-control create-input" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
+                    <input type="text" class="form-control create-input" id="NewStyle" name="NewStyle" placeholder="Enter a new style" maxlength="20" />
+                    <small class="form-text text-muted">Max 20 characters</small>
                 </div>
-                <div id="style-error" class="text-danger mt-1" style="display: none;"></div>
+
             </div>
 
             <!-- Country -->
@@ -81,7 +85,6 @@
                         <option value="@country">@country</option>
                     }
                 </select>
-                <small class="form-text text-muted">Select the country where the ramen is sold.</small>
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
 
@@ -142,14 +145,67 @@
 
 @section Scripts {
     <script>
-		// Function to go to back
+        // Function to go to back
         function goBack() {
             window.history.back();
         }
 
+        // Cache DOM elements
+        const brandSelect = document.getElementById('Brand');
+        const styleSelect = document.getElementById('Style');
+        const newBrandGroup = document.getElementById('newBrandGroup');
+        const newStyleGroup = document.getElementById('newStyleGroup');
+        const newBrandInput = document.getElementById('NewBrand');
+        const newStyleInput = document.getElementById('NewStyle');
+        const imageInput = document.getElementById('Image');
+        const imageError = document.getElementById('image-error');
+        const form = document.querySelector('form');
+
+        // Show/hide "Other Brand" input
+        brandSelect.addEventListener('change', function () {
+            const show = this.value === 'Other';
+            newBrandGroup.style.display = show ? 'block' : 'none';
+            if (!show) clearError(newBrandInput);
+        });
+
+        // Show/hide "Other Style" input
+        styleSelect.addEventListener('change', function () {
+            const show = this.value === 'Other';
+            newStyleGroup.style.display = show ? 'block' : 'none';
+            if (!show) clearError(newStyleInput);
+        });
+
+        // Show validation error
+        function showError(input, message) {
+            const errorSpan = input.nextElementSibling;
+            errorSpan.innerText = message;
+            errorSpan.style.display = 'block';
+        }
+
+        // Clear validation error
+        function clearError(input) {
+            const errorSpan = input.nextElementSibling;
+            errorSpan.innerText = '';
+            errorSpan.style.display = 'none';
+        }
+
+        // Validate image file type
+        imageInput.addEventListener('change', function () {
+            const allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
+            const file = this.files[0];
+            if (file && !allowedTypes.includes(file.type)) {
+                imageError.innerText = 'Only PNG, JPG, and GIF images are allowed.';
+                imageError.style.display = 'block';
+                this.value = '';
+            } else {
+                imageError.innerText = '';
+                imageError.style.display = 'none';
+            }
+        });
+
         let selectedRating = 0;
 
-		// Function to set the rating based on user interaction
+        // Function to set the rating based on user interaction
         function setRating(value) {
             selectedRating = value;
             document.getElementById('Rating').value = value;
@@ -157,17 +213,17 @@
             updateReactionText(value);
         }
 
-		// Function to highlight ramen 
+        // Function to highlight ramen
         function highlightRamen(value) {
             updateIcons(value);
         }
 
-		// Function to reset the ramen 
+        // Function to reset the ramen
         function resetRamen() {
             updateIcons(selectedRating);
         }
 
-		// Function to update the icons based on the rating value
+        // Function to update the icons based on the rating value
         function updateIcons(value) {
             const icons = document.querySelectorAll('#ramen-rating img');
             icons.forEach((icon, index) => {
@@ -181,16 +237,59 @@
             });
         }
 
-		// Function to update the reaction text based on the rating value
+        // Function to update the reaction text based on the rating value
         function updateReactionText(value) {
             const reaction = document.getElementById('reaction-text');
             const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
             reaction.innerText = reactions[value - 1];
         }
 
-		// Event listener for reset
+        // Event listener for reset
         document.addEventListener('DOMContentLoaded', () => {
             resetRamen();
+        });
+
+        // ---- DUPLICATE VALIDATION SCRIPT ----
+        // Prevent duplicate submissions based on Brand, Style, Variety, and Country
+        const varietyInput = document.querySelector('[name="NewProduct.Variety"]');
+        const countrySelect = document.querySelector('[name="NewProduct.Country"]');
+        const duplicateError = document.createElement('div');
+        duplicateError.className = 'text-danger mt-1';
+        duplicateError.style.display = 'none';
+        varietyInput.parentElement.appendChild(duplicateError);
+
+        // Pull existing product values from backend (rendered inline into script)
+        const existingProducts = [
+            @foreach (var p in Model.ProductService.GetProducts())
+            {
+                    @: { brand: "@p.Brand".toLowerCase(), style: "@p.Style".toLowerCase(), variety: "@p.Variety".toLowerCase(), country: "@p.Country".toLowerCase() },
+            }
+        ];
+
+        // Function to detect if combination is duplicate
+        function isDuplicate(brand, style, variety, country) {
+            return existingProducts.some(p =>
+                p.brand === brand.toLowerCase().trim() &&
+                p.style === style.toLowerCase().trim() &&
+                p.variety === variety.toLowerCase().trim() &&
+                p.country === country.toLowerCase().trim()
+            );
+        }
+
+        // On form submit, prevent duplicate combo and show error
+        form.addEventListener('submit', function (e) {
+            const brand = brandSelect.value === 'Other' ? newBrandInput.value : brandSelect.value;
+            const style = styleSelect.value === 'Other' ? newStyleInput.value : styleSelect.value;
+            const variety = varietyInput.value;
+            const country = countrySelect.value;
+
+            if (isDuplicate(brand, style, variety, country)) {
+                duplicateError.innerText = 'A product with the same Brand, Style, Variety, and Country already exists.';
+                duplicateError.style.display = 'block';
+                e.preventDefault();
+            } else {
+                duplicateError.style.display = 'none';
+            }
         });
     </script>
     <partial name="_ValidationScriptsPartial" />
