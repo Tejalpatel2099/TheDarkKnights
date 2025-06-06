@@ -102,7 +102,7 @@ namespace UnitTests.Pages.Product
 
         /// Checks that the selections for comparing two same ramens are invalid 
         [Test]
-        public void OnPost_InValid_Selection_Should_Not_Assign_Ramen1_And_Ramen2()
+        public void OnPost_Valid_Same_Selection_Should_Not_Assign_Ramen1_And_Ramen2()
         {
             // Arrange
             // Create the list of products
