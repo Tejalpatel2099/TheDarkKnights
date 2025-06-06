@@ -320,10 +320,10 @@ namespace RamenRatings.WebSite.Pages.Product
                 return false;
             }
             // Enforce a character limit for the variety name
-            if (product.Variety.Length > 20)
+            if (product.Variety.Length > 35)
             {
                 // Set variety character limit
-                VarietyError = "Character Limit is 20";
+                VarietyError = "Character Limit is 35";
                 return false;
             }
             
