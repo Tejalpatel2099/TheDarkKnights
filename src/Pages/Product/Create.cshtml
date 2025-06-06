@@ -4,333 +4,147 @@
     ViewData["Title"] = "Create New Ramen";
 }
 
-<h2>Create New Ramen Product</h2>
+<h2 class="create-heading my-3">Create New Ramen Product</h2>
 
 <div class="row my-3">
     <div class="col-md-12">
-        <form method="post" enctype="multipart/form-data">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <!-- Select from list of existing brands, with option to enter a new Brand -->
-    <div class="form-group my-3">
-        <label for="Brand">Brand
-            <!-- Brand tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
-        </label>
-        <select class="form-control" id="Brand" name="Brand" required>
-            <option value="">Select a Brand</option>
-            @foreach (var brand in Model.ExistingBrands.Distinct()) 
-            {
-                <option value="@brand">@brand</option>
-            }
-            <option value="Other">Other</option>
-        </select>
-        <small class="form-text text-muted">You can select an existing brand or type a new one.</small>
-        <!-- If Other is selected, enter a new brand -->
-        <div class="form-group" id="newBrandGroup" style="display:none;">
-            <label for="NewBrand">Other Brand</label>
-            <input type="text" class="form-control" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
-        </div>
-        <div id="brand-error" class="text-danger mt-1" style="display: none;"></div>
-    </div>
+        <form method="post" enctype="multipart/form-data" class="create-form-wrapper">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <!-- Input Variety -->
-    <div class="form-group">
-        <label for="Variety">Variety
-            <!-- Variety tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
-        </label>
-        <input asp-for="Variety" class="form-control" placeholder="Enter variety" />
-        <span asp-validation-for="Variety" class="text-danger"></span>
-    </div>
+            <!-- Select from list of existing brands, with option to enter a new Brand -->
+            <div class="form-group create-form-group">
+                <label for="Brand">
+                    Brand
+                    @await Html.PartialAsync("_InfoTooltip", "The company or manufacturer that created the ramen.")
+                </label>
+                <select class="form-control create-input" id="Brand" name="Brand" required>
+                    <option value="">Select a Brand</option>
+                    @foreach (var brand in Model.ExistingBrands.Distinct())
+                    {
+                        <option value="@brand">@brand</option>
+                    }
+                    <option value="Other">Other</option>
+                </select>
+                <small class="form-text text-muted">You can select an existing brand or type a new one.</small>
 
-    <!-- Select from list of existing styles, with option to enter new style -->
-    <div class="form-group">
-        <label for="Style">Style
-            <!-- Style tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
-        </label>
-        <select class="form-control" id="Style" name="Style" required>
-            <option value="">Select a Style</option>
-            @foreach (var style in Model.ExistingStyles.Distinct())  
-            {
-                <option value="@style">@style</option>
-            }
-            <option value="Other">Other</option>
-        </select>
-        <small class="form-text text-muted">You can select an existing style or type a new one.</small>
-        <!-- If Other is selected, enter a new style -->
-        <div class="form-group" id="newStyleGroup" style="display:none;">
-            <label for="NewStyle">Other Style</label>
-            <input type="text" class="form-control" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
-        </div>
-        <div id="style-error" class="text-danger mt-1" style="display: none;"></div>
-    </div>
-
-    <!-- Select from list of Countries -->
-    <div class="form-group">
-        <label for="Country">Country
-            <!-- Country tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
-        </label>
-        <select class="form-control" id="Country" name="Country" required>
-            <option value="">Select a Country </option>
-			@foreach (var country in Model.Countries.Distinct())
-			{
-				<option value="@country">@country</option>
-			}
-        </select>
-        <span asp-validation-for="Country" class="text-danger"></span>
-    </div>
-
-    <!-- Select Vegetarian Option -->
-    <div class="form-group">
-        <label for="Vegetarian">Vegetarian</label>
-        <select class="form-control" id="Vegetarian" name="NewProduct.Vegetarian" required>
-            <option value="">Select an option</option>
-            @foreach (var option in Model.VegetarianOptions)
-            {
-                <option value="@option">@option</option>
-            }
-        </select>
-        <span asp-validation-for="NewProduct.Vegetarian" class="text-danger"></span>
-    </div>
-
-
-    <!-- Upload an image -->
-    <div class="form-group">
-        <label for="Image">Upload Image
-            <!-- Image tooltip -->
-            @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
-        </label>
-        <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
-        <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
-        <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to a max file size of 3 MB</small>
-    </div>
-    
-
-    <!-- Input a rating using image of ramen -->
-    <div class="form-group">
-        <label for="ramen-rating">How was your ramen experience?</label>
-
-        <div class="ramen-rating-box d-flex align-items-center">
-            <div id="ramen-rating">
-                @for (int i = 1; i <= 5; i++)
-                {
-                    <img src="/images/ramenpic.png"
-                         class="ramen-icon"
-                         data-value="@i"
-                         onclick="setRating(@i)"
-                         onmouseover="highlightRamen(@i)"
-                         onmouseout="resetRamen()" />
-                }
+                <div class="form-group create-form-group" id="newBrandGroup" style="display:none;">
+                    <label for="NewBrand">Other Brand</label>
+                    <input type="text" class="form-control create-input" id="NewBrand" name="NewBrand" placeholder="Enter a new brand" />
+                </div>
+                <div id="brand-error" class="text-danger mt-1" style="display: none;"></div>
             </div>
-            <div id="reaction-text" class="text-muted rating-reaction ml-3"></div>
-        </div>
 
-        <small class="form-text text-muted mt-2">Rate from 1 to 5 ramens</small>
+            <!-- Input Variety -->
+            <div class="form-group create-form-group">
+                <label for="Variety">
+                    Variety
+                    @await Html.PartialAsync("_InfoTooltip", "The specific flavor, type, or version of ramen product.")
+                </label>
+                <input asp-for="Variety" class="form-control create-input" placeholder="Enter variety" />
+                <small class="form-text text-muted">You can write the variety of ramen.</small>
+                <span asp-validation-for="Variety" class="text-danger"></span>
+            </div>
 
-        <input type="hidden" name="Rating" id="Rating" value="0" required />
-    </div>
-    
-    <!-- Go Back Button -->
-    <button type="button" class="btn btn-secondary" onclick="goBack()">Go Back</button>
-    <!-- Save/submit the new product -->
-    <button type="submit" class="btn btn-primary">Create Ramen</button>
-    <div class="mb-5"></div>
+            <!-- Select from list of existing styles -->
+            <div class="form-group create-form-group">
+                <label for="Style">
+                    Style
+                    @await Html.PartialAsync("_InfoTooltip", "The form or packaging of the ramen.")
+                </label>
+                <select class="form-control create-input" id="Style" name="Style" required>
+                    <option value="">Select a Style</option>
+                    @foreach (var style in Model.ExistingStyles.Distinct())
+                    {
+                        <option value="@style">@style</option>
+                    }
+                    <option value="Other">Other</option>
+                </select>
+                <small class="form-text text-muted">You can select an existing style or type a new one.</small>
+                <div class="form-group create-form-group" id="newStyleGroup" style="display:none;">
+                    <label for="NewStyle">Other Style</label>
+                    <input type="text" class="form-control create-input" id="NewStyle" name="NewStyle" placeholder="Enter a new style" />
+                </div>
+                <div id="style-error" class="text-danger mt-1" style="display: none;"></div>
+            </div>
 
-</form>
+            <!-- Country Selection -->
+            <div class="form-group create-form-group">
+                <label for="Country">
+                    Country
+                    @await Html.PartialAsync("_InfoTooltip", "The country where the ramen was sold.")
+                </label>
+                <select class="form-control create-input" id="Country" name="Country" required>
+                    <option value="">Select a Country</option>
+                    @foreach (var country in Model.Countries.Distinct())
+                    {
+                        <option value="@country">@country</option>
+                    }
+                </select>
+                <small class="form-text text-muted">You can select an country related to the ramen.</small>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+
+            <!-- Vegetarian Option -->
+            <div class="form-group create-form-group">
+                <label for="Vegetarian">Vegetarian</label>
+                <select class="form-control create-input" id="Vegetarian" name="NewProduct.Vegetarian" required>
+                    <option value="">Select an option</option>
+                    @foreach (var option in Model.VegetarianOptions)
+                    {
+                        <option value="@option">@option</option>
+                    }
+                </select>
+                <small class="form-text text-muted">You can select whether the ramen is vegetarian or non-vegetarian</small>
+                <span asp-validation-for="NewProduct.Vegetarian" class="text-danger"></span>
+            </div>
+
+            <!-- Upload Image -->
+            <div class="form-group create-form-group">
+                <label for="Image">
+                    Upload Image
+                    @await Html.PartialAsync("_InfoTooltip", "A photo of the ramen packaging.")
+                </label>
+                <input type="file" class="form-control create-input" id="Image" name="Image" accept="image/*" required>
+                <div id="image-error" class="text-danger mt-1" style="display: none;"></div>
+                <small class="form-text text-muted mt-1">Only PNG, JPG, and GIF are supported up to 3 MB</small>
+            </div>
+
+            <!-- Rating Input -->
+            <div class="form-group create-form-group">
+                <label for="ramen-rating">How was your ramen experience?</label>
+                <div class="create-rating-box d-flex align-items-center">
+                    <div id="ramen-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <img src="/images/ramenpic.png"
+                                 class="create-ramen-icon"
+                                 data-value="@i"
+                                 onclick="setRating(@i)"
+                                 onmouseover="highlightRamen(@i)"
+                                 onmouseout="resetRamen()" />
+                        }
+                    </div>
+                    <div id="reaction-text" class="text-muted create-rating-reaction ml-3"></div>
+                </div>
+                <small class="form-text text-muted mt-2">Rate from 1 to 5 ramens</small>
+                <input type="hidden" name="Rating" id="Rating" value="0" required />
+            </div>
+
+            <!-- Buttons -->
+            <button type="button" class="btn btn-secondary create-btn" onclick="goBack()">Go Back</button>
+            <button type="submit" class="btn btn-primary create-btn">Create Ramen</button>
+            <div class="mb-5"></div>
+        </form>
     </div>
 </div>
 
-
-<!-- Script for showing or hiding the input fields for new brand or new style -->
-@section Scripts 
+@section Scripts
 {
+    <!-- Script to go back on the last page -->
     <script>
         function goBack() {
             window.history.back();
         }
-	</script>
-
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        // Show Brand error message and style error message
-        window.onload = function () 
-        {
-        }
-        // Script for showing a new Brand text field when 'Other' is selected
-        document.getElementById('Brand').addEventListener('change', function () 
-        {
-            var newBrandGroup = document.getElementById('newBrandGroup');
-            var errorDiv = document.getElementById("brand-error");
-            if(this.value === "Other")
-            {
-                newBrandGroup.style.display = "block";
-                errorDiv.style.display = "none";
-            }
-            if((this.value == "Other") == false)
-            {
-                newBrandGroup.style.display = "none";
-            }
-        });
-        // Script for showing a new Style text field when 'Other' is selected
-        document.getElementById('Style').addEventListener('change', function () 
-        {
-            var newStyleGroup = document.getElementById('newStyleGroup');
-            var errorDiv = document.getElementById("style-error");
-            if(this.value === "Other")
-            {
-                newStyleGroup.style.display = "block";
-                errorDiv.style.display = "none";
-            }
-            if((this.value == "Other") == false)
-            {
-                newStyleGroup.style.display = "none";
-            }
-        });
-
-
-        document.querySelector("form").addEventListener("submit", function (e) 
-        {
-            const brandSelect = document.getElementById("Brand");
-            const styleSelect = document.getElementById("Style");
-            const newBrandInput = document.getElementById("NewBrand");
-            const newStyleInput = document.getElementById("NewStyle");
-            const varietyInput = document.getElementById("Variety");
-            const imageInput = document.getElementById("Image");
-
-            const brandErrorDiv = document.getElementById("brand-error");
-            const styleErrorDiv = document.getElementById("style-error");
-            const imageErrorDiv = document.getElementById("image-error");
-
-            const maxLen = 20;
-            let isValid = true;
-
-            // Reset error messages
-            brandErrorDiv.style.display = "none";
-            styleErrorDiv.style.display = "none";
-            imageErrorDiv.style.display = "none";
-
-            // Lowercase existing entries
-            const existingBrands = [ @foreach (var brand in Model.ExistingBrands.Distinct())
-            {
-                @: "@brand".toLowerCase(),
-            }];
-
-            const existingStyles = [ @foreach (var style in Model.ExistingStyles.Distinct())
-            {
-                @: "@style".toLowerCase(),
-            }];
-
-            // Validate Other Brand
-            if (brandSelect.value === "Other") 
-            {
-                const brandVal = newBrandInput.value.trim();
-                if (brandVal.length > maxLen) 
-                {
-                    brandErrorDiv.innerText = "Other Brand must be 20 characters or fewer.";
-                    brandErrorDiv.style.display = "block";
-                    isValid = false;
-                } else if (existingBrands.includes(brandVal.toLowerCase())) 
-                {
-                    brandErrorDiv.innerText = "This brand already exists. Please select it from the dropdown.";
-                    brandErrorDiv.style.display = "block";
-                    isValid = false;
-                }
-            }
-
-            // Validate Variety
-            const varietyVal = varietyInput.value.trim();
-            if (varietyVal.length > maxLen)
-            {
-                const varietyError = document.querySelector("span[data-valmsg-for='Variety']");
-                if (varietyError) 
-                {
-                    varietyError.innerText = "Variety must be 20 characters or fewer.";
-                }
-                isValid = false;
-            }
-
-            //  Validate Other Style
-            if (styleSelect.value === "Other") 
-            {
-                const styleVal = newStyleInput.value.trim();
-                if (styleVal.length > maxLen) 
-                {
-                    styleErrorDiv.innerText = "Other Style must be 20 characters or fewer.";
-                    styleErrorDiv.style.display = "block";
-                    isValid = false;
-                } else if (existingStyles.includes(styleVal.toLowerCase())) {
-                    styleErrorDiv.innerText = "This style already exists. Please select it from the dropdown.";
-                    styleErrorDiv.style.display = "block";
-                    isValid = false;
-                }
-            }
-
-            // Prevent submission if anything failed
-            if (!isValid) 
-            {
-                e.preventDefault();
-            }
-        });
-
-
-        // Scipt for file upload to only allow certain file types and sizes
-        document.getElementById('Image').addEventListener('change', function () 
-        {
-            const fileInput = this;
-            const errorDiv = document.getElementById('image-error');
-            const file = fileInput.files[0];
-            const maxSize = 3 * 1024 * 1024; // 3 MB max file size
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-
-            // Reset error message
-            errorDiv.style.display = 'none';
-            errorDiv.textContent = '';
-            fileInput.classList.remove('is-invalid');
-
-            // checks that it is a file and if the file is not supported, then print message
-            if (file && ((allowedTypes.includes(file.type) == false) || file.size > maxSize)) 
-            {
-                errorDiv.textContent = 'Sorry, this file is not supported.';
-                errorDiv.style.display = 'block';
-                fileInput.classList.add('is-invalid');
-                fileInput.value = '';
-            }
-        });
-
-        // Script for Rating field using ramen image
-        let selectedRating = 0; // start with a 0 rating
-        const reactions = ["Eww 😖", "Meh 😐", "It's Okay 🙂", "Pretty Good 😋", "Ramentastic! 🤩"];
-
-        // Controls pop ups for highlighting ramen and toggling ramen
-        function highlightRamen(rating) 
-        {
-            let icons = document.querySelectorAll('#ramen-rating img');
-            icons.forEach((icon, index) => 
-            {
-                icon.classList.toggle('active', index < rating);
-            });
-
-            document.getElementById("reaction-text").innerText = reactions[rating - 1];
-        }
-
-        // Ratings are reset when no longer hovered over
-        function resetRamen() 
-        {
-            highlightRamen(selectedRating || 0);
-            if (selectedRating === 0) {
-                document.getElementById("reaction-text").innerText = "";
-            }
-        }
-
-        // Sets the rating when clicked
-        function setRating(rating) 
-        {
-            selectedRating = rating;
-            document.getElementById("Rating").value = rating;
-            highlightRamen(rating);
-        }
-
     </script>
+    <partial name="_ValidationScriptsPartial" />
 }
