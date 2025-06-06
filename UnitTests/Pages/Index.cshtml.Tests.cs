@@ -120,6 +120,7 @@ namespace UnitTests.Pages
 
             // Assert
             Assert.AreEqual(expectedProducts, pageModel.TotalProducts);
+            Assert.AreEqual(612, pageModel.HighestRatedRamen.Length);
         }
 
         /// <summary>

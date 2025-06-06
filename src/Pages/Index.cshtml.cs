@@ -94,12 +94,10 @@ namespace RamenRatings.WebSite.Pages
 
             // Find the maximum average rating among all products with ratings
             double maxAverageRating = Products
-                .Where(p => (p.Ratings == null) == false && p.Ratings.Length > 0)
                 .Max(p => p.Ratings.Average());
 
             // Get all products with that maximum average rating
             var topRatedProducts = Products
-                .Where(p => (p.Ratings == null) == false && p.Ratings.Length > 0)
                 .Where(p => Math.Abs(p.Ratings.Average() - maxAverageRating) < 0.0001)
                 .ToList();
 
