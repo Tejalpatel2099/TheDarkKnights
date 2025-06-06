@@ -91,8 +91,10 @@
     /// </summary>
     protected override void OnParametersSet()
     {
+        // Get all products
         var allProducts = ProductService.GetProducts();
 
+        // If the string is not empty, filter the products
         if (!string.IsNullOrWhiteSpace(SearchString))
         {
             filteredProducts = allProducts.Where(p =>
@@ -121,8 +123,13 @@
     /// <param name="productId">Product number to select.</param>
     void SelectProduct(int productId)
     {
+        // Assign the selected product
         selectedProductId = productId;
+
+        // Get the products that match the product ID
         selectedProduct = ProductService.GetProducts().First(x => x.Number == productId);
+
+        // Get the current rating
         GetCurrentRating();
     }
 
@@ -146,12 +153,13 @@
     /// </summary>
     void GetCurrentRating()
     {
+        // If the product ratings are null, set the rating and votes to 0
         if (selectedProduct.Ratings == null)
         {
             currentRating = 0;
             voteCount = 0;
         }
-        else
+        else // Calculate the votes and the ratings
         {
             voteCount = selectedProduct.Ratings.Count();
             voteLabel = voteCount > 1 ? "Votes" : "Vote";
