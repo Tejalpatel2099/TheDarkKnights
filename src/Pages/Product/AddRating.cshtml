@@ -1,14 +1,20 @@
 ﻿@page "{number}"
 @model RamenRatings.WebSite.Pages.Product.AddRatingModel
+
+<!-- Main container for the Add Rating page -->
 <div class="container mt-4">
+    <!-- Page heading -->
     <h2 class="animated-heading text-center mb-4">Rate @Model.Product.Variety</h2>
 
+    <!-- Card for product rating form -->
     <div class="card p-4 shadow-lg bg-light">
         <div class="row">
+            <!-- Display product image -->
             <div class="col-md-5 text-center">
                 <img src="@Model.Product.img?ts=@DateTime.Now.Ticks" alt="@Model.Product.Variety" class="img-fluid rounded" />
             </div>
 
+            <!-- Right column: product info and rating form -->
             <div class="col-md-7">
                 <h3 class="variety-title">@Model.Product.Variety</h3>
            
@@ -27,10 +33,13 @@
                         }
                     }
                 </p>
+
+                <!-- Rating submission form -->
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-group">
                          <label for="ramen-rating">How was your ramen experience?</label>
 
+                        <!-- Ramen image rating selection -->
                          <div class="ramen-rating-box d-flex align-items-center">
                             <div id="ramen-rating">
                                 @for (int i = 1; i <= 5; i++)
@@ -46,14 +55,19 @@
                             <div id="reaction-text" class="text-muted rating-reaction ml-3"></div>
                          </div>
 
+                        <!-- Help text -->
                          <small class="form-text text-muted mt-2">Rate from 1 to 5 ramens</small>
 
                          <input type="hidden" name="Rating" id="Rating" value="0" required />
                     </div>
+
+                    <!-- Feedback text area -->
                     <div class="form-group">
                         <label for="ramen-rating-feedback">Please provide feedback if you want to</label>
                         <textarea name="Feedback" id="Feedback" rows="3" class="form-control"></textarea>
                     </div>
+
+                    <!-- Submit button -->
 					<button type="submit" class="btn btn-primary">Add Rating </button>
 
                 </form>
@@ -62,6 +76,7 @@
     </div>
 </div>
 
+<!-- JavaScript section for rating interaction -->
 @section Scripts {
     <script>
 		// JavaScript to handle the ramen rating interaction
