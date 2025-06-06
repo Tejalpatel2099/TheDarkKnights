@@ -385,10 +385,10 @@ h1 {
     transition: all 0.3s ease;
 }
 
-    .stat-card:hover {
-        transform: translateY(-5px);
-        background-color: #fffde7;
-    }
+.stat-card:hover {
+    transform: translateY(-5px);
+    background-color: #fffde7;
+}
 
 .search-banner input[type="search"] {
     max-width: 400px;
@@ -400,9 +400,9 @@ h1 {
     scrollbar-width: none;
 }
 
-    .scroll-container::-webkit-scrollbar {
-        display: none;
-    }
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
 
 .scroll-btn {
     position: absolute;
@@ -418,20 +418,19 @@ h1 {
     transition: background-color 0.2s ease;
 }
 
-    .scroll-btn.left {
-        left: 10px;
-    }
+.scroll-btn.left {
+    left: 10px;
+}
 
-    .scroll-btn.right {
-        right: 10px;
-    }
+.scroll-btn.right {
+    right: 10px;
+}
 
-    .scroll-btn:hover {
-        background-color: #ff9800;
-    }
+.scroll-btn:hover {
+    background-color: #ff9800;
+}
 /* Style for the filter page */
 
-/* 🎨 Stylish Buttons */
 .custom-btn-gradient {
     background: linear-gradient(135deg, #ff9800, #ff5722);
     color: white;
@@ -439,12 +438,11 @@ h1 {
     transition: all 0.3s ease;
 }
 
-    .custom-btn-gradient:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
-    }
+.custom-btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+}
 
-/* 🧃 Card Grid Layout */
 .custom-card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -452,19 +450,18 @@ h1 {
     margin-top: 2rem;
 }
 
-/* 📦 Card Effects */
 .custom-card-wrapper .custom-card {
     border-radius: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: linear-gradient(145deg, #fff3e0, #ffe0b2); /* light orange-peach gradient */
+    background: linear-gradient(145deg, #fff3e0, #ffe0b2);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
-    .custom-card-wrapper .custom-card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
+.custom-card-wrapper .custom-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
 
 .custom-card-img {
     border-top-left-radius: 20px;
@@ -477,7 +474,7 @@ h1 {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.8); /* semi-white for contrast */
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 
@@ -488,4 +485,92 @@ h1 {
     padding: 2rem;
     margin-bottom: 3rem;
     background-color: #fff;
+}
+
+/* 🍜 Create Page Styles */
+
+/* Entire form wrapper as a curved card */
+.create-form-wrapper {
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Form section spacing */
+.create-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.create-form-wrapper label {
+    color: #333333; /* darker gray for better contrast */
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+}
+
+/* Heading */
+.create-heading {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    color: #ff5722;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.create-input {
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+    height: auto;
+    min-height: 56px;
+}
+
+.create-input:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+}
+
+.create-rating-box {
+    padding-top: 0.5rem;
+}
+
+.create-ramen-icon {
+    width: 40px;
+    margin: 0 4px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.create-ramen-icon.active,
+.create-ramen-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.create-rating-reaction {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.create-btn {
+    padding: 0.6rem 1.3rem;
+    font-weight: 600;
+    border-radius: 50px;
+    margin-right: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.create-btn:hover {
+    transform: scale(1.05);
+}
+
+.tooltip-inner {
+    max-width: 220px;
+    padding: 0.5rem;
+    background-color: #ff9800;
+    color: #fff;
+    font-size: 0.9rem;
+    border-radius: 8px;
 }
