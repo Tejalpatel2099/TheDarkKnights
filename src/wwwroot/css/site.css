@@ -478,7 +478,7 @@ h1 {
 }
 
 
-/* 🎛️ Form Card */
+/* Form Card */
 .custom-form-card {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
@@ -487,9 +487,8 @@ h1 {
     background-color: #fff;
 }
 
-/* 🍜 Create Page Styles */
+/* Create and Update Page Styles */
 
-/* Entire form wrapper as a curved card */
 .create-form-wrapper {
     background: #ffffff;
     border-radius: 30px;
@@ -497,20 +496,18 @@ h1 {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Form section spacing */
 .create-form-group {
     margin-bottom: 1.5rem;
 }
 
 .create-form-wrapper label {
-    color: #333333; /* darker gray for better contrast */
+    color: #333333;
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 0.4rem;
     display: inline-block;
 }
 
-/* Heading */
 .create-heading {
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
