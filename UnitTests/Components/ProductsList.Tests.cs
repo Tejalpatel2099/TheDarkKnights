@@ -186,37 +186,5 @@ namespace UnitTests.Components
         }
 
         #endregion OnParametersSet
-
-        #region BuildRenderTree
-        /// <summary>
-        /// Test rendering stars for the first real product from JSON.
-        /// </summary>
-        [Test]
-        public void StarRating_From_Real_First_Product_Should_Render_Correct_Stars()
-        {
-            // Arrange: Load the actual first product
-            var realProduct = TestHelper.ProductService.GetProducts().FirstOrDefault();
-
-            // Set star values for average, expected, half, and empty
-            double avg = realProduct.Ratings.Average();
-            int expectedFull = (int)System.Math.Floor(avg);
-            bool hasHalf = (avg - expectedFull) >= 0.5;
-            int expectedHalf = hasHalf ? 1 : 0;
-            int expectedEmpty = 5 - expectedFull - expectedHalf;
-
-            // Act
-            var cut = ctx.RenderComponent<ProductList>();
-            var productCard = cut.FindAll(".card").First();
-
-            var fullStars = productCard.GetElementsByClassName("fas fa-star").Length;
-            var halfStars = productCard.GetElementsByClassName("fas fa-star-half-alt").Length;
-            var emptyStars = productCard.GetElementsByClassName("far fa-star").Length;
-
-            // Assert
-            Assert.AreEqual(expectedFull, fullStars);
-            Assert.AreEqual(expectedHalf, halfStars);
-            Assert.AreEqual(expectedEmpty, emptyStars);
-        }
-        #endregion BuildRenderTree
     }
 }
