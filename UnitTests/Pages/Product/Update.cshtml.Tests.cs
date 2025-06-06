@@ -476,7 +476,7 @@ namespace UnitTests.Pages.Product
                 Number = original.Number,
                 Brand = original.Brand,
                 Style = original.Style,
-                Variety = new string('V', 21),
+                Variety = new string('V', 40),
                 Country = "Japan"
             };
             pageModel.ExistingBrands = products.Select(p => p.Brand).Distinct().ToList();
@@ -487,7 +487,7 @@ namespace UnitTests.Pages.Product
 
             //Assert
             Assert.IsFalse(validated);
-            Assert.AreEqual("Character Limit is 20", pageModel.VarietyError);
+            Assert.AreEqual("Character Limit is 35", pageModel.VarietyError);
 
 
         }
