@@ -44,27 +44,24 @@ namespace RamenRatings.WebSite.Services
         /// </summary>
         public bool AddRating(int productId, int rating)
         {
+            // Set products with all products
             var products = GetProducts();
 
+            // If the productId does not match the product, return false
             if (products.All(product => (product.Number == productId) == false))
             {
                 return false;
             }
 
+            // Set target as the first product that matches the given product ID
             var target = products.First(x => x.Number == productId);
 
+            // List of ratings
             List<int> ratings;
 
-            // If ratings is not null then convert it to a list
-            if ((target.Ratings == null) == false)
-            {
-                ratings = target.Ratings.ToList();
-            }
-            // If ratings is  null, create a new list
-            else
-            {
-                ratings = new List<int>();
-            }
+            // Convert ratings to a list
+            ratings = target.Ratings.ToList();
+            
             // Add the new rating to the list
             ratings.Add(rating);
             target.Ratings = ratings.ToArray();
